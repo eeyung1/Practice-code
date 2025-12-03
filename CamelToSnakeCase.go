@@ -1,19 +1,20 @@
 package main
 
-import "fmt" // Imported as requested
+import "fmt"
 
 func CamelToSnakeCase(s string) string {
 	if s == "" {
 		return ""
 	}
+
 	res := ""
 	prevUpper := false
+
 	for i, r := range s {
-		isLower, isUpper := r >= 'a' && r <= 'z', r >= 'A' && r <= 'Z'
-		if !isLower && !isUpper {
-			return s
-		}
-		if isUpper && prevUpper {
+		isLower := r >= 'a' && r <= 'z'
+		isUpper := r >= 'A' && r <= 'Z'
+
+		if !isLower && !isUpper || isUpper && prevUpper {
 			return s
 		}
 
@@ -22,10 +23,11 @@ func CamelToSnakeCase(s string) string {
 		}
 
 		res += string(r)
-		prevUpper = isUpper
-	}
-	if s[len(s)-1] >= 'A' && s[len(s)-1] <= 'Z' {
-		return s
+		isUpper = prevUpper
+
+		if s[len(s)-1] >= 'A' && s[len(s)-1] <= 'Z' {
+			return s
+		}
 	}
 	return res
 }

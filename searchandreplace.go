@@ -1,21 +1,38 @@
 package main
 
-import (
-	"fmt"
-	"os"
-	"strings"
-)
+import "os"
 
 func main() {
-	if len(os.Args) == 4 {
-		str, old, new_sub := os.Args[1], os.Args[2], os.Args[3]
+	if len(os.Args) != 4 {
+		return
+	}
 
-		if len(old) == 1 && len(new_sub) == 1 {
-			if strings.Contains(str, old) {
-				str = strings.ReplaceAll(str, old, new_sub)
-			}
+	s, old, new := os.Args[1], os.Args[2], os.Args[3]
 
-			fmt.Println(str)
+	if len(old) != 1 || len(new) != 1 {
+		println(s)
+		return
+	}
+
+	found := false
+	for i := 0; i < len(s); i++ {
+		if string(s[i]) == old {
+			found = true
+			break
 		}
 	}
+
+	if !found {
+		println(s)
+		return
+	}
+	res := ""
+	for i := 0; i < len(s); i++ {
+		if string(s[i]) == old {
+			res += new
+		} else {
+			res += string(s[i])
+		}
+	}
+	println(res)
 }

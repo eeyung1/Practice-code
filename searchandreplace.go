@@ -3,16 +3,11 @@ package main
 import "os"
 
 func main() {
-	if len(os.Args) != 4 {
+	if len(os.Args) != 4 || len(os.Args[2]) != 1 || len(os.Args[3]) != 1 {
 		return
 	}
 
 	s, old, new := os.Args[1], os.Args[2], os.Args[3]
-
-	if len(old) != 1 || len(new) != 1 {
-		println(s)
-		return
-	}
 
 	found := false
 	for i := 0; i < len(s); i++ {

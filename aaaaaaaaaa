@@ -3,3 +3,8 @@
 
 
 git config --global credential.helper store
+
+
+prompt for studying.
+
+I currently came to the understanding that every block of code can be unique and have it particular signature and having AI do it for you exposes the uniqueness. So i want to go on a study section with you been the tutor. Explain in simple terms each line of code, also generating a pseudocode that could help simplify it for me. Explaining the functions, keywords, operators and other necessary information that are in the program and how i could possibly rewrite it to achieve the same result. 

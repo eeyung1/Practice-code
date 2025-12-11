@@ -6,5 +6,4 @@ func ListSize(l *List) int {
 		count++
 	}
 	return count
-	
 }

@@ -1,0 +1,39 @@
+PSEUDOCODE 
+
+fprime 
+
+
+
+STEP 1: Validate arguments
+  - If number of arguments != 2 (program name + 1 arg)
+    → Exit (print nothing)
+  
+  - Try to convert argument to integer
+    → If conversion fails (invalid input like "a")
+      → Exit (print nothing)
+  
+  - If n <= 1
+    → Exit (print nothing, because 0 and 1 have no prime factors)
+
+STEP 2: Initialize variables
+  - Create empty result array/slice to store factors
+  - Set divisor = 2 (start with smallest prime)
+
+STEP 3: Factor the number
+  - While n > 1:
+    
+    STEP 3A: Check if divisor divides n evenly
+      - While n is divisible by divisor (n % divisor == 0):
+        → Add divisor to result array
+        → Divide n by divisor (n = n / divisor)
+        → Continue checking same divisor (for repeated factors)
+    
+    STEP 3B: Move to next potential divisor
+      - Increment divisor by 1
+      - Continue outer loop
+
+STEP 4: Build output string
+  - Join all factors with "*" separator
+  - Print result + newline
+
+STEP 5: Exit

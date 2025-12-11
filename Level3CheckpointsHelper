@@ -137,3 +137,49 @@ STEP 4: Build the result string
 STEP 5: Output
   - Print result + newline
 ```
+
+
+REPEATALPHA
+
+FUNCTION RepeatAlpha(s: string) RETURNS string
+
+  // STEP 1: Edge case validation
+  IF s is empty THEN
+    RETURN ""
+  END IF
+
+  // STEP 2: Initialize accumulator
+  result = "" (empty string)
+
+  // STEP 3: Main processing loop
+  FOR EACH character c IN string s DO
+    
+    // STEP 3A: Declare position variable
+    DECLARE position as integer
+    
+    // STEP 3B: Calculate alphabetical position
+    IF c >= 'a' AND c <= 'z' THEN
+      // Lowercase letter
+      position = integer(c - 'a' + 1)
+    
+    ELSE IF c >= 'A' AND c <= 'Z' THEN
+      // Uppercase letter
+      position = integer(c - 'A' + 1)
+    
+    ELSE
+      // Non-alphabetic character (space, digit, punctuation)
+      position = 1
+    
+    END IF
+    
+    // STEP 3C: Repeat character 'position' times
+    FOR i FROM 0 TO position-1 DO
+      result = result + string(c)
+    END FOR
+  
+  END FOR
+
+  // STEP 4: Return final result
+  RETURN result
+
+END FUNCTION

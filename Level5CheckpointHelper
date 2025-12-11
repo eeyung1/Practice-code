@@ -2,38 +2,57 @@ PSEUDOCODE
 
 fprime 
 
+PROGRAM Fprime
 
+INPUT: Command-line argument (string representation of positive integer)
+OUTPUT: Prime factorization as string (factors separated by *)
 
-STEP 1: Validate arguments
-  - If number of arguments != 2 (program name + 1 arg)
-    → Exit (print nothing)
+VARIABLES:
+  n (integer) - the number to factorize
+  divisor (integer) - current divisor being tested
+  factors (array/slice of integers) - stores all prime factors
+  result (string) - final output string
+
+BEGIN
+
+  // STEP 1: Validation
+  IF len(arguments) != 2 THEN
+    EXIT (print nothing)
+  END IF
   
-  - Try to convert argument to integer
-    → If conversion fails (invalid input like "a")
-      → Exit (print nothing)
+  TRY converting argument to integer → n
+  CATCH conversion error:
+    EXIT (print nothing)
+  END TRY
   
-  - If n <= 1
-    → Exit (print nothing, because 0 and 1 have no prime factors)
+  IF n <= 1 THEN
+    EXIT (print nothing)
+  END IF
 
-STEP 2: Initialize variables
-  - Create empty result array/slice to store factors
-  - Set divisor = 2 (start with smallest prime)
+  // STEP 2: Initialize
+  factors = empty array/slice
+  divisor = 2
 
-STEP 3: Factor the number
-  - While n > 1:
+  // STEP 3: Factorization
+  WHILE n > 1 DO
     
-    STEP 3A: Check if divisor divides n evenly
-      - While n is divisible by divisor (n % divisor == 0):
-        → Add divisor to result array
-        → Divide n by divisor (n = n / divisor)
-        → Continue checking same divisor (for repeated factors)
+    // Inner loop: divide by current divisor as many times as possible
+    WHILE n % divisor == 0 DO
+      APPEND divisor to factors
+      n = n / divisor
+    END WHILE
     
-    STEP 3B: Move to next potential divisor
-      - Increment divisor by 1
-      - Continue outer loop
+    // Move to next divisor
+    divisor = divisor + 1
+    
+  END WHILE
 
-STEP 4: Build output string
-  - Join all factors with "*" separator
-  - Print result + newline
+  // STEP 4: Build output
+  IF length(factors) == 0 THEN
+    EXIT (shouldn't happen if n > 1)
+  END IF
+  
+  result = JOIN factors with "*"
+  PRINT result + newline
 
-STEP 5: Exit
+END PROGRAM

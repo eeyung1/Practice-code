@@ -1,33 +1,31 @@
 package main
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	if len(os.Args) != 4 || len(os.Args[2]) != 1 || len(os.Args[3]) != 1 {
+	if len(os.Args) != 4 {
 		return
 	}
 
-	s, old, new := os.Args[1], os.Args[2], os.Args[3]
+	source := os.Args[1]
+	oldcharacter := os.Args[2]
+	newcharacter := os.Args[3]
 
-	found := false
-	for i := 0; i < len(s); i++ {
-		if string(s[i]) == old {
-			found = true
-			break
-		}
-	}
-
-	if !found {
-		println(s)
+	if len(oldcharacter) != 1 || len(newcharacter) != 1 {
 		return
 	}
-	res := ""
-	for i := 0; i < len(s); i++ {
-		if string(s[i]) == old {
-			res += new
+
+	result := ""
+	for _, y := range source {
+		if string(y) == oldcharacter {
+			result += newcharacter
 		} else {
-			res += string(s[i])
+			result += string(y)
 		}
 	}
-	println(res)
+
+	fmt.Println(result)
 }

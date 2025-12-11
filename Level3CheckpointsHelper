@@ -25,3 +25,42 @@ STEP 3: Find where the first word ENDS
     - Move i forward
   
 STEP 4: Add newline and return
+
+
+
+
+
+LAST WORD
+
+STEP 1: Handle edge case
+  - If string is empty, return just "\n"
+
+STEP 2: Find where the last word ENDS
+  - Declare a variable to track position (let's call it 'i')
+  - Set i to the last index of the string (len(s) - 1)
+  - While i is greater than or equal to 0 AND character at i is a space
+    - Move i backward (i--)
+  - Now i points to the last non-space character (or -1 if all spaces)
+  
+STEP 2.5: Check if we found any word
+  - If i is less than 0 (meaning string was all spaces)
+    - Return just "\n"
+
+STEP 3: Find where the last word STARTS and collect it
+  Option A (Using string slicing - RECOMMENDED):
+    - Remember the END position (let's call it 'end' = i)
+    - While i is greater than or equal to 0 AND character at i is NOT a space
+      - Move i backward (i--)
+    - Now i is ON the space before the word (or at -1 if word starts at beginning)
+    - Adjust: set start = i + 1 (to get the first character of the word)
+    - Extract the word using slicing: s[start:end+1]
+  
+  Option B (Using character collection):
+    - Declare an empty string that would hold the result
+    - While i is greater than or equal to 0 AND character at i is NOT a space
+      - Add character to the FRONT of result (result = string(s[i]) + result)
+      - Move i backward (i--)
+    - Now result contains the last word (correctly ordered)
+
+STEP 4: Add newline and return
+  - Return result + "\n"

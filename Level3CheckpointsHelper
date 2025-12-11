@@ -64,3 +64,47 @@ STEP 3: Find where the last word STARTS and collect it
 
 STEP 4: Add newline and return
   - Return result + "\n"
+
+
+
+
+
+  CAMELTOSNAKECASE
+
+  STEP 1: Handle edge case
+  - If string is empty, return empty string
+
+STEP 2: Initialize variables
+  - Create an empty result string to build the output
+  - Create a boolean flag 'prevUpper' set to false
+    (this tracks if the previous character was uppercase)
+
+STEP 3: Validate and convert the string (single pass)
+  - For each character position i and character r in the string:
+    
+    STEP 3A: Classify the current character
+      - Check if character is lowercase (between 'a' and 'z')
+      - Check if character is uppercase (between 'A' and 'Z')
+    
+    STEP 3B: Validate camelCase rules
+      - INVALID CASE 1: If character is NOT a letter (not lower AND not upper)
+        → Return original string unchanged
+      
+      - INVALID CASE 2: If current character is uppercase AND previous was also uppercase
+        → Return original string unchanged (consecutive uppercase not allowed)
+      
+      - INVALID CASE 3: If current character is uppercase AND it's the last character
+        → Return original string unchanged (can't end with uppercase)
+    
+    STEP 3C: Convert to snake_case
+      - If current character is uppercase AND not at the beginning (i != 0)
+        → Add underscore "_" to result
+      
+      - Add current character to result (as string)
+    
+    STEP 3D: Update state for next iteration
+      - Set prevUpper to whether current character was uppercase
+        (this becomes the "previous" for the next iteration)
+
+STEP 4: Return the result
+  - Return the converted snake_case string

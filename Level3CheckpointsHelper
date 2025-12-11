@@ -108,3 +108,32 @@ STEP 3: Validate and convert the string (single pass)
 
 STEP 4: Return the result
   - Return the converted snake_case string
+
+
+
+  SEARCH AND REPLACE
+
+  STEP 1: Check number of arguments
+  - If len(os.Args) is NOT equal to 4 (program name + 3 args)
+    → Exit program (print nothing)
+
+STEP 2: Extract the arguments
+  - Get the source string (os.Args[1])
+  - Get the old character (os.Args[2])
+  - Get the new character (os.Args[3])
+
+STEP 3: Validate old character
+  - old must be exactly 1 character long
+  - If not, exit (or handle edge case)
+
+STEP 4: Build the result string
+  - Create an empty result string
+  - For each character in the source string:
+    - If character equals old character
+      → Add new character to result
+    - Else
+      → Add original character to result
+
+STEP 5: Output
+  - Print result + newline
+```

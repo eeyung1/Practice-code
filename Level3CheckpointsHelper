@@ -1,0 +1,27 @@
+FIRST WORD
+
+
+## **Breaking Down the Solution Pattern**
+
+Let me show you ONE way to think about it, then you'll write your version:
+
+### **Step-by-Step Logic:**
+```
+STEP 1: Handle edge case
+  - If string is empty, return just "\n"
+
+STEP 2: Find where the first word STARTS
+
+Declare an empty string that would hold the result
+  - Use a position tracker (let's call it 'i')
+  - While i is less than string length AND character at i is a space
+    - Move i forward (i++)
+  - Now i points to the first non-space character (or end of string)
+
+STEP 3: Find where the first word ENDS
+  - Start collecting from position i
+  - While i is less than string length AND character at i is NOT a space
+    - Add character to result
+    - Move i forward
+  
+STEP 4: Add newline and return

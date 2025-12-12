@@ -57,3 +57,30 @@ Function ThirdTimeIsACharm(str):
 
     Print result followed by a newline ("\n")
 
+
+    FromTo
+
+    Function FromTo(from, to):
+    If from < 0 or from > 99 or to < 0 or to > 99:
+        Return "Invalid\n"
+
+    Initialize an empty string result
+
+    If from <= to:
+        For i = from to to (inclusive):
+            Format i as a two-digit string (with leading zero if necessary)
+            Append formatted string to result
+            If i is not the last number in the range:
+                Append ", " to result
+    Else:
+        For i = from down to to (inclusive):
+            Format i as a two-digit string (with leading zero if necessary)
+            Append formatted string to result
+            If i is not the last number in the range:
+                Append ", " to result
+
+    Append "\n" to the result
+
+    Return result
+
+

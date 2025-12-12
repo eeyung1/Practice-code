@@ -78,3 +78,30 @@ Function CanJump(nums):
     
     Return False (if loop completes and last index isn't reachable)
 
+
+
+    concatalternate
+
+    Function ConcatAlternate(slice1, slice2):
+    Initialize result as an empty slice
+    Initialize i, j as 0 (index pointers for slice1 and slice2)
+    Get the lengths of slice1 and slice2 (len1 and len2)
+
+    If len1 > len2:
+        While i < len1 or j < len2:
+            If i < len1, append slice1[i] to result and increment i
+            If j < len2, append slice2[j] to result and increment j
+    
+    Else if len1 < len2:
+        While i < len1 or j < len2:
+            If j < len2, append slice2[j] to result and increment j
+            If i < len1, append slice1[i] to result and increment i
+    
+    Else:
+        While i < len1 or j < len2:
+            If i < len1, append slice1[i] to result and increment i
+            If j < len2, append slice2[j] to result and increment j
+
+    Return result
+
+

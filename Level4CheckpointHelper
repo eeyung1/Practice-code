@@ -14,7 +14,7 @@ Function Itoa(n):
     While n is greater than 0:
         Set digit to n mod 10  // Get the last digit of n
         Convert digit to a character by adding '0' to digit
-        Prepend the character to the result string
+        Prepend the character to the result string // result = string('0' + digit) + result
         Set n to n divided by 10  // Remove the last digit from n
     
     If isNegative is true:

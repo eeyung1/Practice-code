@@ -21,3 +21,16 @@ Function Itoa(n):
         Prepend "-" to the result string
     
     Return result
+
+ThirdTimeIsACharm
+
+Function ThirdTimeIsACharm(str):
+    Initialize an empty string result
+
+    If the length of str is 0:
+        Return newline (i.e., "\n")
+
+    For i = 2 to length of str - 1 with step size 3:
+        Append str[i] to result
+    
+    Return result followed by a newline ("\n")

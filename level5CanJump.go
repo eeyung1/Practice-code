@@ -1,4 +1,8 @@
-package piscine
+package main
+
+import (
+	"fmt"
+)
 
 func CanJump(nums []uint) bool {
     if len(nums) == 0 {
@@ -25,4 +29,16 @@ func max(a, b int) int {
         return a
     }
     return b
+}
+
+
+func main() {
+	input1 := []uint{2, 3, 1, 1, 4}
+	fmt.Println(CanJump(input1))
+
+	input2 := []uint{3, 2, 1, 0, 4}
+	fmt.Println(CanJump(input2))
+
+	input3 := []uint{0}
+	fmt.Println(CanJump(input3))
 }

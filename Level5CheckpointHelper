@@ -123,3 +123,24 @@ Function Inter(str1, str2):
     Print result followed by a newline
 
 
+SaveAndMISS
+
+Function SaveAndMiss(arg, num):
+    If num is less than or equal to 0:
+        Return arg  // No modification if num is 0 or negative
+    
+    Initialize an empty string result
+    Set length to the length of arg
+    
+    // Iterate through the string in steps of num * 2
+    For i = 0 to length with step size num * 2:
+        Set end = i + num  // Calculate the end index of the current chunk
+        If end exceeds the length of arg:
+            Set end to the length of arg  // Prevent going beyond the string's length
+        
+        Append the substring from i to end (arg[i:end]) to result
+    
+    Return result  // The string with saved characters
+
+
+

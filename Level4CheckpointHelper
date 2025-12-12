@@ -84,3 +84,25 @@ Function ThirdTimeIsACharm(str):
     Return result
 
 
+    printrevcomb
+
+    Function PrintRevComb():
+    Initialize an empty list "combinations"
+
+    // Loop through all possible combinations of three digits
+    For i = 9 down to 2:
+        For j = i-1 down to 1:
+            For k = j-1 down to 0:
+                // Check if digits are distinct and in strictly descending order (i > j > k)
+                If i > j > k:
+                    // Format the combination as a string "i, j, k" and append it to the list
+                    Append formatted string "i, j, k" to combinations
+
+    // Join all combinations with a comma and space
+    result = Join combinations with ", "
+
+    // Print the final result followed by a newline
+    Print result + "\n"
+
+
+

@@ -106,3 +106,40 @@ Function ThirdTimeIsACharm(str):
 
 
 
+WeAreUnique pseudocode
+
+Function WeAreUnique(str1, str2):
+    // Case 1: If both strings are empty
+    If str1 is empty and str2 is empty:
+        Return -1
+    
+    // Initialize two sets to store unique characters
+    Create empty set set1
+    Create empty set set2
+
+    // Add unique characters from str1 to set1
+    For each character c in str1:
+        Add c to set1
+
+    // Add unique characters from str2 to set2
+    For each character c in str2:
+        Add c to set2
+
+    // Initialize a counter for unique characters
+    Set uniqueCount to 0
+
+    // Count unique characters from set1 that are not in set2
+    For each character c in set1:
+        If c is not in set2:
+            Increment uniqueCount
+
+    // Count unique characters from set2 that are not in set1
+    For each character c in set2:
+        If c is not in set1:
+            Increment uniqueCount
+
+    // Return the total number of unique characters
+    Return uniqueCount
+
+
+

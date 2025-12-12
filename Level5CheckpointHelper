@@ -144,3 +144,25 @@ Function SaveAndMiss(arg, num):
 
 
 
+    WDmatch
+
+    Function wdMatch(str1, str2):
+    If the number of arguments is not equal to 2:
+        Return (Do nothing)
+
+    Initialize two pointers: 
+        i = 0  // Pointer for str1
+        j = 0  // Pointer for str2
+
+    While i < length of str1 AND j < length of str2:
+        If str1[i] is equal to str2[j]:
+            Increment i  // Move to the next character in str1
+        
+        Increment j  // Always move to the next character in str2
+
+    If i is equal to length of str1:
+        Print str1  // If we matched all characters in str1, print str1
+
+
+
+

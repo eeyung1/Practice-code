@@ -34,3 +34,26 @@ Function ThirdTimeIsACharm(str):
         Append str[i] to result
     
     Return result followed by a newline ("\n")
+
+
+    EXPANDSTR
+
+    Function Main():
+    If the number of arguments is not 1:
+        Return (Do nothing)
+
+    Get the string argument (str)
+
+    Trim leading and trailing spaces from str
+
+    Split str into words using spaces as the delimiter:
+        words = Split(str by spaces)
+
+    If words is empty:
+        Return (Do nothing)
+
+    Join the words with exactly three spaces between each word:
+        result = Join(words with "   ")
+
+    Print result followed by a newline ("\n")
+

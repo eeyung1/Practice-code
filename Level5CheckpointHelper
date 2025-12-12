@@ -56,3 +56,25 @@ BEGIN
   PRINT result + newline
 
 END PROGRAM
+
+
+CanJump
+
+
+Function CanJump(nums):
+    If nums is empty:
+        Return False
+    
+    maxReach = 0
+    
+    For each index i from 0 to len(nums) - 1:
+        If i is greater than maxReach:
+            Return False (can't reach this position)
+        
+        maxReach = max(maxReach, i + nums[i])  // Update maxReach with the furthest we can jump from here
+        
+        If maxReach is greater than or equal to last index:
+            Return True (can reach last index)
+    
+    Return False (if loop completes and last index isn't reachable)
+

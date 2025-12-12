@@ -104,4 +104,22 @@ Function CanJump(nums):
 
     Return result
 
+    
+    
+    INTER
+
+Function Inter(str1, str2):
+    If length of str1 is 0 OR length of str2 is 0:
+        Return ""
+
+    Initialize an empty string result
+    Initialize an empty map seen
+
+    For each character char in str1:
+        If char exists in str2 AND char is not in seen:
+            Append char to result
+            Mark char as seen in the map
+
+    Print result followed by a newline
+
 

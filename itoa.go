@@ -9,28 +9,24 @@ func Itoa(n int) string {
 		return "0"
 	}
 
-	var bytes []byte
-	isNegative := n < 0
+	result := ""
+	isNegative := false
 
-	if n > 0 {
+	if n < 0 {
+		isNegative = true
 		n = -n
 	}
 
-	for n != 0 {
-		digit := n % 10
-		bytes = append(bytes, byte('0'-digit))
+	for n > 0 {
+		digit := n%10
+		result = string('0' + digit) + result
 		n /= 10
 	}
 
-	for i, j := 0, len(bytes)-1; i < j; i, j = i+1, j-1 {
-		bytes[i], bytes[j] = bytes[j], bytes[i]
+	if isNegative == true {
+		result = "-" + result
 	}
-
-	if isNegative {
-		bytes = append([]byte{'-'}, bytes...)
-	}
-
-	return string(bytes)
+	return result
 }
 
 func main() {
@@ -39,3 +35,4 @@ func main() {
 	fmt.Println(Itoa(-1234))
 	fmt.Println(Itoa(987654321))
 }
+

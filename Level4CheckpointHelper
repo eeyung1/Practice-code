@@ -1,0 +1,23 @@
+Itoa
+
+Function Itoa(n):
+    If n is 0:
+        Return "0"
+    
+    Initialize result as an empty string
+    Initialize isNegative as false
+    
+    If n is less than 0:
+        Set isNegative to true
+        Set n to -n (work with the absolute value of n)
+    
+    While n is greater than 0:
+        Set digit to n mod 10  // Get the last digit of n
+        Convert digit to a character by adding '0' to digit
+        Prepend the character to the result string
+        Set n to n divided by 10  // Remove the last digit from n
+    
+    If isNegative is true:
+        Prepend "-" to the result string
+    
+    Return result

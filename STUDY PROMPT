@@ -1,9 +1,24 @@
 NECCESSARY INFORMATION TO UNDERSTAND AND EXCEL AS A SOFTWARE ENGINEER
 
-1. I want to study on the laws of reasoning. It's an understanding i need to be able to be a good software engineer and design systems. Now first of all, let's explore how it can be used to write pseudocode.
-
-
 2. I want to start from the laws of reasoning. I know the law. Now i want myself tested as a newbie in programming to know whether i understand the laws. So for this exercise design 5 technical questions that would require me to understand the laws before answering the questions. One question at a time.
+
+Examples 
+
+The Law of Identity & "Immutable Data"
+This is a core concept in AI-Native engineering and Blockchain (which you mentioned earlier).
+The Scenario:
+You are designing a Legal Contract System.
+
+    Version 1: A digital document that says "Pay Alice $100."
+    The Change: Alice's name is misspelled, so you "edit" the document to say "Pay Alis $100."
+
+The Problem:
+In a standard system, you just overwrite the old file. But in a high-security system, the Law of Identity states that the moment you change a single letter, the "Identity" of the document has changed. It is no longer the document that was originally signed.
+
+    If you "edit" a document, have you maintained its Identity, or have you created a New Entity?
+    In a system where Trust is everything (like a Bank or a Court), why might it be better to never allow edits, and instead only allow "New Versions" to be added to a history?
+
+
 
 
 

@@ -7,70 +7,49 @@ The palindrome function was extended to handle more cases by:
 - Making the comparison case-insensitive  
 - Returning the position where the string stops being a palindrome, or `-1` if it is a palindrome  
 
-### Implementation (Go)
+### Implementation (python)
 
-```go
-package main
-
-import (
-    "fmt"
-    "unicode"
-    "strings"
-)
-
-// cleanString removes spaces, punctuation, and converts characters to lowercase
-func cleanString(s string) string {
-    cleaned := ""
-    for _, r := range s {
-        if unicode.IsLetter(r) || unicode.IsDigit(r) {
-            cleaned += string(r)
-        }
-    }
-    return strings.ToLower(cleaned)
-}
-
-// Checkpalindrome returns -1 if the string is a palindrome,
-// or the position where the palindrome check fails
-func Checkpalindrome(arg string) int {
-    if len(arg) == 0 {
-        return 0
-    }
-
-    cleaned := cleanString(arg)
-
-    for i := 0; i < len(cleaned)/2; i++ {
-        if cleaned[i] != cleaned[len(cleaned)-1-i] {
-            return i
-        }
-    }
-
-    return -1
-}
-
-func main() {
-    fmt.Println(Checkpalindrome("racecar"))                        // -1
-    fmt.Println(Checkpalindrome("A man, a plan, a canal: Panama")) // -1
-    fmt.Println(Checkpalindrome("hello"))                          // 0
-}
+```python
+def check_palindrome(s):
+    clean = ''.join(c.lower() for c in s if c.isalnum())
+    
+    for i in range(len(clean) // 2):  # Compare characters from both ends moving toward center
+        if clean[i] != clean[-(i+1)]: # checking if the both characters are either the same or different
+            return i  # Position where palindrome breaks
+    
+    return -1  # String is a palindrome
 ```
 
 ---
 
-## Step 2: AI Evaluation
+### Test Results
 
-### Did I miss anything?
-
-- The palindrome comparison uses byte indexing instead of rune indexing, which can cause failures for non-ASCII characters (e.g., accented letters).
-- The returned break position refers to the cleaned string, not the original input. This behavior is valid but undocumented.
-- Empty or non-alphanumeric strings return `-1` (palindrome). This is reasonable but implicit.
-
-### Can it be more efficient?
-
-- Using `+=` for string concatenation inside a loop can be inefficient and lead to O(n²) behavior.
-- A two-pointer approach that skips non-alphanumeric characters during comparison would avoid creating a cleaned string and reduce memory usage.
+| Input | Output | Reason |
+|-------|--------|--------|
+| `"racecar"` | `-1` | Is a palindrome |
+| `"hello"` | `0` | Breaks at position 0: `'h' != 'o'` |
+| `"A man a plan a canal Panama"` | `-1` | Is a palindrome after cleaning spaces |
 
 ---
 
-## Step 3: Reflection — What AI Added That I Didn’t Consider Initially
+## Step 2: AI Feedback
 
-AI highlighted that the solution could fail for non-ASCII characters due to byte-based string indexing. It also pointed out that while returning `-1` for a palindrome is reasonable, this behavior is undocumented and could be clarified. Additionally, AI showed how the solution could be made more efficient by avoiding repeated string concatenation and unnecessary memory allocation.
+**Question asked:**
+> "I modified my palindrome function to handle more cases. Did I miss anything? Can it be more efficient?"
+
+**AI Response Summary:**
+
+- The two-pointer approach using negative indexing `clean[-(i+1)]` is clean and efficient
+- Time complexity is **O(n)** — loop runs `n/2` times, constants are dropped in Big O notation
+- Space complexity is **O(n)** — `clean` creates a new string in memory
+- Possible edge cases to consider:
+  - Strings with only spaces/punctuation (e.g., `"!!!"`) → `clean` becomes `""` → returns `-1` (handled correctly since loop never runs)
+  - Unicode/accented characters (e.g., `"café"`) → `isalnum()` handles these correctly in Python
+  - Numbers in strings (e.g., `"12321"`) → treated as alphanumeric, works correctly
+---
+
+## Step 3: Reflection
+
+**What did AI add that I didn't consider initially?**
+
+The edge case of a string containing only spaces or punctuation like `"!!!"` was something I hadn't thought about. After cleaning, it becomes an empty string, and since `range(0)` produces no iterations, the function returns `-1` — treating it as a palindrome. Whether that's the right behavior depends on the use case. AI also confirmed that my use of negative indexing `-(i+1)` is equivalent to `len(clean)-1-i` but more Pythonic, which I verified by tracing through the logic manually before using it.

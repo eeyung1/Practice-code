@@ -7,13 +7,9 @@
 | Skill | Description | Rating (1–5) | Improvement Plan |
 |-------|-------------|---------------|-----------------|
 | Problem Decomposition | Breaking down problems logically | 3/5 | Study more on fundamentals of programming |
-
 | Systems Thinking | Understanding how components interact | 4/5 | Continue analyzing how components interact in programs |
-
-
 | Critical Evaluation | Knowing when code is wrong or inefficient | 4/5 | Review code for inefficiencies and practice debugging |
 | Debugging Mindset | Investigating unexpected behavior | 5/5 | Maintain systematic debugging approach |
-
 | Conceptual Understanding | Knowing WHY, not just HOW | 5/5 | Continue building conceptual understanding of programming principles |
 
 ## Focused Improvement

@@ -1,10 +1,5 @@
 # Quest Submission README
 
-## Language Choice
-
-All exercises in this repository are implemented and submitted in **Go**, which is my chosen primary language for this quest. 
-
-
 ## Purpose
 
 This repository demonstrates independent problem-solving, reflection on AI feedback, and ethical use of AI as a learning tool, in alignment with the quest's objectives.

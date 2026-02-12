@@ -1,5 +1,3 @@
-# Learning Profile & AI Integration
-
 ### 1. Honest Reflections on AI
 **How have you used AI for coding so far?**
 I use AI to analyze and understand the underlying logic of functions before I begin writing my own code.

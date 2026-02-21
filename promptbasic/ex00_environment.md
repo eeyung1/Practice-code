@@ -11,11 +11,15 @@ Set up the environment for Python development and verify installation with requi
 
 ### Create Virtual Environment
 ```bash
+python3 -m venv venv
+or
 $ python -m venv prompt_env
 ```
 
 ### Activate Virtual Environment
 ```bash
+source venv/bin/activate
+or
 $ source prompt_env/bin/activate
 (prompt_env) $
 
@@ -79,4 +83,3 @@ Hello, World!
 ```
 
 ---
-

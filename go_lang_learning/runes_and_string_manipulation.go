@@ -318,3 +318,77 @@
 // 	fmt.Println(RetainFirstHalf(""))
 // 	fmt.Println(RetainFirstHalf("Hello World"))
 // }
+
+// exercise 2. 
+
+// Write a function IsPalindrome(str string) bool that returns true if a string reads the same forwards and backwards.
+
+// package main
+
+// import "fmt"
+
+// func IsPalindrome(str string) bool {
+// 	left := 0
+// 	right := len(str)-1
+
+// 	for left <= right {
+// 		if str[left] != str[right] {
+// 			return false
+// 		}
+
+// 		left += 1
+// 		right -= 1
+// 	}
+
+// 	return true
+// }
+
+// func main(){
+// 	fmt.Println(IsPalindrome("racecar"))
+// 	fmt.Println(IsPalindrome(""))
+// 	fmt.Println(IsPalindrome("hello"))
+// 	fmt.Println(IsPalindrome("A"))
+
+// }
+
+// package main
+
+// import (
+// 	"fmt")
+
+// func CamelToSnakeCase(str string) string {
+// 	if str == "" {
+// 		return ""
+// 	}
+
+// 	result := ""
+// 	prevUpper := false
+
+// 	for i, r := range str {
+// 		isLower, isUpper := (r >= 'a' && r <= 'z'), (r >= 'A' && r <= 'Z')
+
+// 		if !isLower && !isUpper || isUpper && prevUpper {
+// 			return str
+// 		}
+
+// 		if isUpper && i != 0 {
+// 			result += "_"
+// 		}
+
+// 		result += string(r)
+// 		prevUpper = isUpper
+// 	}
+
+// 	return result
+
+// }
+
+
+// func main() {
+// 	fmt.Println(CamelToSnakeCase("HelloWorld"))
+// 	fmt.Println(CamelToSnakeCase("helloWorld"))
+// 	fmt.Println(CamelToSnakeCase("camelCase"))
+// 	fmt.Println(CamelToSnakeCase("CAMELtoSnackCASE"))
+// 	fmt.Println(CamelToSnakeCase("camelToSnakeCase"))
+// 	fmt.Println(CamelToSnakeCase("hey2"))
+// }

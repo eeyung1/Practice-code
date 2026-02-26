@@ -271,9 +271,11 @@
 
 // func main(){
 // 	fmt.Println(CountVowels("Aeghidho"))
+// 	fmt.Println(CountVowels("Hello World"))
+
 // }
 
-//optimized version
+// optimized version
 
 // func CountVowels(str string) int {
 //     count := 0
@@ -284,4 +286,35 @@
 //         }
 //     }
 //     return count
+// }
+
+// package main
+
+// import ("fmt")
+
+// func main(){
+// 	str := "Hello World"
+// 	fmt.Println(str[0:5])
+// }
+
+// package main
+
+// import "fmt"
+
+// func RetainFirstHalf(str string) string {
+//     if str == "" {
+//         return ""
+//     } else if len(str) == 1 {
+//         return str
+//     }
+
+//     half := len(str) / 2
+//     return str[half:]
+// }
+
+// func main() {
+// 	fmt.Println(RetainFirstHalf("This is the 1st halfThis is the 2nd half"))
+// 	fmt.Println(RetainFirstHalf("A"))
+// 	fmt.Println(RetainFirstHalf(""))
+// 	fmt.Println(RetainFirstHalf("Hello World"))
 // }

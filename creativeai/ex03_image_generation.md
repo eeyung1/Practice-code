@@ -12,6 +12,8 @@ Create prompts for image generation models, refine them with specific constraint
 **Prompt:**
 > "A dog on an asteroid in space."
 
+![alt text](image.jpg)
+
 **Expected Output Description:**
 
 A medium-sized dog standing confidently on a rugged asteroid floating in deep space. The asteroid has a rough, rocky surface with small craters and glowing mineral veins. The dog's fur gently moves as if in a subtle cosmic breeze, and it looks curiously toward the horizon. Surrounding the scene are distant stars, colorful nebula clouds, and a faint glow from a nearby planet, creating a dreamy and cinematic atmosphere. Soft dramatic lighting highlights the dog while casting long shadows across the asteroid.
@@ -24,6 +26,8 @@ A medium-sized dog standing confidently on a rugged asteroid floating in deep sp
 
 **Prompt:**
 > "A serene watercolor illustration of a dog standing on a rugged asteroid in space, painted in soft warm tones, captured in a wide-angle view with gentle stars and subtle cosmic light creating a calm atmosphere."
+
+![alt text](image(1).jpg)
 
 **Constraints Added:**
 

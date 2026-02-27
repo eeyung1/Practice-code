@@ -249,7 +249,7 @@
 
 // exercise 1.
 
-//Write a function CountVowels(str string) int that counts the number of vowels (a, e, i, o, u both upper and lowercase) in a string.
+// Write a function CountVowels(str string) int that counts the number of vowels (a, e, i, o, u both upper and lowercase) in a string.
 
 // package main
 
@@ -336,8 +336,8 @@
 // 			return false
 // 		}
 
-// 		left += 1
-// 		right -= 1
+// 		left ++
+// 		right --
 // 	}
 
 // 	return true
@@ -348,7 +348,6 @@
 // 	fmt.Println(IsPalindrome(""))
 // 	fmt.Println(IsPalindrome("hello"))
 // 	fmt.Println(IsPalindrome("A"))
-
 // }
 
 // package main
@@ -391,4 +390,122 @@
 // 	fmt.Println(CamelToSnakeCase("CAMELtoSnackCASE"))
 // 	fmt.Println(CamelToSnakeCase("camelToSnakeCase"))
 // 	fmt.Println(CamelToSnakeCase("hey2"))
+// }
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func DigitLen(n, base int) int {
+// 	if base < 2 || base > 36 {
+// 		return -1
+// 	}
+
+// 	if n < 0 {
+// 		n = -n
+// 	}
+
+// 	count := 0
+
+// 	for n > 0 {
+// 		n = n/base
+// 		count++
+// 	}
+// 	return count
+// }
+
+// func main() {
+// 	fmt.Println(DigitLen(100, 10))
+// 	fmt.Println(DigitLen(100, 2))
+// 	fmt.Println(DigitLen(-100, 16))
+// 	fmt.Println(DigitLen(100, -1))
+// }
+
+// package main
+
+// import (
+//     "fmt"
+// 	"strings"
+// )
+
+// func FirstWord(s string) string {
+// 	if s == "" {
+// 		return ""
+// 	}
+
+// 	words := strings.Fields(s)
+// 	if len(words) == 0 {
+// 		return "\n"
+// 	}
+
+// 	//first word
+// 	//return words[0] + "\n"
+
+// 	//lastword
+// 	return words[len(words)-1] + "\n"
+
+// }
+
+// func main() {
+//     fmt.Print(FirstWord("hello there"))
+//     fmt.Print(FirstWord("how are you doing over there now"))
+//     fmt.Print(FirstWord("hello   .........  bye"))
+// }
+
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func FishAndChips(n int) string {
+// 	if n < 0 {
+// 		return "error: number is negative"
+// 	}
+
+// 	if n%2 == 0 && n%3 == 0 {
+// 		return "fish and chips"
+// 	} else if n%2 == 0 {
+// 		return "fish"
+// 	} else if n%3 == 0 {
+// 		return "chips"
+// 	} else {
+// 		return "error: non divisible"
+// 	}
+// }
+
+// func main() {
+// 	fmt.Println(FishAndChips(4))
+// 	fmt.Println(FishAndChips(9))
+// 	fmt.Println(FishAndChips(6))
+// }
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func Gcd(a, b uint) uint {
+// 	if a == 0 || b == 0 {
+// 		return 0
+// 	}
+
+// 	for b != 0 {
+// 		remainder := a%b
+// 		a = b
+// 		b = remainder
+// 	}
+
+// 	return a
+// }
+
+// func main() {
+// 	fmt.Println(Gcd(42, 10))
+// 	fmt.Println(Gcd(42, 12))
+// 	fmt.Println(Gcd(14, 77))
+// 	fmt.Println(Gcd(17, 3))
 // }

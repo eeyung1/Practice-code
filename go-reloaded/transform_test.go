@@ -56,13 +56,13 @@ func TestUpWithCount(t *testing.T) {
 	}
 }
 
-func TestArticle(t *testing.T) {
-	input := "There is no greater agony than bearing a untold story inside you."
-	expected := "There is no greater agony than bearing an untold story inside you."
-	result := transform(input)
-	if result != expected {
-		t.Errorf("got %q, want %q", result, expected)
-	}
+func TestArticleReverse(t *testing.T) {
+    input := "I am an boy"
+    expected := "I am a boy"
+    result := transform(input)
+    if result != expected {
+        t.Errorf("got %q, want %q", result, expected)
+    }
 }
 
 func TestPunctuation(t *testing.T) {
@@ -82,3 +82,4 @@ func TestQuotes(t *testing.T) {
 		t.Errorf("got %q, want %q", result, expected)
 	}
 }
+

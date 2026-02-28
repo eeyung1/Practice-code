@@ -82,10 +82,10 @@ func capitalize(s string) string {
 
 
 func applyArticle(text string) string {
-	re := regexp.MustCompile(`(?i)\b(a)\b(\s+)([aeiouAEIOUhH]\w*)`)
-	return re.ReplaceAllStringFunc(text, func(match string) string {
-		parts := re.FindStringSubmatch(match)
-		// preserve the original case of "a" or "A"
+	// a → an before vowels and h
+	re1 := regexp.MustCompile(`(?i)\b(a)\b(\s+)([aeiouAEIOUhH]\w*)`)
+	text = re1.ReplaceAllStringFunc(text, func(match string) string {
+		parts := re1.FindStringSubmatch(match)
 		article := parts[1]
 		space := parts[2]
 		nextWord := parts[3]
@@ -94,6 +94,21 @@ func applyArticle(text string) string {
 		}
 		return "an" + space + nextWord
 	})
+
+	// an → a before consonants
+	re2 := regexp.MustCompile(`(?i)\b(an)\b(\s+)([^aeiouAEIOUhH\s]\w*)`)
+	text = re2.ReplaceAllStringFunc(text, func(match string) string {
+		parts := re2.FindStringSubmatch(match)
+		article := parts[1]
+		space := parts[2]
+		nextWord := parts[3]
+		if article == "AN" {
+			return "A" + space + nextWord
+		}
+		return "a" + space + nextWord
+	})
+
+	return text
 }
 
 func applyPunctuation(text string) string {

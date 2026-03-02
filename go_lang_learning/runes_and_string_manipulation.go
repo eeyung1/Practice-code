@@ -509,3 +509,24 @@
 // 	fmt.Println(Gcd(14, 77))
 // 	fmt.Println(Gcd(17, 3))
 // }
+
+//function to reverse string
+
+package main
+
+import (
+	"fmt"
+)
+
+func reverseString(arg string) string {
+	result := ""
+	for _, r := range arg {
+		result = string(r) + result 
+	}
+
+	return result 
+}
+
+func main(){
+	fmt.Println(reverseString("Hello"))
+}

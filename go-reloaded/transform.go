@@ -33,26 +33,20 @@ func applyBin(text string) string {
 
 func applyCases(text string) string {
 	re := regexp.MustCompile(`(?i)\((up|low|cap),?\s*(\d+)?\)`)
-
 	for re.MatchString(text) {
 		match := re.FindStringSubmatchIndex(text)
 		if match == nil {
 			break
 		}
-
-		// extract action and count
 		action := strings.ToLower(text[match[2]:match[3]])
 		count := 1
 		if match[4] != -1 {
 			count, _ = strconv.Atoi(text[match[4]:match[5]])
 		}
-
-		// get the text before the tag
 		before := text[:match[0]]
 		after := text[match[1]:]
-
-		// split before into words and transform the last `count` words
 		words := strings.Fields(before)
+
 		for i := len(words) - count; i < len(words); i++ {
 			if i < 0 {
 				continue
@@ -66,18 +60,18 @@ func applyCases(text string) string {
 				words[i] = capitalize(words[i])
 			}
 		}
-
 		text = strings.Join(words, " ") + after
 	}
 	return text
 }
 
-
 func capitalize(s string) string {
-	if s == "" {
-		return s
+	for i, r := range s {
+		if r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z' {
+			return s[:i] + strings.ToUpper(string(r)) + strings.ToLower(s[i+1:])
+		}
 	}
-	return strings.ToUpper(s[:1]) + strings.ToLower(s[1:])
+	return s
 }
 
 

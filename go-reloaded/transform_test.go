@@ -83,3 +83,12 @@ func TestQuotes(t *testing.T) {
 	}
 }
 
+func TestCapWithPunctuation(t *testing.T) {
+	input := "hello (cap) , world"
+	expected := "Hello, world"
+	result := transform(input)
+	if result != expected {
+		t.Errorf("got %q, want %q", result, expected)
+	}
+}
+

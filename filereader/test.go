@@ -3,25 +3,60 @@ package main
 import (
 	"fmt"
 	"strings"
+	"strconv"
 )
 
+
+// func main() {
+// text := "It has been 10 (bin) years"
+
+// textsplit := strings.Fields(text)
+
+// for i := 0; i < len(textsplit); i++ {
+// 	if textsplit[i] == "(bin)" {
+// 		editor := textsplit[i-1]
+
+// 		num, err := strconv.ParseInt(editor, 2, 64)
+// 		if err != nil {
+// 			fmt.Println("Error reading file")
+// 			return
+// 		}
+			
+// 		textsplit[i-1] = fmt.Sprintf("%d", num)
+// 		textsplit = append(textsplit[:i], textsplit[i+1:]...)
+
+// 	}
+// }
+
+// result := strings.Join(textsplit, " ")
+// fmt.Println(result)
+
+// }
+
 func main() {
-	// test Split — splitting by comma
-	a := "he has light brain but cannot offer full nine subject"
-	text := strings.Split(a,"a")
-	fmt.Println("Split:", text)
-	fmt.Println("Split length:", len(text))
+text := "1E (hex) plus FF (hex) equals" 
 
-	// test Fields — splitting by whitespace
-	b := "Hello   world   this   is   a   test"
-	good := strings.Fields(b)
-	fmt.Println("Fields:", good)
-	fmt.Println("Fields length:", len(good))
+textsplit := strings.Fields(text)
 
-	// now see what Split does with extra spaces
-	bad := strings.Split(b, " ")
-	fmt.Println("Split with spaces:", bad)
-	fmt.Println("Split length:", len(bad))
+for i := 0; i < len(textsplit); i++ {
+	if textsplit[i] == "(hex)" {
+		editor := textsplit[i-1]
+
+		num, err := strconv.ParseInt(editor, 16, 64)
+		if err != nil {
+			fmt.Println("Error reading file")
+			return
+		}
+			
+		textsplit[i-1] = fmt.Sprintf("%d", num)
+		textsplit = append(textsplit[:i], textsplit[i+1:]...)
+
+	}
+}
+
+result := strings.Join(textsplit, " ")
+fmt.Println(result)
+
 }
 
 

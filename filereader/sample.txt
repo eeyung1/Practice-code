@@ -1,0 +1,5 @@
+Hello world this is a test
+Go is a great language
+I am learning how to code
+Testing word counter project
+This is the last line

@@ -32,36 +32,37 @@ func main() {
 	}
 }
 
-func processStudent(row string) {
-	// step 1: split by comma
-	values := strings.Split(row, ",")
-	name := values[0]
+// handles full row — used by main()
+func processStudent(row string) float64 {
+    values := strings.Split(row, ",")
+    name := values[0]
+    grade1, _ := strconv.ParseFloat(values[1], 64)
+    grade2, _ := strconv.ParseFloat(values[2], 64)
+    grade3, _ := strconv.ParseFloat(values[3], 64)
 
-	// step 2: convert grades to float64
-	grade1, _ := strconv.ParseFloat(values[1], 64)
-	grade2, _ := strconv.ParseFloat(values[2], 64)
-	grade3, _ := strconv.ParseFloat(values[3], 64)
+    grades := []float64{grade1, grade2, grade3}
+    avg, highest, lowest := calculateStats(grades)  // ← call calculateStats
 
-	// step 3: calculate average
-	avg := (grade1 + grade2 + grade3) / 3
+    fmt.Printf("%-10s avg: %.2f  highest: %.0f  lowest: %.0f\n", name, avg, highest, lowest)
+    return avg
+}
 
-	// step 4: find highest
-	highest := grade1
-	if grade2 > highest {
-		highest = grade2
-	}
-	if grade3 > highest {
-		highest = grade3
-	}
+// pure math logic — easy to test
+func calculateStats(grades []float64) (float64, float64, float64) {
+    highest := grades[0]
+    lowest := grades[0]
+    total := 0.0
 
-	// step 5: find lowest
-	lowest := grade1
-	if grade2 < lowest {
-		lowest = grade2
-	}
-	if grade3 < lowest {
-		lowest = grade3
-	}
+    for _, g := range grades {
+        total += g
+        if g > highest {
+            highest = g
+        }
+        if g < lowest {
+            lowest = g
+        }
+    }
 
-	fmt.Printf("%-10s avg: %.2f  highest: %.0f  lowest: %.0f\n", name, avg, highest, lowest)
+    avg := total / float64(len(grades))
+    return avg, highest, lowest
 }

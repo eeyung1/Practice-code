@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"net/url"
 )
 
 type WeatherResponse struct {
@@ -34,7 +35,7 @@ func main() {
 	city := os.Args[1]
 
 	// FIRST API CALL — geocoding
-	geoURL := fmt.Sprintf("https://geocoding-api.open-meteo.com/v1/search?name=%s&count=1", city)
+	geoURL := fmt.Sprintf("https://geocoding-api.open-meteo.com/v1/search?name=%s&count=1", url.QueryEscape(city))
 	resp, err := http.Get(geoURL)
 	if err != nil {
 		fmt.Println("Error:", err)

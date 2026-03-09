@@ -512,21 +512,52 @@
 
 //function to reverse string
 
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func reverseString(arg string) string {
+// 	result := ""
+// 	for _, r := range arg {
+// 		result = string(r) + result 
+// 	}
+
+// 	return result 
+// }
+
+// func main(){
+// 	fmt.Println(reverseString("Hello"))
+// }
+
 package main
 
 import (
 	"fmt"
 )
 
-func reverseString(arg string) string {
+func HashCode(dec string) string {
+	length := len(dec)
 	result := ""
-	for _, r := range arg {
-		result = string(r) + result 
+
+	for _, r := range dec {
+		ascii := int(r)
+		hashed := (ascii + length) % 127
+		
+		if hashed < 32 {
+			hashed += 33
+		}
+
+		result += string(rune(hashed))
 	}
 
-	return result 
+	return result
 }
 
-func main(){
-	fmt.Println(reverseString("Hello"))
+func main() {
+	fmt.Println(HashCode("A"))
+	fmt.Println(HashCode("AB"))
+	fmt.Println(HashCode("BAC"))
+	fmt.Println(HashCode("Hello World"))
 }

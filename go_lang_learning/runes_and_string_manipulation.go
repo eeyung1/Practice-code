@@ -531,33 +531,66 @@
 // 	fmt.Println(reverseString("Hello"))
 // }
 
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func HashCode(dec string) string {
+// 	length := len(dec)
+// 	result := ""
+
+// 	for _, r := range dec {
+// 		ascii := int(r)
+// 		hashed := (ascii + length) % 127
+		
+// 		if hashed < 32 {
+// 			hashed += 33
+// 		}
+
+// 		result += string(rune(hashed))
+// 	}
+
+// 	return result
+// }
+
+// func main() {
+// 	fmt.Println(HashCode("A"))
+// 	fmt.Println(HashCode("AB"))
+// 	fmt.Println(HashCode("BAC"))
+// 	fmt.Println(HashCode("Hello World"))
+// }
+
 package main
 
 import (
 	"fmt"
+	"strings"
+	"unicode"
 )
 
-func HashCode(dec string) string {
-	length := len(dec)
+func RepeatAlpha(s string) string {
 	result := ""
 
-	for _, r := range dec {
-		ascii := int(r)
-		hashed := (ascii + length) % 127
-		
-		if hashed < 32 {
-			hashed += 33
+	for _, r := range s {
+		if unicode.IsLower(r) {
+			index := r - 'a' + 1
+			result += strings.Repeat(string(r), int(index))
+		} else if unicode.IsUpper(r) {
+			index := r - 'A' + 1
+			result += strings.Repeat(string(r), int(index))
+		} else {
+			result += string(r)
 		}
-
-		result += string(rune(hashed))
 	}
 
 	return result
 }
 
 func main() {
-	fmt.Println(HashCode("A"))
-	fmt.Println(HashCode("AB"))
-	fmt.Println(HashCode("BAC"))
-	fmt.Println(HashCode("Hello World"))
+	fmt.Println(RepeatAlpha("abc"))
+	fmt.Println(RepeatAlpha("Choumi."))
+	fmt.Println(RepeatAlpha(""))
+	fmt.Println(RepeatAlpha("abacadaba 01!"))
 }

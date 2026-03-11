@@ -52,7 +52,7 @@ func hexToDecimal(dec string) (string, error) {
 	return result, nil
 }
 
-func main(){
+func main() {
 	fmt.Println(hexToDecimal("1E"))
 	fmt.Println(hexToDecimal("FF"))
 }

@@ -631,60 +631,77 @@
 // }
 
 
-package main
+// //TEXTFORMATTER
 
-import (
-	"fmt"
-	"strings"
-	"strconv"
-	"unicode"
-)
+// package main
 
-func TextFormatter(text string) string {
-	word := strings.Fields(text)
+// import (
+// 	"fmt"
+// 	"strings"
+// 	"strconv"
+// 	"unicode"
+// )
 
-	for i := 0; i < len(word); i++ {
-		if word[i] == "(hex)" {
-			data, err := strconv.ParseInt(word[i-1], 16, 64)
-			if err != nil {
-				return "Error"
-			}
+// func TextFormatter(text string) string {
+// 	word := strings.Fields(text)
 
-			word[i-1] = strconv.FormatInt(data, 10)
+// 	for i := 0; i < len(word); i++ {
+// 		if word[i] == "(hex)" {
+// 			data, err := strconv.ParseInt(word[i-1], 16, 64)
+// 			if err != nil {
+// 				return "Error"
+// 			}
 
-			word = append(word[:i], word[i+1:]...)
-			i--
-		} else if word[i] == "(bin)" {
-			data, err := strconv.ParseInt(word[i-1], 2, 64)
-			if err != nil {
-				return "Error"
-			}
+// 			word[i-1] = strconv.FormatInt(data, 10)
 
-			word[i-1] = strconv.FormatInt(data, 10)
+// 			word = append(word[:i], word[i+1:]...)
+// 			i--
+// 		} else if word[i] == "(bin)" {
+// 			data, err := strconv.ParseInt(word[i-1], 2, 64)
+// 			if err != nil {
+// 				return "Error"
+// 			}
 
-			word = append(word[:i], word[i+1:]...)
-			i--
-		} else if word[i] == "(up)" {
-			word[i-1] = strings.ToUpper(word[i-1])
+// 			word[i-1] = strconv.FormatInt(data, 10)
 
-			word = append(word[:i], word[i+1:]...)
-			i--
-		} else if word[i] == "(cap)" {
+// 			word = append(word[:i], word[i+1:]...)
+// 			i--
+// 		} else if word[i] == "(up)" {
+// 			word[i-1] = strings.ToUpper(word[i-1])
 
-			runes := []rune(word[i-1])
-			runes[0] = unicode.ToUpper(runes[0])
-			word[i-1] = string(runes)
+// 			word = append(word[:i], word[i+1:]...)
+// 			i--
+// 		} else if word[i] == "(cap)" {
+
+// 			runes := []rune(word[i-1])
+// 			runes[0] = unicode.ToUpper(runes[0])
+// 			word[i-1] = string(runes)
 
 
-			word = append(word[:i], word[i+1:]...)
-			i--
-		}
-	}
+// 			word = append(word[:i], word[i+1:]...)
+// 			i--
+// 		}
+// 	}
 
-	result := strings.Join(word, " ")
-	return result
-}
+// 	result := strings.Join(word, " ")
+// 	return result
+// }
 
-func main(){
-	fmt.Println(TextFormatter("1E (hex) files and hello (up) world (cap) were added"))
-}
+// func main(){
+// 	fmt.Println(TextFormatter("1E (hex) files and hello (up) world (cap) were added"))
+// }
+
+//MAKE BUILT-IN FUNCTION
+
+//make(Type, Length)
+
+// package main // 1. Declare the package first
+
+// import "fmt"
+
+// func main() {
+//     // 2. Use make() inside a function
+//     mySlice := make([]int, 6) 
+// 	mySlice[0] = 5
+//     fmt.Println(mySlice)
+// }

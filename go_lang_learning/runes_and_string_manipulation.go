@@ -705,3 +705,72 @@
 // 	mySlice[0] = 5
 //     fmt.Println(mySlice)
 // }
+
+//cleanstr
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
+
+// func main(){
+// 	if len(os.Args) != 2 {
+// 		fmt.Print("\n")
+// 		return
+// 	}
+
+	
+
+// 	text := os.Args[1]
+
+// 	if len(text) == 0 {
+// 		fmt.Print("\n")
+// 		return
+// 	}
+
+// 	word := strings.Fields(text)
+
+// 	result := strings.Join(word, " ")
+
+
+
+// 	fmt.Println(result)
+// }
+
+
+
+//expandstr
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
+
+// func main(){
+// 	if len(os.Args) != 2 {
+// 		return
+// 	}
+
+	
+
+// 	text := os.Args[1]
+
+// 	if len(text) == 0 {
+// 		return
+// 	}
+
+// 	word := strings.Fields(text)
+
+// 	result := strings.Join(word, "   ")
+
+
+
+// 	fmt.Println(result)
+// }
+

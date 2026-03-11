@@ -631,3 +631,60 @@
 // }
 
 
+package main
+
+import (
+	"fmt"
+	"strings"
+	"strconv"
+	"unicode"
+)
+
+func TextFormatter(text string) string {
+	word := strings.Fields(text)
+
+	for i := 0; i < len(word); i++ {
+		if word[i] == "(hex)" {
+			data, err := strconv.ParseInt(word[i-1], 16, 64)
+			if err != nil {
+				return "Error"
+			}
+
+			word[i-1] = strconv.FormatInt(data, 10)
+
+			word = append(word[:i], word[i+1:]...)
+			i--
+		} else if word[i] == "(bin)" {
+			data, err := strconv.ParseInt(word[i-1], 2, 64)
+			if err != nil {
+				return "Error"
+			}
+
+			word[i-1] = strconv.FormatInt(data, 10)
+
+			word = append(word[:i], word[i+1:]...)
+			i--
+		} else if word[i] == "(up)" {
+			word[i-1] = strings.ToUpper(word[i-1])
+
+			word = append(word[:i], word[i+1:]...)
+			i--
+		} else if word[i] == "(cap)" {
+
+			runes := []rune(word[i-1])
+			runes[0] = unicode.ToUpper(runes[0])
+			word[i-1] = string(runes)
+
+
+			word = append(word[:i], word[i+1:]...)
+			i--
+		}
+	}
+
+	result := strings.Join(word, " ")
+	return result
+}
+
+func main(){
+	fmt.Println(TextFormatter("1E (hex) files and hello (up) world (cap) were added"))
+}

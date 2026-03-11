@@ -562,35 +562,72 @@
 // 	fmt.Println(HashCode("Hello World"))
 // }
 
-package main
+// package main
 
-import (
-	"fmt"
-	"strings"
-	"unicode"
-)
+// import (
+// 	"fmt"
+// 	"strings"
+// 	"unicode"
+// )
 
-func RepeatAlpha(s string) string {
-	result := ""
+// func RepeatAlpha(s string) string {
+// 	result := ""
 
-	for _, r := range s {
-		if unicode.IsLower(r) {
-			index := r - 'a' + 1
-			result += strings.Repeat(string(r), int(index))
-		} else if unicode.IsUpper(r) {
-			index := r - 'A' + 1
-			result += strings.Repeat(string(r), int(index))
-		} else {
-			result += string(r)
-		}
-	}
+// 	for _, r := range s {
+// 		if unicode.IsLower(r) {
+// 			index := r - 'a' + 1
+// 			result += strings.Repeat(string(r), int(index))
+// 		} else if unicode.IsUpper(r) {
+// 			index := r - 'A' + 1
+// 			result += strings.Repeat(string(r), int(index))
+// 		} else {
+// 			result += string(r)
+// 		}
+// 	}
 
-	return result
-}
+// 	return result
+// }
 
-func main() {
-	fmt.Println(RepeatAlpha("abc"))
-	fmt.Println(RepeatAlpha("Choumi."))
-	fmt.Println(RepeatAlpha(""))
-	fmt.Println(RepeatAlpha("abacadaba 01!"))
-}
+// func main() {
+// 	fmt.Println(RepeatAlpha("abc"))
+// 	fmt.Println(RepeatAlpha("Choumi."))
+// 	fmt.Println(RepeatAlpha(""))
+// 	fmt.Println(RepeatAlpha("abacadaba 01!"))
+// }
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"strings"
+// 	"os"
+// )
+
+// func main(){
+// 	if len(os.Args) != 4 {
+// 		fmt.Println("Error reading CLI")
+// 		return 
+// 	}
+
+// 	text := os.Args[1]
+// 	old := os.Args[2]
+// 	new := os.Args[3]
+
+// 	result := strings.ReplaceAll(text, old, new)
+
+// 	fmt.Println(result)
+
+// 	// result := ""
+
+// 	// for _, r := range text {
+// 	// 	if r == rune(old[0]) {
+// 	// 		result += string(new[0])
+// 	// 	} else {
+// 	// 		result += string(r)
+// 	// 	}
+// 	// }
+
+// 	// fmt.Print(result + "\n")
+// }
+
+

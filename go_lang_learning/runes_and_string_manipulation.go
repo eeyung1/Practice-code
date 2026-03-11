@@ -774,3 +774,65 @@
 // 	fmt.Println(result)
 // }
 
+//findprevprime
+
+// package main
+
+// import (
+// 	"fmt"
+// 	//"math"
+// )
+
+// func FindPrevPrime(nb int) int {
+// 	for i := nb; i > 1; i-- {
+// 		if isPrime(i) {
+// 			return i
+// 		}
+// 	}
+
+// 	return 0
+// }
+
+// func isPrime(n int) bool {
+// 	if n <= 1 {
+// 		return false
+// 	}
+
+// 	if n == 2 {
+// 		return true
+// 	}
+
+// 	if n % 2 == 0 {
+// 		return false
+// 	}
+
+// 	// limit := int(math.Sqrt(float64(n)))
+
+// 	// for i := 3; i <= limit; i += 2 {
+// 	// 	if n % i == 0 {
+// 	// 		return false
+// 	// 	}
+// 	// }
+
+// 	// return true
+
+
+
+// //ANOTHER WAY TO FIND PRIME
+
+// 	for i := 3; i * i <= n; i+=2 {
+// 		if n % i == 0 {
+// 			return false
+// 		}
+// 	}
+
+// 	return true
+// }
+
+
+
+// func main() {
+// 	fmt.Println(FindPrevPrime(5))
+// 	fmt.Println(FindPrevPrime(4))
+// 	fmt.Println(isPrime(746828776361112973))
+// }

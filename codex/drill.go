@@ -48,7 +48,7 @@ func hexToDecimal(dec string) (string, error) {
 		return "", err
 	}
 
-	result := fmt.Sprintf("%d", data)
+	result := fmt.Sprintf("%d", data) //result := strconv.FormatInt(data, 10)
 	return result, nil
 }
 

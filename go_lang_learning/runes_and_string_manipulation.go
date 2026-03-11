@@ -780,7 +780,7 @@
 
 // import (
 // 	"fmt"
-// 	//"math"
+// 	"math"
 // )
 
 // func FindPrevPrime(nb int) int {
@@ -806,15 +806,16 @@
 // 		return false
 // 	}
 
-// 	// limit := int(math.Sqrt(float64(n)))
+// 	limit := int(math.Sqrt(float64(n)))
 
-// 	// for i := 3; i <= limit; i += 2 {
-// 	// 	if n % i == 0 {
-// 	// 		return false
-// 	// 	}
-// 	// }
+// 	for i := 3; i <= limit; i += 2 {
+// 		if n % i == 0 {
+// 			return false
+// 		}
+// 	}
 
-// 	// return true
+// 	return true
+// }
 
 
 
@@ -834,5 +835,45 @@
 // func main() {
 // 	fmt.Println(FindPrevPrime(5))
 // 	fmt.Println(FindPrevPrime(4))
-// 	fmt.Println(isPrime(746828776361112973))
+// 	fmt.Println(isPrime(6768765))
 // }
+
+
+package main
+
+import (
+	"fmt"
+)
+
+func FromTo(from int, to int) string {
+	if from < 0 || from > 99 || to < 0 || to > 99 {
+		return "Invalid\n"
+	}
+
+	result := ""
+
+	if from <= to {
+		for i := from; i <= to; i++ {
+			result += fmt.Sprintf("%02d", i)
+			if i != to {
+				result += ", "
+			}
+		}
+	} else {
+		for i := from; i >= to; i-- {
+			result += fmt.Sprintf("%02d", i)
+			if i != to {
+				result += ", "
+			}
+		}
+	}
+
+	return result + "\n"
+}
+
+func main() {
+	fmt.Print(FromTo(1, 10))
+	fmt.Print(FromTo(10, 1))
+	fmt.Print(FromTo(10, 10))
+	fmt.Print(FromTo(100, 10))
+}

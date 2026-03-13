@@ -94,51 +94,81 @@ func main () {
 
 */
 
-// 5. fix fixPunctuation
+// 5. joinWithPunctuation
 
 /*
 
 package main
 
 import (
-    "fmt"
-    "strings"
+	"fmt"
+	"strings"
 )
 
-func fixPunctuation(word string) string {
-    word = strings.ReplaceAll(word, " ,", ",")
-    word = strings.ReplaceAll(word, " !", "!")
-
-    return strings.TrimSpace(word)
+func joinWithPunctuation(tokens []string) string {
+    result := strings.Join(tokens, "")
+   
+    // Replace the comma with a comma and a space
+    return strings.ReplaceAll(result, ",", ", ")
 }
+
 
 func main(){
-    fmt.Println(fixPunctuation("hello , world !"))
+	fmt.Println(joinWithPunctuation([]string{"hello", ",", "world", "!"}))
 }
+
 
 */
 
 
-// 6. checkPUnction
+// 6. IsPunctuation
 
 /*
 package main
 
 import (
-    "fmt"
+	"fmt"
 )
-func checkPUnction (s string) bool {
-    for _, r := range s {
-        if r == ',' || r == '.' || r == '!' || r == '?' {
-            return true
-        }
-    
-    }
-    return false
+
+func isPunctuation(s string) bool {
+	for _, r := range s {
+		if r == ',' || r == '!' {
+			return true
+		}
+	}
+	return false
 }
 
-func main () {
-    fmt.Println(checkPUnction(".,?"))
+func main(){
+	fmt.Println(isPunctuation(","))
+	fmt.Println(isPunctuation("!"))
+	fmt.Println(isPunctuation("x"))
 }
     */
+
+// 7. 
+
+/*
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func fixArticles(text string) string { 
+	
+	text = strings.ReplaceAll(text, "A", "An")
+	text = strings.ReplaceAll(text, "An book.", "A book.")
+
+	return text
+}
+
+func main(){
+	fmt.Println(fixArticles("There it was. A amazing rock. A honest man. A book."))
+}
+
+*/
+
+//8 
 

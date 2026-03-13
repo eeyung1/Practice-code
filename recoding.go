@@ -83,7 +83,7 @@ import (
 )
 func LastTwoToUpper(s []string, n int) []string {
     for i := n; i < len(s); i++ {
-        s[i] = strings.ToUpper(s[i]) 
+        s[i] = strings.ToUpper(s[i])
     }
     return s
 }
@@ -107,7 +107,7 @@ import (
 
 func joinWithPunctuation(tokens []string) string {
     result := strings.Join(tokens, "")
-   
+
     // Replace the comma with a comma and a space
     return strings.ReplaceAll(result, ",", ", ")
 }
@@ -120,7 +120,6 @@ func main(){	// Removes the space after the opening single quote
 
 
 */
-
 
 // 6. IsPunctuation
 
@@ -145,8 +144,7 @@ func main(){
 	fmt.Println(isPunctuation("!"))
 	fmt.Println(isPunctuation("x"))
 }
-    */
-    
+*/
 
 // 7. func aOrAn
 
@@ -156,7 +154,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 func aOrAn(nextWord string) string {
@@ -164,28 +161,28 @@ func aOrAn(nextWord string) string {
 		return "an"
 	}
 
-	if len(nextWord) == 0 {
-		return ""
-	}
-	
-	firstLetter := strings.ToLower(string(nextWord[0]))
-
-	if strings.ContainsAny(firstLetter, "aeiou") {
-		return "an"
+	for _, r := range nextWord {
+		if r == 'a' || r == 'e' || r == 'i' || r == 'o' || r == 'u' || r == 'h' {
+			return "an"
+		} else {
+			return "a"
+		}
 	}
 
-	return "a"
+	return ""
 }
 
 func main() {
-	fmt.Println(aOrAn("good"))   
-	fmt.Println(aOrAn("honest")) 
-	fmt.Println(aOrAn("apple"))  
-	fmt.Println(aOrAn("yam"))    
+	fmt.Println(aOrAn("good"))
+	fmt.Println(aOrAn("honest"))
+	fmt.Println(aOrAn("apple"))
+	fmt.Println(aOrAn("yam"))
+	fmt.Println(aOrAn("horse"))
+
 }
 
-
 */
+
 
 // 8. fixArticles
 
@@ -197,8 +194,8 @@ import (
 	"strings"
 )
 
-func fixArticles(text string) string { 
-	
+func fixArticles(text string) string {
+
 	text = strings.ReplaceAll(text, "A", "An")
 	text = strings.ReplaceAll(text, "An book.", "A book.")
 
@@ -222,23 +219,24 @@ import (
 )
 
 func fixSingleQuotes(text string) string {
-	// Removes the space after the opening single quote
-	text = strings.ReplaceAll(text, "' ", "'")
-	// Removes the space before the closing single quote
-	text = strings.ReplaceAll(text, " '", "'")
+	text = strings.Trim(text, "'")
 
-	return text
+	text = strings.TrimSpace(text)
+
+	return "'" + text + "'"
 }
 
 func main() {
-	// The input as a string literal
 	input := "' hello world '"
 
-	// Process the string
+	good := "' awesome '"
+
+	great := fixSingleQuotes(good)
+
 	result := fixSingleQuotes(input)
 
-	// Using %#v in Printf will show the string with its surrounding double quotes
-	fmt.Printf("%#v\n", result)
+	fmt.Printf("%q\n", result)
+	fmt.Printf("%q\n", great)
 }
 
 */

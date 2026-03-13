@@ -113,7 +113,8 @@ func joinWithPunctuation(tokens []string) string {
 }
 
 
-func main(){
+func main(){	// Removes the space after the opening single quote
+
 	fmt.Println(joinWithPunctuation([]string{"hello", ",", "world", "!"}))
 }
 
@@ -237,7 +238,7 @@ func main() {
 	result := fixSingleQuotes(input)
 
 	// Using %#v in Printf will show the string with its surrounding double quotes
-	fmt.Printf("INPUT ==> %#v\n", input)
-	fmt.Printf("OUTPUT ===> %#v\n", result)
+	fmt.Printf("%#v\n", result)
 }
+
 */

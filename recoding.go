@@ -145,8 +145,48 @@ func main(){
 	fmt.Println(isPunctuation("x"))
 }
     */
+    
 
-// 7. 
+// 7. func aOrAn
+
+/*
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func aOrAn(nextWord string) string {
+	if nextWord == "honest" {
+		return "an"
+	}
+
+	if len(nextWord) == 0 {
+		return ""
+	}
+	
+	firstLetter := strings.ToLower(string(nextWord[0]))
+
+	if strings.ContainsAny(firstLetter, "aeiou") {
+		return "an"
+	}
+
+	return "a"
+}
+
+func main() {
+	fmt.Println(aOrAn("good"))   
+	fmt.Println(aOrAn("honest")) 
+	fmt.Println(aOrAn("apple"))  
+	fmt.Println(aOrAn("yam"))    
+}
+
+
+*/
+
+// 8. fixArticles
 
 /*
 package main
@@ -170,7 +210,7 @@ func main(){
 
 */
 
-// 8. fixSingleQuotes
+// 9. fixSingleQuotes
 
 /*
 package main

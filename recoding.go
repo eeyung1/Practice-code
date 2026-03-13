@@ -170,5 +170,34 @@ func main(){
 
 */
 
-//8 
+// 8. fixSingleQuotes
 
+/*
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func fixSingleQuotes(text string) string {
+	// Removes the space after the opening single quote
+	text = strings.ReplaceAll(text, "' ", "'")
+	// Removes the space before the closing single quote
+	text = strings.ReplaceAll(text, " '", "'")
+
+	return text
+}
+
+func main() {
+	// The input as a string literal
+	input := "' hello world '"
+
+	// Process the string
+	result := fixSingleQuotes(input)
+
+	// Using %#v in Printf will show the string with its surrounding double quotes
+	fmt.Printf("INPUT ==> %#v\n", input)
+	fmt.Printf("OUTPUT ===> %#v\n", result)
+}
+*/

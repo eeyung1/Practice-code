@@ -922,6 +922,7 @@ func main() {
 
 */
 
+/*
 package main
 
 import (
@@ -958,4 +959,43 @@ func main() {
     fmt.Println(Itoa(0))
     fmt.Println(Itoa(-1234))
     fmt.Println(Itoa(987654321))
+}
+	*/
+
+package main
+
+import "fmt"
+
+func PrintMemory(arr [10]byte) {
+    // First loop - print hex values 4 per line
+    for i, b := range arr {
+		if i % 4 != 0 {
+    	fmt.Printf(" ")
+		}
+		
+        fmt.Printf("%02x", b)
+        
+        // if end of group of 4, print newline
+        if i % 4 == 3 {
+            fmt.Println()
+        }
+
+    }
+
+	fmt.Println()
+
+    
+    // Second loop - print printable chars or dot
+    for _, b := range arr {
+        if b >= 32 && b <= 126 {
+            fmt.Printf("%c", b)
+        } else {
+            fmt.Printf(".")
+        }
+    }
+    fmt.Println()
+}
+
+func main() {
+	PrintMemory([10]byte{'h', 'e', 'l', 'l', 'o', 16, 21, '*'})
 }

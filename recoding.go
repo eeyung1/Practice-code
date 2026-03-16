@@ -27,25 +27,27 @@ func main(){
 
 */
 
-
 // 2. Capitalize a word
-
 /*
-
 package main
 
 import (
-    "fmt"
-    "strings"
+	"fmt"
+	"strings"
 )
 
-func Capitalize(word string) string {
-    return strings.ToUpper(word[:1]) + strings.ToLower(word[1:])
+func Capitalize(sentence string) string {
+	word := strings.Fields(sentence)
+
+	for i := 0; i < len(word); i++ {
+		word[i] = strings.Title(word[i])
+	}
+
+	return strings.Join(word, " ")
 }
 
-func main (){
-    fmt.Println(Capitalize("hELLO"))
-    fmt.Println(Capitalize("WORLD"))
+func main() {
+	fmt.Println(Capitalize("hello world to golang"))
 }
 
 */
@@ -160,7 +162,6 @@ func main() {
 }
 
 */
-
 
 // 7. fixArticles
 

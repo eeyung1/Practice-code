@@ -11,7 +11,7 @@ import (
 )
 
 func convToDecimal(num string, base int) (int64, error) {
-    decimal, err := strconv.ParseInt(hex, base, 64)
+    decimal, err := strconv.ParseInt(num, base, 64)
     if err != nil {
         return 0, err
     }

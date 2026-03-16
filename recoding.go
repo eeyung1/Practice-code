@@ -1,5 +1,9 @@
 // RECODING QUESTIONS
 
+//NOTE: I will strongly advice you study the strings and strconv package to get a solid understanding of the string and number manipulation.
+
+// Ensure you play around with each of the tools in the strings and strconv package like strings.ToLower, strings.ReplaceAll(), strings.ToUpper, strings.ContainsAny and so on...
+
 // 1. convertToDecimal
 
 /*

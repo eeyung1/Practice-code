@@ -1,6 +1,6 @@
 // RECODING QUESTIONS
 
-// 1. HexToDecimal
+// 1. convertToDecimal
 
 /*
 package main
@@ -10,8 +10,8 @@ import (
     "strconv"
 )
 
-func HexToDecimal(hex string) (int64, error) {
-    decimal, err := strconv.ParseInt(hex, 16, 64)
+func convToDecimal(num string, base int) (int64, error) {
+    decimal, err := strconv.ParseInt(hex, base, 64)
     if err != nil {
         return 0, err
     }
@@ -20,37 +20,15 @@ func HexToDecimal(hex string) (int64, error) {
 }
 
 func main(){
-    fmt.Println(HexToDecimal("1E"))
-    fmt.Println(HexToDecimal("FF"))
+    fmt.Println(convToDecimal("1E", 16))
+    fmt.Println(convToDecimal("1010", 2))
+	    fmt.Println(convToDecimal("77", 8))
 }
 
 */
 
-// 2. BinToDecimal
 
-/*
-package main
-
-import (
-    "fmt"
-    "strconv"
-
-)
-
-func binToDecimal(binStr string)  (int64, error) {
-    value, err := strconv.ParseInt(binStr, 2, 64)
-    if err != nil {
-        return 0, err
-    }
-
-    return value, nil
-}
-func main () {
-    fmt.Println(binToDecimal("10"))
-}
-*/
-
-// 3. Capitalize a word
+// 2. Capitalize a word
 
 /*
 
@@ -72,7 +50,7 @@ func main (){
 
 */
 
-// 4. Last two words to upper case
+// 3. Last two words to upper case
 
 /*
 package main
@@ -94,7 +72,7 @@ func main () {
 
 */
 
-// 5. joinWithPunctuation
+// 4. joinWithPunctuation
 
 /*
 
@@ -121,7 +99,7 @@ func main(){	// Removes the space after the opening single quote
 
 */
 
-// 6. IsPunctuation
+// 5. IsPunctuation
 
 /*
 package main
@@ -146,7 +124,7 @@ func main(){
 }
 */
 
-// 7. func aOrAn
+// 6. func aOrAn
 
 /*
 
@@ -184,7 +162,7 @@ func main() {
 */
 
 
-// 8. fixArticles
+// 7. fixArticles
 
 /*
 package main
@@ -208,7 +186,7 @@ func main(){
 
 */
 
-// 9. fixSingleQuotes
+// 8. fixSingleQuotes
 
 /*
 package main

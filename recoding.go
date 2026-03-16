@@ -47,7 +47,7 @@ func Capitalize(sentence string) string {
 }
 
 func main() {
-	fmt.Println(Capitalize("hello world to golang"))
+	fmt.Println(Capitalize("hello world from golang"))
 }
 
 */

@@ -1,12 +1,14 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type ChatRequest struct {
@@ -27,78 +29,98 @@ type ChatResponse struct {
 	} `json:"choices"`
 }
 
-func main() {
-	// step 1: validate arguments
-	if len(os.Args) != 2 {
-		fmt.Println("Usage: go run . \"your question here\"")
-		os.Exit(1)
+// chat function — handles all API call logic
+func chat(apiKey string, messages []Message) (string, error) {
+	reqBody := ChatRequest{
+		Model:    "llama-3.1-8b-instant",
+		Messages: messages,
 	}
 
-	question := os.Args[1]
+	jsonBody, err := json.Marshal(reqBody)
+	if err != nil {
+		return "", err
+	}
 
-	// step 2: get API key
+	req, err := http.NewRequest("POST", "https://api.groq.com/openai/v1/chat/completions", bytes.NewBuffer(jsonBody))
+	if err != nil {
+		return "", err
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+apiKey)
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	var chatResp ChatResponse
+	json.Unmarshal(body, &chatResp)
+
+	if len(chatResp.Choices) == 0 {
+		return "", fmt.Errorf("no response from API")
+	}
+
+	return chatResp.Choices[0].Message.Content, nil
+}
+
+func main() {
 	apiKey := os.Getenv("GROQ_API_KEY")
-
 	if apiKey == "" {
 		fmt.Println("Error: GROQ_API_KEY not set")
 		os.Exit(1)
 	}
 
-	// step 3: build request body
-	reqBody := ChatRequest{
-		Model: "llama-3.1-8b-instant",
-		Messages: []Message{
-			{Role: "user", Content: question},
-		},
+	// conversation history
+	history := []Message{}
+
+	// system message — tells AI how to behave
+	history = append(history, Message{
+		Role:    "system",
+		Content: "You are a helpful coding mentor for a Go developer. Keep responses concise and practical.",
+	})
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Buffer(make([]byte, 1024*1024), 1024*1024) // 1MB buffer
+
+	fmt.Println("AI Coding Mentor (type 'quit' to exit)")
+	fmt.Println("----------------------------------------")
+
+	for {
+		fmt.Print("You: ")
+		scanner.Scan()
+		input := strings.TrimSpace(scanner.Text())
+
+		if input == "quit" {
+			fmt.Println("Goodbye!")
+			break
+		}
+
+		if input == "" {
+			continue
+		}
+
+		// add user message to history
+		history = append(history, Message{Role: "user", Content: input})
+
+		// call API with full history
+		response, err := chat(apiKey, history)
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
+		}
+
+		// add AI response to history
+		history = append(history, Message{Role: "assistant", Content: response})
+
+		fmt.Println("AI:", response)
+		fmt.Println()
 	}
-
-	jsonBody, err := json.Marshal(reqBody)
-	if err != nil {
-		fmt.Println("Error building request:", err)
-		os.Exit(1)
-	}
-
-	// step 4: make POST request
-	req, err := http.NewRequest("POST", "https://api.groq.com/openai/v1/chat/completions", bytes.NewBuffer(jsonBody))
-
-	if err != nil {
-		fmt.Println("Error creating request:", err)
-		os.Exit(1)
-	}
-
-	// step 5: set headers
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+apiKey)
-
-	// step 6: send request
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Println("Error sending request:", err)
-		os.Exit(1)
-	}
-	defer resp.Body.Close()
-
-	// step 7: read response
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Error reading response:", err)
-		os.Exit(1)
-	}
-
-	// step 8: parse response
-	var chatResp ChatResponse
-	json.Unmarshal(body, &chatResp)
-
-
-
-	
-
-	// step 9: print answer
-	if len(chatResp.Choices) == 0 {
-		fmt.Println("No response from API")
-		os.Exit(1)
-	}
-
-	fmt.Println(chatResp.Choices[0].Message.Content)
 }

@@ -288,3 +288,27 @@ func main() {
 
 
 */
+
+/*
+
+
+package main
+
+import (
+	"fmt"
+)
+
+func is_punct(r string) bool {
+	return r == "(hex)" || r == "(dec)" || r == "(cap)" || r == "(up)"
+}
+
+func main() {
+	fmt.Println(is_punct("(hex)"))
+	fmt.Println(is_punct("(dec)"))
+	fmt.Println(is_punct("(cap)"))
+	fmt.Println(is_punct("(mello)"))
+
+}
+
+*/
+

@@ -256,4 +256,35 @@ func main() {
 
 }
 
+ANOTHER APPROACH TO THE SAME QUESTION
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func charIdentifier(word string) string {
+	if strings.ContainsAny(word, ".,;!'`") {
+		return "puntuation"
+	} else if strings.ContainsAny(word, "1234567890") {
+		return "digit"
+	} else if strings.ContainsAny(word, "abcdefghijklmnopqrstuvwxyz") {
+		return "letter"
+	} else {
+		return "Invalid"
+	}
+
+	return ""
+}
+
+func main() {
+	fmt.Println(charIdentifier("!"))
+	fmt.Println(charIdentifier("9"))
+	fmt.Println(charIdentifier("G"))
+
+}
+
+
 */

@@ -223,3 +223,35 @@ func main() {
 }
 
 */
+
+
+/*
+ADDITIONAL QUESTION
+
+package main
+
+import (
+	"fmt"
+)
+
+func charIdentifier(word string) string {
+	r := rune(word[0])
+
+	switch {
+	case unicode.IsPunct(r) || word == "!" || word == "?" || word == "." || word == ",":
+		return "punctuation"
+	case unicode.IsDigit(r):
+		return "digit"
+	case unicode.IsLetter(r):
+		return "letter"
+	default:
+		return "unknown"
+	}
+}
+
+func main() {
+	fmt.Println(charIdentifier("!"))
+	fmt.Println(charIdentifier("9"))
+	fmt.Println(charIdentifier("G"))
+
+}

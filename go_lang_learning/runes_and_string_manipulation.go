@@ -7,7 +7,6 @@
 //     fmt.Println(len(name))
 // }
 
-
 // package main
 
 // import "fmt"
@@ -16,7 +15,6 @@
 //     name := "Héllo"
 //     fmt.Println(len(name))
 // }
-
 
 // What is a Rune?
 // A rune is Go's way of representing a single character — properly, regardless of how many bytes it takes up.
@@ -30,7 +28,6 @@
 //     fmt.Println(len(name))                    // bytes
 //     fmt.Println(len([]rune(name)))            // actual characters
 // }
-
 
 // package main
 
@@ -53,7 +50,6 @@
 //         fmt.Println(i, string(ch))
 //     }
 // }
-
 
 // package main
 
@@ -84,12 +80,10 @@
 // 			return false
 // }
 
-
 // func main() {
 // 	fmt.Println(CheckNumber("Hello"))
 // 	fmt.Println(CheckNumber("Hello1"))
 // }
-
 
 // package main
 
@@ -107,13 +101,10 @@
 // 			return false
 // }
 
-
 // func main() {
 // 	fmt.Println(CheckNumber("Hello"))
 // 	fmt.Println(CheckNumber("Hello1"))
 // }
-
-
 
 // package main
 
@@ -135,7 +126,6 @@
 // 	fmt.Println(CountAlpha("H e l l o"))
 // 	fmt.Println(CountAlpha("H1e2l3l4o"))
 // }
-
 
 // package main
 
@@ -220,14 +210,12 @@
 // 	return "Invalid Input\n"
 // }
 
-
 // func main() {
 // 	fmt.Print(PrintIfNot("abcdefz"))
 // 	fmt.Print(PrintIfNot("abc"))
 // 	fmt.Print(PrintIfNot(""))
 // 	fmt.Print(PrintIfNot("14"))
 // }
-
 
 // package main
 
@@ -239,7 +227,6 @@
 // 	}
 // 	return 2*(w+h)
 // }
-
 
 // func main() {
 // 	fmt.Println(RectPerimeter(10, 2))
@@ -319,7 +306,7 @@
 // 	fmt.Println(RetainFirstHalf("Hello World"))
 // }
 
-// exercise 2. 
+// exercise 2.
 
 // Write a function IsPalindrome(str string) bool that returns true if a string reads the same forwards and backwards.
 
@@ -381,7 +368,6 @@
 // 	return result
 
 // }
-
 
 // func main() {
 // 	fmt.Println(CamelToSnakeCase("HelloWorld"))
@@ -454,7 +440,6 @@
 //     fmt.Print(FirstWord("hello   .........  bye"))
 // }
 
-
 // package main
 
 // import (
@@ -521,10 +506,10 @@
 // func reverseString(arg string) string {
 // 	result := ""
 // 	for _, r := range arg {
-// 		result = string(r) + result 
+// 		result = string(r) + result
 // 	}
 
-// 	return result 
+// 	return result
 // }
 
 // func main(){
@@ -544,7 +529,7 @@
 // 	for _, r := range dec {
 // 		ascii := int(r)
 // 		hashed := (ascii + length) % 127
-		
+
 // 		if hashed < 32 {
 // 			hashed += 33
 // 		}
@@ -606,7 +591,7 @@
 // func main(){
 // 	if len(os.Args) != 4 {
 // 		fmt.Println("Error reading CLI")
-// 		return 
+// 		return
 // 	}
 
 // 	text := os.Args[1]
@@ -629,7 +614,6 @@
 
 // 	// fmt.Print(result + "\n")
 // }
-
 
 // //TEXTFORMATTER
 
@@ -677,7 +661,6 @@
 // 			runes[0] = unicode.ToUpper(runes[0])
 // 			word[i-1] = string(runes)
 
-
 // 			word = append(word[:i], word[i+1:]...)
 // 			i--
 // 		}
@@ -701,7 +684,7 @@
 
 // func main() {
 //     // 2. Use make() inside a function
-//     mySlice := make([]int, 6) 
+//     mySlice := make([]int, 6)
 // 	mySlice[0] = 5
 //     fmt.Println(mySlice)
 // }
@@ -722,8 +705,6 @@
 // 		return
 // 	}
 
-	
-
 // 	text := os.Args[1]
 
 // 	if len(text) == 0 {
@@ -735,12 +716,8 @@
 
 // 	result := strings.Join(word, " ")
 
-
-
 // 	fmt.Println(result)
 // }
-
-
 
 //expandstr
 
@@ -757,8 +734,6 @@
 // 		return
 // 	}
 
-	
-
 // 	text := os.Args[1]
 
 // 	if len(text) == 0 {
@@ -768,8 +743,6 @@
 // 	word := strings.Fields(text)
 
 // 	result := strings.Join(word, "   ")
-
-
 
 // 	fmt.Println(result)
 // }
@@ -817,8 +790,6 @@
 // 	return true
 // }
 
-
-
 // //ANOTHER WAY TO FIND PRIME
 
 // 	for i := 3; i * i <= n; i+=2 {
@@ -829,8 +800,6 @@
 
 // 	return true
 // }
-
-
 
 // func main() {
 // 	fmt.Println(FindPrevPrime(5))
@@ -960,7 +929,7 @@ func main() {
     fmt.Println(Itoa(-1234))
     fmt.Println(Itoa(987654321))
 }
-	*/
+*/
 /*
 package main
 
@@ -972,9 +941,9 @@ func PrintMemory(arr [10]byte) {
 		if i % 4 != 0 {
     	fmt.Printf(" ")
 		}
-		
+
         fmt.Printf("%02x", b)
-        
+
         // if end of group of 4, print newline
         if i % 4 == 3 {
             fmt.Println()
@@ -984,7 +953,7 @@ func PrintMemory(arr [10]byte) {
 
 	fmt.Println()
 
-    
+
     // Second loop - print printable chars or dot
     for _, b := range arr {
         if b >= 32 && b <= 126 {
@@ -999,7 +968,7 @@ func PrintMemory(arr [10]byte) {
 func main() {
 	PrintMemory([10]byte{'h', 'e', 'l', 'l', 'o', 16, 21, '*'})
 }
-	*/
+*/
 
 // THIRDTIMEISACHARM
 
@@ -1033,4 +1002,87 @@ func main() {
 	fmt.Print(ThirdTimeIsACharm("a b c d e f"))
 	fmt.Print(ThirdTimeIsACharm("12"))
 }
-	*/
+*/
+
+//WEAREUNIQUE
+
+/*
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func WeAreUnique(str1 , str2 string) int {
+	if len(str1) == 0 && len(str2) == 0 {
+		return -1
+	}
+
+	count := 0
+
+	seen := map[rune]bool{}
+
+	for _, r := range str1 {
+		if !strings.ContainsRune(str2, r) && !seen[r] {
+			seen[r] = true
+			count++
+		}
+	}
+
+	for _, r := range str2 {
+    if !strings.ContainsRune(str1, r) && !seen[r] {
+        seen[r] = true
+        count++
+    }
+	}
+
+	return count
+
+}
+
+func main() {
+	fmt.Println(WeAreUnique("foo", "boo"))
+	fmt.Println(WeAreUnique("", ""))
+	fmt.Println(WeAreUnique("abc", "def"))
+}
+
+*/
+
+
+package main
+
+import (
+	"fmt"
+)
+
+func ZipString(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+
+	result := ""
+
+	current := rune(s[0])
+	count := 1
+
+	for _, r := range s[1:] {
+		if current == r {
+			count++
+		} else if current != r {
+			result += fmt.Sprintf("%d%c", count, current)
+			count = 1
+			current = r
+		}
+	}
+
+	result += fmt.Sprintf("%d%c", count, current)
+	return result
+}
+
+func main() {
+	fmt.Println(ZipString("YouuungFellllas"))
+	fmt.Println(ZipString("Thee quuick browwn fox juumps over the laaazy dog"))
+	fmt.Println(ZipString("Helloo Therre!"))
+}

@@ -1150,3 +1150,56 @@ func isPrime(n int) bool {
 }
 
 */
+
+/*
+
+package main
+
+import (
+	"fmt"
+)
+
+func CanJump(arr []uint) bool {
+	if len(arr) == 0 {
+		return false
+	}
+
+	if len(arr) == 1 {
+		return true
+	}
+
+	position := 0
+	lastIndex := len(arr) - 1
+
+	for {
+    steps := arr[position]
+    position += int(steps)
+    
+	if position == lastIndex {
+		return true
+	} else if position > lastIndex {
+		return false
+	} else if steps == 0 {
+		return false
+	}
+
+	}
+
+	return false
+
+}
+
+func main() {
+	input1 := []uint{2, 3, 1, 1, 4}
+	fmt.Println(CanJump(input1))
+
+	input2 := []uint{3, 2, 1, 0, 4}
+	fmt.Println(CanJump(input2))
+
+	input3 := []uint{0}
+	fmt.Println(CanJump(input3))
+}
+
+*/
+
+package main

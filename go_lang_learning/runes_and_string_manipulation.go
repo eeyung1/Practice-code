@@ -1050,6 +1050,8 @@ func main() {
 
 */
 
+/*
+
 
 package main
 
@@ -1086,3 +1088,65 @@ func main() {
 	fmt.Println(ZipString("Thee quuick browwn fox juumps over the laaazy dog"))
 	fmt.Println(ZipString("Helloo Therre!"))
 }
+
+*/
+
+/*
+
+package main
+
+import (
+	"fmt"
+	"os"
+	"strconv"
+)
+
+func main(){
+	if len(os.Args) != 2 {
+		fmt.Println(0)
+		return
+	}
+
+	num := os.Args[1]
+
+	n, err := strconv.Atoi(num)
+	if err != nil {
+		fmt.Println(0)
+		return
+	}
+
+	sum := 0
+
+	for i := 2; i <= n; i++ {
+		if isPrime(i) {
+			sum += i
+		}
+	}
+
+	fmt.Println(sum)
+}
+
+
+func isPrime(n int) bool {
+	if n <= 1 {
+		return false
+	}
+
+	if n == 2 {
+		return true
+	}
+
+	if n % 2 == 0 {
+		return false
+	}
+
+	for i := 3; i * i <= n; i+=2 {
+		if n % i == 0 {
+			return false
+		}
+	}
+
+	return true
+}
+
+*/

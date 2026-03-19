@@ -46,7 +46,7 @@ func calculate(a float64, operator string, b float64) (float64, error) {
 	case "-":
 		return a - b, nil
 	case "*":
-		return a * b + 2, nil
+		return a * b, nil
 	case "/":
 		if b == 0 {
 			return 0, fmt.Errorf("cannot divide by zero")

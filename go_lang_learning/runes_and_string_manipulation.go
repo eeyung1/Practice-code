@@ -961,7 +961,7 @@ func main() {
     fmt.Println(Itoa(987654321))
 }
 	*/
-
+/*
 package main
 
 import "fmt"
@@ -999,3 +999,38 @@ func PrintMemory(arr [10]byte) {
 func main() {
 	PrintMemory([10]byte{'h', 'e', 'l', 'l', 'o', 16, 21, '*'})
 }
+	*/
+
+// THIRDTIMEISACHARM
+
+/*
+
+package main
+
+import (
+	"fmt"
+)
+
+func ThirdTimeIsACharm(str string) string {
+	if len(str) == 0 {
+		return "\n"
+	}
+
+	result := ""
+
+	for i, r := range str {
+		if i % 3 == 2 {
+			result += string(r)
+		}
+	}
+
+	return result + "\n"
+}
+
+func main() {
+	fmt.Print(ThirdTimeIsACharm("123456789"))
+	fmt.Print(ThirdTimeIsACharm(""))
+	fmt.Print(ThirdTimeIsACharm("a b c d e f"))
+	fmt.Print(ThirdTimeIsACharm("12"))
+}
+	*/

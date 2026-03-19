@@ -6,7 +6,7 @@ import (
 
 func Multiply(n int) string {
 	result := ""
-	for i := 1; i <= 70; i++ {
+	for i := 3; i <= 24; i++ {
 		result += fmt.Sprintf("%d x %d = %d\n", n, i, (i*n))
 	}
 
@@ -14,5 +14,5 @@ func Multiply(n int) string {
 }
 
 func main(){
-	fmt.Println(Multiply(12))
+	fmt.Println(Multiply(35))
 }

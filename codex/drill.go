@@ -39,7 +39,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 func BinToDecimal(bin string) (string, error) {

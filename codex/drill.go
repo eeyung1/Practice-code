@@ -42,8 +42,8 @@ import (
 	"strconv"
 )
 
-func hexToDecimal(dec string) (string, error) {
-	data, err := strconv.ParseInt(dec, 16, 64)
+func BinToDecimal(bin string) (string, error) {
+	data, err := strconv.ParseInt(bin, 2, 64)
 	if err != nil {
 		return "", err
 	}
@@ -53,6 +53,6 @@ func hexToDecimal(dec string) (string, error) {
 }
 
 func main() {
-	fmt.Println(hexToDecimal("1E"))
-	fmt.Println(hexToDecimal("FF"))
+	fmt.Println(BinToDecimal("11"))
+	fmt.Println(BinToDecimal("1001"))
 }

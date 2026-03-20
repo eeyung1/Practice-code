@@ -1,15 +1,15 @@
-// package main
+package main
 
-// import (
-// 	"fmt"
-// 	"regexp"
-// )
+import (
+	"fmt"
+	"regexp"
+)
 
-// func main() {
-// 	re := regexp.MustCompile(`hello`)
-// 	fmt.Println(re.MatchString("hello world"))
-// 	fmt.Println(re.MatchString("goodbye world"))
-// }
+func main() {
+	re := regexp.MustCompile(`hello`)
+	fmt.Println(re.MatchString("hello world"))
+	fmt.Println(re.MatchString("goodbye world"))
+}
 
 // package main
 
@@ -24,19 +24,19 @@
 //     fmt.Println(result)
 // }
 
-package main
+// package main
 
-import (
-	"fmt"
-	"regexp"
-)
+// import (
+// 	"fmt"
+// 	"regexp"
+// )
 
-func main() {
-	re := regexp.MustCompile(`([0-9a-fA-F]+)\s+\(hex\)`)
-	result := re.ReplaceAllStringFunc("1E (hex) files and FF (hex) added", func(match string) string {
-		fmt.Println("match:", match)
-		return "REPLACED"
-	})
+// func main() {
+// 	re := regexp.MustCompile(`([0-9a-fA-F]+)\s+\(hex\)`)
+// 	result := re.ReplaceAllStringFunc("1E (hex) files and FF (hex) added", func(match string) string {
+// 		fmt.Println("match:", match)
+// 		return "REPLACED"
+// 	})
 
-	fmt.Println(result)
-}
+// 	fmt.Println(result)
+// }

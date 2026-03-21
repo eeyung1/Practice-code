@@ -95,11 +95,28 @@ func applyCap(text string) string {
 	return result
 }
 
+func fixPunctuation(text string) string {
+	punct := ".,?!"
+	worded := strings.Split(text, " =")
+
+	for i := 0; i < len(worded); i++ {
+		if worded[i] == punct {
+
+			worded[i-1] = " " + worded[i-1] + " "
+
+			worded = append(worded[:i], worded[i+1:]...)
+		}
+	}
+
+	return strings.Join(worded, " ")
+}
+
 func editor(text string) string {
 	text = applyHex(text)
 	text = applyBin(text)
 	text = applyUp(text)
 	text = applyLow(text)
 	text = applyCap(text)
+	text = fixPunctuation(text)
 	return text
 }

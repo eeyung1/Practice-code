@@ -31,8 +31,10 @@ func main(){
 
 */
 
-// 2. Capitalize a word
 /*
+
+// 2. Capitalize first letter of each word
+
 package main
 
 import (
@@ -56,9 +58,11 @@ func main() {
 
 */
 
+
 // 3. Last two words to upper case
 
 /*
+
 package main
 
 import (
@@ -66,7 +70,7 @@ import (
     "strings"
 )
 func LastTwoToUpper(s []string, n int) []string {
-    for i := n; i < len(s); i++ {
+    for i := len(s) - n; i < len(s); i++ {
         s[i] = strings.ToUpper(s[i])
     }
     return s
@@ -77,6 +81,7 @@ func main () {
 }
 
 */
+
 
 // 4. joinWithPunctuation
 
@@ -308,6 +313,212 @@ func main() {
 	fmt.Println(is_punct("(cap)"))
 	fmt.Println(is_punct("(mello)"))
 
+}
+
+*/
+
+/*
+
+PRINT FIRST CHARACTER
+
+package main
+
+import (
+	"fmt"
+)
+
+func firstChar(s string) string {
+	return string(s[0])
+}
+
+func main(){
+	fmt.Println(firstChar("Hello"))
+}
+
+*/
+
+/*
+
+// PRINT LAST CHARACTER
+
+package main
+
+import (
+	"fmt"
+)
+
+func lastChar(s string) string {
+	return string(s[len(s)-1])
+}
+
+func main(){
+	fmt.Println(lastChar("Hello"))
+}
+
+*/
+
+/*
+//Capitalize last letter of each word
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func Capitalize(sentence string) string {
+	word := strings.Fields(sentence)
+
+	for i := 0; i < len(word); i++ {
+		v := len(word[i]) - 1
+		word[i] = strings.ToLower(word[i][:v]) + strings.ToUpper(word[i][v:])
+	}
+
+	return strings.Join(word, " ")
+}
+
+func main() {
+	fmt.Println(Capitalize("hello world from golang"))
+}
+
+*/
+
+/*
+//JOINWITHPUNCTUATION
+
+package main
+
+import (
+	"fmt"
+)
+
+func main(){	
+	fmt.Println(joinWithPunctuation([]string{"hello", ",", "world", "!", "james", "!"}))
+}
+
+func joinWithPunctuation(tokens []string) string {
+	result := ""
+	for i := 0; i < len(tokens); i++ {
+		if tokens[i] == "," || tokens[i] == "!" {
+			result += tokens[i-1] + tokens[i] + " "			
+		}
+	}
+
+	return result
+}
+
+*/
+
+/*
+//PRING REVERSEWORD
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main(){
+	fmt.Println(revWord("hello"))
+}
+
+func revWord(s string) string {
+	result := ""
+	
+	word := strings.Split(s, "")
+
+	for i := len(word)-1; i >= 0; i-- {
+		result += string(word[i])
+	}
+
+	return result
+}
+
+*/
+
+
+/*
+//country ==> CoUnTrY
+
+package main 
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main(){
+	fmt.Println(upDown("coUntRy"))
+}
+
+func upDown(s string) string {
+	word := strings.Split(s, "")
+
+	for i := 0; i < len(word); i++ {
+		if i % 2 == 0 {
+			word[i] = strings.ToUpper(word[i])
+		} else {
+			word[i] = strings.ToLower(word[i])
+		}
+	}
+
+	return strings.Join(word, "")
+}
+
+*/
+
+/*
+
+//FIX ARTICLES
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func fixArticles(text string) string {
+	word := strings.Fields(text)
+
+	for i := 0; i < len(word); i++ {
+		if (word[i] == "a" || word[i] == "A") && strings.ContainsRune("aeiouhAEIOU", rune(word[i+1][0])) {
+			word[i] = "An"
+		}
+	}
+
+	return strings.Join(word, " ")
+}
+
+func main(){
+	fmt.Println(fixArticles("There it was. A amazing rock. A honest man. A book"))
+}
+
+*/
+
+//["this", "is", "our", "country"], 2 ===> [this is country]
+
+/*
+package main
+
+import (
+	"fmt"
+)
+
+func main(){
+	fmt.Println(remElem([]string{"this", "is", "our", "country"}, 2))
+}
+
+func remElem(word []string, n int) []string {
+	for i := 0; i < len(word); i++ {
+		if i == n {
+			word[i] = ""
+		}
+	}
+
+	return word
 }
 
 */

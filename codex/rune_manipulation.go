@@ -2,21 +2,78 @@ package main
 
 import (
 	"fmt"
+	"unicode"
 )
 
-func main(){
-	s := "country"
-
+func toUpper(s string) string {
+	
 	b := []rune(s)
-
-
-	fmt.Println(b)
 
 	for i := 0; i < len(b); i+= 2 {
 		b[i] = (b[i] - 32)
 	}
 
-	fmt.Println(string(b))
+	return string(b)
+}
+
+func changeStr(b string) string {
+	word := ""
+	for i, r := range b {
+		if i % 2 == 0 && unicode.IsLetter(r) {
+			r -= 32
+		}
+
+		word += string(r)
+	}
+
+	return word
+}
+
+func firstChar(b string) string {
+	word := ""
+	for i, r := range b {
+		if i == 0 && unicode.IsLetter(r) {
+			r -= 32
+		}
+
+		word += string(r)
+	}
+
+	return word
+}
+
+func lastChar(b string) string {
+	word := ""
+	for i, r := range b {
+		if i == len(b) - 1 && unicode.IsLetter(r) {
+			r -= 32
+		}
+
+		word += string(r)
+	}
+
+	return word
+}
+
+func thirdTimeIsCharm(b string) string {
+	word := ""
+	for i, r := range b {
+
+		return b[1:2] + "go"
+		if i % 2 == 0 {
+			word += string(r)
+		}
+	}
+
+	return word
+}
+
+func main(){
+	fmt.Println(toUpper("country"))
+	fmt.Println(changeStr("country"))
+	fmt.Println(firstChar("hello"))
+	fmt.Println(lastChar("awesome"))
+	fmt.Println(thirdTimeIsCharm("123456789"))
 }
 
 /*

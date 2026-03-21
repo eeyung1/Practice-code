@@ -1202,6 +1202,7 @@ func main() {
 
 */
 
+/*
 package main
 
 import (
@@ -1210,7 +1211,7 @@ import (
 
 func Chunk(slice []int, size int) {
 	if size == 0 {
-		fmt.Println("\n")
+		fmt.Print("\n")
 		return 
 	}
 
@@ -1236,4 +1237,129 @@ func main() {
 	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 3)
 	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 5)
 	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 4)
+}
+
+*/
+
+/*
+package main
+
+import (
+	"fmt"
+)
+
+func ConcatAlternate(slice1, slice2 []int) []int {
+
+	result := []int{}
+	maxLen := len(slice1)
+	if len(slice2) > maxLen {
+    	maxLen = len(slice2)
+	}
+
+	larger, smaller := slice1, slice2
+	if len(slice2) > len(slice1) {
+    larger, smaller = slice2, slice1
+	}
+
+	for i := 0; i < maxLen; i++ {
+		if i < len(larger) {
+			result = append(result, larger[i])
+		}
+
+		if i < len(smaller) {
+			result = append(result, smaller[i])
+		}
+	}
+
+	return result
+}
+
+func main() {
+	fmt.Println(ConcatAlternate([]int{1, 2, 3}, []int{4, 5, 6}))
+	fmt.Println(ConcatAlternate([]int{2, 4, 6, 8, 10}, []int{1, 3, 5, 7, 9, 11}))
+	fmt.Println(ConcatAlternate([]int{1, 2, 3}, []int{4, 5, 6, 7, 8, 9}))
+	fmt.Println(ConcatAlternate([]int{1, 2, 3}, []int{}))
+}
+
+*/
+
+/*
+package main
+
+import (
+	"fmt"
+)
+
+func ConcatSlice(slice1, slice2 []int) []int {
+	return append(slice1, slice2...)
+}
+
+func main() {
+	fmt.Println(ConcatSlice([]int{1, 2, 3}, []int{4, 5, 6}))
+	fmt.Println(ConcatSlice([]int{}, []int{4, 5, 6, 7, 8, 9}))
+	fmt.Println(ConcatSlice([]int{1, 2, 3}, []int{}))
+}
+
+*/
+
+/*
+
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+	"strconv"
+)
+
+func main(){
+	if len(os.Args) != 2 {
+		return
+	}
+
+	num, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		return
+	}
+
+	factors := []string{}
+
+	d := 2
+
+	for d * d <= num {
+		for num % d == 0 {
+			factors = append(factors, strconv.Itoa(d))
+			num /= d
+		}
+
+		d++
+	}
+
+	if num > 1 {
+		factors = append(factors, strconv.Itoa(num))
+		
+	}
+
+	
+
+	result := strings.Join(factors, "*")
+	fmt.Println(result)
+}
+
+*/
+
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main(){
+	if len(os.Args) != 3 {
+		return
+	}
+
+	
 }

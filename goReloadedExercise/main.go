@@ -32,7 +32,7 @@ func main(){
 			fmt.Scanln(&index)
 
 			if index < 1 || index > length {
-				fmt.Println("Index out of range; Input a valid index")
+				fmt.Printf("The word range from 0 to %d \n", length-1)
 				continue
 			}
 

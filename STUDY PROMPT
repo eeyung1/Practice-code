@@ -19,7 +19,34 @@ In a standard system, you just overwrite the old file. But in a high-security sy
     In a system where Trust is everything (like a Bank or a Court), why might it be better to never allow edits, and instead only allow "New Versions" to be added to a history?
 
 
+Considering i have been guided on this, I need a list of exercises step by step i can work on to test my understanding of the various concepts explained to me here. 
 
+Make it technical. I am training to become the best 
+
+Now Explain Each of everyone of the things I need to learn first as a coding mentor that is highly knowledgeable in it.
+
+This 
+
+What You Need to Learn First
+1. Go Basics
+* Variables, functions, loops, conditionals
+* Slices and arrays
+* String manipulation (`strings` package)
+* `os.Args` — reading command-line arguments
+* `fmt.Println` / `fmt.Printf` — printing output
+2. Go File System (fs) API
+* `os.ReadFile()` — reading a file into memory
+* Understanding file paths
+* Error handling when files don't exist
+3. Data Manipulation
+* Splitting strings (`strings.Split`)
+* Indexing into slices
+* Understanding ASCII character codes (`rune`, `int`)
+* How to map a character → its visual lines in the banner file
+4. Go Project Structure
+* `go mod init` — initializing a module
+* How `go run .` works
+* Writing test files (`_test.go`)
 
 
 

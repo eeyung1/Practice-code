@@ -82,6 +82,7 @@ func main(){
 //Keeps doubling a number starting from 1, stopping
   // when it exceeds 1000, prints each value
 
+/*
 
 package main
 
@@ -94,3 +95,6 @@ func main() {
 		fmt.Println(i)
 	}
 }
+
+*/
+

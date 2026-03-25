@@ -9,6 +9,8 @@ func main(){
 	var word string
 	var operation string
 
+	fmt.Println("------WELCOME TO STRING MANIPULATION TOOL------")
+
 	fmt.Println("Input a word:")
 	fmt.Scanln(&word)
 

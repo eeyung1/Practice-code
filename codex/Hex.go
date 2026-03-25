@@ -54,7 +54,7 @@ func applBin(text string) string {
 
 
 
-func main(){
-	fmt.Println(applyHex("1E (hex) files were added"))
-	fmt.Println(applBin("It has been 10 (bin) years"))
-}
+// func main(){
+// 	fmt.Println(applyHex("1E (hex) files were added"))
+// 	fmt.Println(applBin("It has been 10 (bin) years"))
+// }

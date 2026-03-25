@@ -1,15 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"regexp"
+	// "fmt"
+	// "regexp"
 )
 
-func main() {
-	re := regexp.MustCompile(`hello`)
-	fmt.Println(re.MatchString("hello world"))
-	fmt.Println(re.MatchString("goodbye world"))
-}
+// func main() {
+// 	re := regexp.MustCompile(`hello`)
+// 	fmt.Println(re.MatchString("hello world"))
+// 	fmt.Println(re.MatchString("goodbye world"))
+// }
 
 // package main
 

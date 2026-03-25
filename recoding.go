@@ -500,9 +500,9 @@ func main(){
 
 //["this", "is", "our", "country"], 2 ===> [this is country]
 
-/*
-package main
 
+package main
+/*
 import (
 	"fmt"
 )
@@ -522,4 +522,3 @@ func remElem(word []string, n int) []string {
 }
 
 */
-

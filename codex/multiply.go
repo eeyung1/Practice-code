@@ -13,6 +13,6 @@ func Multiply(n int) string {
 	return result
 }
 
-func main(){
-	fmt.Println(Multiply(35))
-}
+// func main(){
+// 	fmt.Println(Multiply(35))
+// }

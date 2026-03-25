@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"unicode"
 )
 
@@ -55,26 +55,26 @@ func lastChar(b string) string {
 	return word
 }
 
-func thirdTimeIsCharm(b string) string {
-	word := ""
-	for i, r := range b {
+// func thirdTimeIsCharm(b string) string {
+// 	word := ""
+// 	// for i, r := range b {
 
-		return b[1:2] + "go"
-		if i % 2 == 0 {
-			word += string(r)
-		}
-	}
+// 	// 	return b[1:2] + "go"
+// 	// 	if i % 2 == 0 {
+// 	// 		word += string(r)
+// 	// 	}
+// 	// }
 
-	return word
-}
+// 	return word
+// }
 
-func main(){
-	fmt.Println(toUpper("country"))
-	fmt.Println(changeStr("country"))
-	fmt.Println(firstChar("hello"))
-	fmt.Println(lastChar("awesome"))
-	fmt.Println(thirdTimeIsCharm("123456789"))
-}
+// func main(){
+// 	fmt.Println(toUpper("country"))
+// 	fmt.Println(changeStr("country"))
+// 	fmt.Println(firstChar("hello"))
+// 	fmt.Println(lastChar("awesome"))
+// 	fmt.Println(thirdTimeIsCharm("123456789"))
+// }
 
 /*
 

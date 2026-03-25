@@ -39,6 +39,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func BinToDecimal(bin string) (string, error) {
@@ -51,7 +52,7 @@ func BinToDecimal(bin string) (string, error) {
 	return result, nil
 }
 
-func main() {
-	fmt.Println(BinToDecimal("11"))
-	fmt.Println(BinToDecimal("1001"))
-}
+// func main() {
+// 	fmt.Println(BinToDecimal("11"))
+// 	fmt.Println(BinToDecimal("1001"))
+// }

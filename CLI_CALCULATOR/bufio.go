@@ -106,3 +106,38 @@
 // }
 
 
+// package main
+
+// import (
+//     "fmt"
+//     "os"
+//     "bufio"
+// )
+
+// func main(){
+//     reader := bufio.NewReader(os.Stdin)
+
+//     fmt.Println("Testing bufio packages")
+
+
+
+//     input, _ := reader.ReadBytes('\n')
+
+//     fmt.Println(input)
+// }
+
+package main
+
+import (
+    "fmt"
+    "bufio"
+    "os"
+)
+
+func main(){
+    reader := bufio.NewReader(os.Stdin)
+
+    line, isPrefix, err := reader.ReadLine()
+    fmt.Println(line)
+    fmt.Println(isPrefix)
+}

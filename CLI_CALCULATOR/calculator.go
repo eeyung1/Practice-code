@@ -1,65 +1,77 @@
 package main
 
 import (
-	"fmt"
-	
+    "fmt"
+    "os"
+    "bufio"
+    "strings"
+    "strconv"
 )
 
-func calculate() {
-	fmt.Println("welcome to lanta digital calculator, what calculation can we help you with: ")
-		var option string
-		fmt.Println("addition")
-		fmt.Println("subtraction")
-		fmt.Println("division")
-		fmt.Println("multiplication")
-		fmt.Println("modulus")
-		fmt.Println("help menu")
-	for {
-		
-		fmt.Println("input an option: ")
-		fmt.Scan(&option)
-		if option != "addition"&& option != "subtraction"&& option != "division" && option != "multiplication" && option != "modulus" {
-			fmt.Println("invalid operation do you need help go to help menu")
-			continue
-		}
+func main(){
+    reader := bufio.NewReader(os.Stdin)
 
-		var digit1 int
-		fmt.Println("enter digit1")
-		fmt.Scan(&digit1)
-		var digit2 int
-		fmt.Println("enter digit2")
-		fmt.Scan(&digit2)
+    start:
 
-		if option == "addition" {
-			result := digit1 + digit2
-			fmt.Printf("%v + %v  =  %v \n", digit1, digit2, result)
-		}
-		if option == "subtraction" {
-			result := digit1 - digit2
-			fmt.Printf("%v - %v = %v \n", digit1, digit2, result)
-		}
-		if option == "division" {
-			result := digit1 / digit2
-			if digit2 == 0 {
-				fmt.Println("cannot divide number by 0")
-				continue
-			}
-			fmt.Printf("%v / %v = %v \n", digit1, digit2, result)
-			break
-		}
-		if option == "multiplication" {
-			result := digit1 * digit2
-			fmt.Printf("%v * %v = %v \n", digit1, digit2, result)
-		}
-		if option == "modulus" {
-			result := digit1 % digit2
-			fmt.Printf("%v modulus %v = %v \n", digit1, digit2, result)
-		}
-		if option == "help menu" {
-			fmt.Println("welcome to lanta calculator this is a digital calculator tht can help you withe the following opration (adition, multiplication, subtraction, division,modulus), of any number all you have to do is to enter any operation of your chioce from the option given input the first and second digit which you want to calculate and it will calculated with the answer for you. thank for using lanta digital calculator!!")
-		}
-	}
+    fmt.Print("> ")
+
+    input, _ := reader.ReadString('\n')
+
+    parts := strings.Fields(input)
+
+    cmd := parts[0]
+
+    if cmd == "help" {
+        fmt.Println("Guidelines")
+        fmt.Println("For Addition (e.g. add 4 5)")
+        fmt.Println("For Subtraction (e.g. sub 9 5)")
+        fmt.Println("For Multiplication (e.g. mul 9 5)")
+        fmt.Println("For Division (e.g. div 9 5)")
+        goto start        
+    }
+
+    if len(parts) != 3 {
+        fmt.Println("Invalid input. Type 'help'")
+        goto start
+    }
+
+    
+
+    a, err1 := strconv.ParseFloat(parts[1], 64)
+    b, err2 := strconv.ParseFloat(parts[2], 64)
+
+
+    if err1 != nil || err2 != nil {
+    fmt.Println("Invalid numbers. Type 'help'")
+    goto start
 }
-func main() {
-	calculate()
+
+        
+
+    switch cmd {
+    case "add": 
+    fmt.Println("✦ Result:", a + b)
+    goto start
+    case "sub":
+        fmt.Println("✦ Result:", a - b)
+        goto start
+    case "mul":
+        fmt.Println("✦ Result:", a * b)
+        goto start
+    case "div":
+        if b == 0 {
+            fmt.Println("Can't divide by zero")
+            goto start
+        }
+        fmt.Println("✦ Result:", a / b)
+        goto start
+    }
+
+
+    // for i, part := range parts {
+    //     fmt.Println(i, part)
+    // }
+
+   //
+   //  fmt.Println(parts)
 }

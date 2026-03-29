@@ -10,7 +10,7 @@ ball_radius = 5
 
 # create 100 particles
 balls = []
-for i in range(1500):
+for i in range(100):
     balls.append({
         "x": random.randint(0, WIDTH),
         "y": random.randint(0, HEIGHT),

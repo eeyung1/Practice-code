@@ -1,9 +1,11 @@
+# pip3 install pygame --break-system-packages
+
 import pygame
 
 # settings
 WIDTH, HEIGHT = 700, 600
 FPS = 60
-GRAVITY = 0.5
+GRAVITY = 0.1
 BOUNCE = 0.8
 
 # ball properties

@@ -19,6 +19,11 @@ func main(){
 
 	word := strings.Fields(input)
 
+	if word[0] == "quit" {
+		fmt.Println("Goodbye")
+		return
+	}
+
 	if len(word) != 3 {
 		fmt.Println("Invalid number of arguments")
 		goto start

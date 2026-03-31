@@ -76,12 +76,12 @@ func main() {
 		goto start
 	}
 
-	if cmd[0] != "calc" && cmd[0] != "base" && cmd[0] != "str" {
+	if len(cmd) != 3 && cmd[0] != "calc" && cmd[0] != "base" && cmd[0] != "str" {
 		fmt.Println("Invalid command")
 		goto start
 	}
 
-	if cmd[1] != "add" && cmd[1] != "sub" && cmd[1] != "mul" && cmd[1] != "div" && cmd[1] != "mod" && cmd[1] != "pow" && cmd[1] != "hex" && cmd[1] != "bin" && cmd[1] != "dec" {
+	if len(cmd) != 4 && cmd[1] != "add" && cmd[1] != "sub" && cmd[1] != "mul" && cmd[1] != "div" && cmd[1] != "mod" && cmd[1] != "pow" && cmd[1] != "hex" && cmd[1] != "bin" && cmd[1] != "dec" {
 		fmt.Println("Invalid command")
 		goto start
 	}

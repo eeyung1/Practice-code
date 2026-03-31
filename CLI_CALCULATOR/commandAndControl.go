@@ -9,6 +9,11 @@ import (
 	"strings"
 )
 
+var lastResult float64
+var hasLast bool
+
+var calcHistory []float64
+
 func main() {
 	fmt.Println(" ════════════════════════════════════════════════")
 	fmt.Println("SENTINEL — COMMAND & CONTROL CONSOLE")
@@ -43,6 +48,29 @@ func main() {
 
 	}
 
+	if cmd[0] == "calc" && cmd[1] == "last" {
+		if !hasLast {
+			fmt.Println("No previous result in this session.")
+		} else {
+			fmt.Println("✦ Result:", lastResult)
+		}
+
+		goto start
+	}
+
+	if cmd[0] == "calc" && cmd[1] == "history" {
+		if len(calcHistory) == 0 {
+			fmt.Println("No calculation history.")
+			goto start
+		}
+
+		for i, v := range calcHistory {
+			fmt.Printf("%d. %v\n", i+1, v)
+		}
+
+		goto start
+	}
+
 	if len(cmd) != 3 && len(cmd) != 4 {
 		fmt.Println("Invalid number of arguments")
 		goto start
@@ -70,7 +98,17 @@ func main() {
 			goto start 
 		}
 
-		fmt.Println("✦ Result:", add1+add2)
+		result := float64(add1 + add2)
+
+		lastResult = result
+		hasLast = true
+
+		calcHistory = append(calcHistory, result)
+		if len(calcHistory) > 5 {
+			calcHistory = calcHistory[1:]
+		}
+
+		fmt.Println("✦ Result:", result)
 		goto start
 
 	case "sub":
@@ -85,7 +123,17 @@ func main() {
 			goto start
 		}
 
-		fmt.Println("✦ Result:", sub1-sub2)
+		result := float64(sub1 - sub2)
+
+		lastResult = result
+		hasLast = true
+
+		calcHistory = append(calcHistory, result)
+		if len(calcHistory) > 5 {
+			calcHistory = calcHistory[1:]
+		}
+
+		fmt.Println("✦ Result:", result)
 		goto start
 	case "mul":
 		mul1, err1 := strconv.ParseInt(cmd[2], 10, 64)
@@ -99,7 +147,17 @@ func main() {
 			goto start
 		}
 
-		fmt.Println("✦ Result:", mul1*mul2)
+		result := float64(mul1 * mul2)
+
+		lastResult = result
+		hasLast = true
+
+		calcHistory = append(calcHistory, result)
+		if len(calcHistory) > 5 {
+			calcHistory = calcHistory[1:]
+		}
+
+		fmt.Println("✦ Result:", result)
 		goto start
 	case "div":
 		div1, err1 := strconv.ParseInt(cmd[2], 10, 64)
@@ -118,7 +176,17 @@ func main() {
 			goto start 
 		}
 
-		fmt.Println("✦ Result:", float64(div1)/float64(div2))
+		result := float64(div1 / div2)
+
+		lastResult = result
+		hasLast = true
+		
+		calcHistory = append(calcHistory, result)
+		if len(calcHistory) > 5 {
+			calcHistory = calcHistory[1:]
+		}
+
+		fmt.Println("✦ Result:", result)
 		goto start
 	case "mod":
 		mod1, err1 := strconv.ParseInt(cmd[2], 10, 64)
@@ -132,7 +200,18 @@ func main() {
 			goto start
 		}
 
-		fmt.Println("✦ Result:", mod1%mod2)
+		result := float64(mod1 % mod2)
+
+		lastResult = result
+		hasLast = true
+
+		calcHistory = append(calcHistory, result)
+
+		if len(calcHistory) > 5 {
+			calcHistory = calcHistory[1:]
+		}
+
+		fmt.Println("✦ Result:", result)
 		goto start
 	case "pow":
 		pow1, err1 := strconv.ParseInt(cmd[2], 10, 64)
@@ -146,9 +225,18 @@ func main() {
 			goto start
 		}
 
-		
+		result := math.Pow(float64(pow1), float64(pow2))
 
-		fmt.Println("✦ Result:", math.Pow(float64(pow1), float64(pow2)))
+		lastResult = result
+		hasLast = true
+
+		calcHistory = append(calcHistory, result)
+		if len(calcHistory) > 5 {
+			calcHistory = calcHistory[1:]
+		}
+
+
+		fmt.Println("✦ Result:", result)
 		goto start
 
 	}

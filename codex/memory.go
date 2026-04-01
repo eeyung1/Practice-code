@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-	"bufio"
 )
 
 var lastResult string
@@ -11,14 +11,30 @@ var lastResult string
 var hasLast bool
 var History []string
 
-func main(){
+func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
-	fmt.Print("Enter a name: ")
+	for {
+		fmt.Print("Enter a name: ")
 
-	scanner.Scan()
+		if !scanner.Scan() {
+			break
+		}
 
-	input := scanner.Text()
 
-	fmt.Println(input)
+
+		input := scanner.Text()
+		
+		if input == "exit" {
+			break
+		}
+
+		History = append(History, input)
+		continue
+	}
+
+	for i := 0; i < len(History); i++ {
+		fmt.Println(History[i])
+	}
+
 }

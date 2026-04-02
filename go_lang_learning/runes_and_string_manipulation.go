@@ -1349,17 +1349,41 @@ func main(){
 
 */
 
+//reversestrcap
+
+/*
+
 package main
 
 import (
 	"fmt"
 	"os"
+	"unicode"
 )
 
 func main(){
-	if len(os.Args) != 3 {
+	if len(os.Args) < 2 {
 		return
+	}
+
+	for _, arg := range os.Args[1:] {
+		result := ""
+		for i, r := range arg {
+			if unicode.IsLetter(r) && (i == len(arg)-1 || !unicode.IsLetter(rune(arg[i+1]))) {
+				result += string(unicode.ToUpper(r))
+			} else if unicode.IsLetter(r) {
+				result += string(unicode.ToLower(r))
+			} else {
+				result += string(r)
+			}
+		}
+
+		fmt.Println(result)
 	}
 
 	
 }
+
+*/
+
+package main

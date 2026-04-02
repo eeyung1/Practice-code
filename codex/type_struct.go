@@ -67,3 +67,49 @@ func main() {
 
 */
 
+/*
+
+package main
+
+import (
+	"fmt"
+)
+
+type person struct {
+	name    string
+	age     int
+	country string
+	state   string
+}
+
+func main() {
+	var det1 person
+	var det2 person
+
+	det1.name = "Jennifer"
+	det1.age = 34
+	det1.country = "Nigeria"
+	det1.state = "Sokoto"
+
+	det2.name = "Jennifer"
+	det2.age = 34
+	det2.country = "Nigeria"
+	det2.state = "Sokoto"
+
+	printPerson(det1)
+
+	printPerson(det2)
+
+}
+
+func printPerson(pers person) {
+
+	fmt.Println("Name: ", pers.name)
+	fmt.Println("Age: ", pers.age)
+	fmt.Println("Country: ", pers.country)
+	fmt.Println("State: ", pers.state)
+
+}
+
+*/
+

@@ -24,11 +24,23 @@ func main() {
 	students["John"] = Directory{age: 17, grade: "S3", city: "Benue"}
 	students["Jonathan"] = Directory{age: 20, grade: "S1", city: "Taraba"}
 
-	// chichi := students["Chichi"]
-	// chichi.grade = "S3"
-	// students["Chichi"] = chichi
+	chichi := students["Chichi"]
+	chichi.grade = "S3"
+	students["Chichi"] = chichi
 
-	// delete(students, "Sean")
+	Joe := students["Joe"]
+	Joe.city = "Benue"
+	Joe.grade = "S2"
+	students["Joe"] = Joe
+
+	Sean :=students["Sean"]
+	Sean.age = 11
+	Sean.city = "Calabar"
+	Sean.grade = "S1"
+	students["Sean"] = Sean
+
+	delete(students, "Sean")
+	delete(students, "Joe")
 
 	// value, exists := students["John"]
 	// if exists {
@@ -38,6 +50,7 @@ func main() {
 	// }
 	for key, value := range students {
 		fmt.Println(key, "is", value.age, "years old, in", value.grade, "and lives in", value.city)
+		break
 
 		// fmt.Print(students["Joe"])
 	}

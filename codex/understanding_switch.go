@@ -133,20 +133,103 @@
 // 	printStudent(student2)	
 // }
 
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func main(){
+// 	scores := map[string]int{
+// 		"Sean": 75, 
+// 		"Tolu": 45,
+// 		"Emeka": 90,
+// 	}
+
+// 	fmt.Println(scores["Sean"])
+// 	fmt.Println(scores["Tolu"])
+// 	fmt.Println(scores["Emeka"])
+// }
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func main(){
+// 	capitalCity := map[string]string{
+// 		"Nigeria": "Abuja",
+// 		"France": "Paris",
+// 		"Japan": "Tokyo",
+// 	}
+
+// 	for key, value := range capitalCity {
+// 		fmt.Println(key, "->", value)
+// 	}
+// }
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// type Student struct {
+// 	age int
+// 	score int
+// }
+
+// func main(){
+// 	students := map[string]Student{
+// 		"Sean": {age: 20, score: 75},
+// 		"Tolu": {age: 22, score: 45},
+// 		"Emeka": {age: 19, score: 90},
+// 	}
+
+// 	fmt.Println(students["Sean"].score)
+// }
+
+
 package main
 
 import (
 	"fmt"
 )
 
-func main(){
-	scores := map[string]int{
-		"Sean": 75, 
-		"Tolu": 45,
-		"Emeka": 90,
+type Directory struct {
+	age int
+	grade string
+	city string
+}
+
+func main() {
+    // 1. Create map first
+    students := map[string]Directory{
+		"John": {age: 15, grade: "S1", city: "Abuja"},
 	}
 
-	fmt.Println(scores["Sean"])
-	fmt.Println(scores["Tolu"])
-	fmt.Println(scores["Emeka"])
+    // 2. Add new student — OUTSIDE loop
+    students["Musa"] = Directory{age: 14, grade: "S1", city: "Kaduna"}
+
+    // 3. Update grade — OUTSIDE loop
+    // chichi := students["Chichi"]
+    // chichi.grade = "S3"
+    // students["Chichi"] = chichi
+
+    // 4. Delete — OUTSIDE loop
+    // delete(students, "Sean")
+
+    // 5. Check if exists — OUTSIDE loop
+    value, exists := students["Sean"]
+    if exists {
+        fmt.Println("Found:", value)
+    } else {
+        fmt.Println("Not Found!")
+    }
+
+    // 6. Loop LAST — just for printing
+    for key, value := range students {
+        fmt.Println(key, "is", value.age, "years old, in", value.grade, "and lives in", value.city)
+    }
 }

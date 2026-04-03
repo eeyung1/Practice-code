@@ -68,3 +68,25 @@
 // }
 
 package main
+
+import (
+	"fmt"
+)
+
+type student struct {
+	name string
+	age int
+	score int
+}
+
+func main(){
+	student1 := student{
+		name: "James",
+		age: 25,
+		score: 70,
+	}
+
+	fmt.Println(student1.name)
+	fmt.Println(student1.age)
+	fmt.Println(student1.score)
+}

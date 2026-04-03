@@ -67,26 +67,86 @@
 // 	}
 // }
 
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// type student struct {
+// 	name string
+// 	age int
+// 	score int
+// }
+
+// func main(){
+// 	student1 := student{
+// 		name: "James",
+// 		age: 25,
+// 		score: 70,
+// 	}
+
+// 	fmt.Println(student1.name)
+// 	fmt.Println(student1.age)
+// 	fmt.Println(student1.score)
+// }
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// type student struct {
+// 	name string
+// 	age int
+// 	score int
+// }
+
+// func main(){
+// 	student1 := student{name: "Jennifer", age: 25, score: 45}
+// 	fmt.Printf("Hello %v you are %v years old. Your score is %v\n", student1.name, student1.age, student1.score)
+// 	//fmt.Println(student1.name)
+// }
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// type Student struct {
+// 	name string
+// 	age int
+// 	score int
+// }
+
+// func printStudent(s Student) {
+// 	fmt.Println(s.name, "is", s.age, "years old and scored", s.score)
+// }
+
+// func main(){
+// 	student1 := Student{name: "Joel", age: 17, score: 60}
+// 	student2 := Student{name: "Joe", age: 19, score: 57}
+
+// 	printStudent(student1)
+// 	printStudent(student2)	
+// }
+
 package main
 
 import (
 	"fmt"
 )
 
-type student struct {
-	name string
-	age int
-	score int
-}
-
 func main(){
-	student1 := student{
-		name: "James",
-		age: 25,
-		score: 70,
+	scores := map[string]int{
+		"Sean": 75, 
+		"Tolu": 45,
+		"Emeka": 90,
 	}
 
-	fmt.Println(student1.name)
-	fmt.Println(student1.age)
-	fmt.Println(student1.score)
+	fmt.Println(scores["Sean"])
+	fmt.Println(scores["Tolu"])
+	fmt.Println(scores["Emeka"])
 }

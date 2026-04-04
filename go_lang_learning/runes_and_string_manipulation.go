@@ -1351,39 +1351,101 @@ func main(){
 
 //reversestrcap
 
-/*
 
-package main
 
-import (
-	"fmt"
-	"os"
-	"unicode"
-)
+// package main
 
-func main(){
-	if len(os.Args) < 2 {
-		return
-	}
+// import (
+// 	"fmt"
+// 	"os"
+// 	"unicode"
+// )
 
-	for _, arg := range os.Args[1:] {
-		result := ""
-		for i, r := range arg {
-			if unicode.IsLetter(r) && (i == len(arg)-1 || !unicode.IsLetter(rune(arg[i+1]))) {
-				result += string(unicode.ToUpper(r))
-			} else if unicode.IsLetter(r) {
-				result += string(unicode.ToLower(r))
-			} else {
-				result += string(r)
-			}
-		}
+// func main(){
+// 	if len(os.Args) < 2 {
+// 		return
+// 	}
 
-		fmt.Println(result)
-	}
+// 	for _, arg := range os.Args[1:] {
+// 		result := ""
+// 		for i, r := range arg {
+// 			if unicode.IsLetter(r) && isLastLetter(arg, i) {
+// 				result += string(unicode.ToUpper(r))
+// 			} else if unicode.IsLetter(r) {
+// 				result += string(unicode.ToLower(r))
+// 			} else {
+// 				result += string(r)
+// 			}
+// 		}
+
+// 		fmt.Println(result)
+// 	}
 
 	
-}
+// }
 
-*/
+// func isLastLetter(arg string, i int) bool {
+// 	for j := i + 1; j < len(arg); j++ {
+// 		if arg[j] == ' ' {
+// 			return true
+// 		}
+
+// 		if unicode.IsLetter(rune(arg[j])) {
+// 			return false
+// 		}
+// 	}
+
+// 	return true
+// }
+
+
+//saveandmiss
+
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func SaveAndMiss(arg string, num int) string {
+// 	if num <= 0 {
+// 		return arg
+// 	}
+
+// 	if arg == "" {
+// 		return ""
+// 	}
+
+// 	result := ""
+// 	save := true
+
+
+
+// 	for i := 0; i < len(arg); i += num {
+// 		end := i + num
+
+// 		if end > len(arg) {
+// 			end = len(arg)
+// 		}
+
+// 		if save {
+// 			result += string(arg[i:end])
+// 		}
+
+// 		save = !save
+// 	}
+
+// 	return result
+// }
+
+// func main() {
+// 	fmt.Println(SaveAndMiss("123456789", 3))
+// 	fmt.Println(SaveAndMiss("abcdefghijklmnopqrstuvwyz", 3))
+// 	fmt.Println(SaveAndMiss("", 3))
+// 	fmt.Println(SaveAndMiss("hello you all ! ", 0))
+// 	fmt.Println(SaveAndMiss("what is your name?", 0))
+// 	fmt.Println(SaveAndMiss("go Exercise Save and Miss", -5))
+// }
 
 package main

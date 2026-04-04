@@ -1302,52 +1302,121 @@ func main() {
 
 */
 
-/*
+//fprime
 
-package main
+// package main
 
-import (
-	"fmt"
-	"os"
-	"strings"
-	"strconv"
-)
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strconv"
+// 	"strings"
+// )
 
-func main(){
-	if len(os.Args) != 2 {
-		return
-	}
+// func main(){
+// 	if len(os.Args) != 2 {
+// 		return
+// 	}
 
-	num, err := strconv.Atoi(os.Args[1])
-	if err != nil {
-		return
-	}
+// 	num, err := strconv.Atoi(os.Args[1])
+// 	if err != nil {
+// 		return
+// 	}
 
-	factors := []string{}
+// 	factors := []string{}
+// 	d := 2
+// 	for d*d <= num {
+// 		for num % d == 0 {
+// 			factors = append(factors, strconv.Itoa(d))
+// 			num /= d
+// 		}
+// 		d++
+// 	}
 
-	d := 2
+// 	if num > 1 {
+// 		factors = append(factors, strconv.Itoa(num))
+// 	}
 
-	for d * d <= num {
-		for num % d == 0 {
-			factors = append(factors, strconv.Itoa(d))
-			num /= d
-		}
+// 	result := strings.Join(factors, "*")
 
-		d++
-	}
+// 	fmt.Println(result)
 
-	if num > 1 {
-		factors = append(factors, strconv.Itoa(num))
-		
-	}
+// }
 
-	
+//hiddenp
 
-	result := strings.Join(factors, "*")
-	fmt.Println(result)
-}
+// package main
 
-*/
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func main(){
+// 	if len(os.Args) != 3 {
+// 		return
+// 	}
+
+// 	s1 := os.Args[1]
+// 	s2 := os.Args[2]
+
+// 	if len(s1) == 0 {
+// 		fmt.Println(1)
+// 		return
+// 	}
+
+// 	i := 0
+// 	j := 0
+
+// 	for j < len(s2) {
+// 		if s2[j] == s1[i] {
+// 			i++
+// 		}
+
+// 		j++
+
+// 		if i == len(s1) {
+// 			fmt.Println(1)
+// 			return
+// 		}
+// 	}
+
+// 	fmt.Println(0)
+// }
+
+
+//inter
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
+
+// func main(){
+// 	if len(os.Args) != 3 {
+// 		return
+// 	}
+
+// 	s1 := os.Args[1]
+// 	s2 := os.Args[2]
+
+// 	seen := make(map[rune]bool)
+
+// 	result := ""
+
+// 	for _, r := range s1 {
+// 		if strings.ContainsRune(s2, r) && !seen[r] {
+// 			result += string(r)
+// 		}
+// 	}
+
+// 	fmt.Println(result)
+// }
+
+
 
 //reversestrcap
 
@@ -1448,4 +1517,49 @@ func main(){
 // 	fmt.Println(SaveAndMiss("go Exercise Save and Miss", -5))
 // }
 
-package main
+//union
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func main(){
+// 	if len(os.Args) != 3 {
+// 		fmt.Println()
+// 		return
+// 	}
+
+// 	word := os.Args[1] + os.Args[2]
+
+// 	result := ""
+
+// 	seen := map[rune]bool{}
+
+// 	for _, r := range word {
+// 		if !seen[r] {
+// 			result += string(r)
+// 			seen[r] = true
+// 		}
+// 	}
+
+// 	fmt.Println(result)
+// }
+
+
+//wdmatch
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func main(){
+// 	if len(os.Args) != 2 {
+// 		return
+// 	}
+// }

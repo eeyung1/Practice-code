@@ -1,9 +1,9 @@
-package main
+// package main
 
-import (
-	// "fmt"
-	// "strings"
-)
+// import "fmt"
+
+// "fmt"
+// "strings"
 
 // func main(){
 // 	/*
@@ -15,17 +15,15 @@ import (
 
 // 	fmt.Println(len(fruits))
 // 	fmt.Println(fruits[0])   // "apple"
-// 	fmt.Println(fruits[1]) 
+// 	fmt.Println(fruits[1])
 
 // 	fmt.Println(fruits[1:3]) // [banana cherry]  (index 1 up to but not including 3)
 // 	fmt.Println(fruits[:2])  // [apple banana]   (from start to index 2)
-// 	fmt.Println(fruits[2:]) 
+// 	fmt.Println(fruits[2:])
 
 // 	*/
 
 // 	/*
-
-
 
 // 	var sb strings.Builder
 
@@ -38,7 +36,36 @@ import (
 
 // 	*/
 
-	
-
-
 // }
+
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func main(){
+// 	sum := 1
+// 	for ; sum < 1000; {
+// 		sum += sum
+// 	}
+
+// 	fmt.Println(sum)
+// }
+
+
+package main
+
+import (
+	"fmt"
+)
+
+func main(){
+	sum := 1
+	for sum < 1000 {
+		sum += sum
+	}
+
+	fmt.Println(sum)
+}

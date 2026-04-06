@@ -1,0 +1,3 @@
+Acting as a coding mentor, evaluate these my studies so far and develop the various concept that i have to review to deeply understand the concept used in executing all these work down here. I am not confident i fully understand everything there. 
+
+Analyze and provide the concepts i need to follow one step at a time to give me a broader view of this work down here. It's my practice area as a beginner programmer.

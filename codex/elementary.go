@@ -4,9 +4,48 @@ import (
 	"fmt"
 )
 
+
 func main(){
 	
 }
+
+/*
+func main(){
+	seen := make(map[rune]bool)
+
+	input := "aaaccddee"
+	result := ""
+	count := 0
+	for _, r := range input {
+		if !seen[r] {
+			result += string(r)
+			count++
+			seen[r] = true
+		}
+	}
+
+	fmt.Println(result)
+	fmt.Println(count)
+}
+
+*/
+
+
+//hello := make(map[rune]bool)
+// func main(){
+
+
+// 	scores := map[string]int{"Alice": 0,}
+// 	v := scores["Bob"]
+// 	seen := make(map[rune]bool)
+
+// 	fmt.Println(seen['x'])
+// 	seen['x'] = true
+// 	fmt.Println(!seen['x'])
+
+// 	fmt.Println(v)
+
+// }
 
 /*
 func main(){

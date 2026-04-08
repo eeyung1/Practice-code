@@ -36,3 +36,16 @@ func main(){
 	fmt.Println("First char:", string(runes[0]))
 	fmt.Println("Last char:", string(runes[len(runes)-1]))
 }
+
+
+/*
+
+NOTE: 
+
+When working with characters, it always necessary to convert
+the characters to runes(unicode characters) so it can handle
+a wider range of characters like emojis and others.
+
+
+
+*/

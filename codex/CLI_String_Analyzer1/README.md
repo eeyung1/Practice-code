@@ -8,6 +8,7 @@ go run . "Hello123"
 
 Output:
 Length: 8
+
 Letters: 5
 Digits: 3
 First char: H

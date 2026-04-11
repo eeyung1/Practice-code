@@ -19,22 +19,6 @@ func Capitalize(word string) string {
 	return strings.ToUpper(string(word[0])) + strings.ToLower(word[1:])
 }
 
-func extractNumber(token string) int {
-
-	token = strings.Trim(token, "()")
-	parts := strings.Split(token, ",")
-
-	if len(parts) != 2 {
-		return 1
-	}
-
-	n, err := strconv.Atoi(strings.TrimSpace(parts[1]))
-	if err != nil {
-		return 1
-	}
-
-	return n
-}
 
 func HandleConversions(text string) string {
 
@@ -85,31 +69,46 @@ func HandleConversions(text string) string {
 
 		// (up, n)
 		if strings.HasPrefix(words[i], "(up,") {
-			n := extractNumber(words[i])
+			num := strings.Trim(words[i+1], ")")
+			n, err := strconv.Atoi(num)
+			if err != nil {
+				fmt.Println(err)
+			}
+
 			for j := 1; j <= n && i-j >= 0; j++ {
 				words[i-j] = strings.ToUpper(words[i-j])
 			}
-			words = remove(words, i)
+			words = append(words[:i], words[i+2:]...)
 			i--
 		}
 
 		// (low, n)
 		if strings.HasPrefix(words[i], "(low,") {
-			n := extractNumber(words[i])
+			num := strings.Trim(words[i+1], ")")
+			n, err := strconv.Atoi(num)
+			if err != nil {
+				fmt.Println(err)
+			}
+
 			for j := 1; j <= n && i-j >= 0; j++ {
 				words[i-j] = strings.ToLower(words[i-j])
 			}
-			words = remove(words, i)
+			words = append(words[:i], words[i+2:]...)
 			i--
 		}
 
 		// (cap, n)
 		if strings.HasPrefix(words[i], "(cap,") {
-			n := extractNumber(words[i])
+			num := strings.Trim(words[i+1], ")")
+			n, err := strconv.Atoi(num)
+			if err != nil {
+				fmt.Println(err)
+			}
+
 			for j := 1; j <= n && i-j >= 0; j++ {
 				words[i-j] = Capitalize(words[i-j])
 			}
-			words = remove(words, i)
+			words = append(words[:i], words[i+2:]...)
 			i--
 		}
 	}

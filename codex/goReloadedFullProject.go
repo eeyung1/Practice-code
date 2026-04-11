@@ -117,6 +117,42 @@ func HandleConversions(text string) string {
 	return strings.Join(words, " ")
 }
 
+func FixPunctuation(text string) string {
+
+	re := regexp.MustCompile(`\s+([.,!?:;])`)
+	text = re.ReplaceAllString(text, "$1")
+
+	re2 := regexp.MustCompile(`([.,!?:;])([^\s])`)
+	text = re2.ReplaceAllString(text, "$1 $2")
+
+	return text
+}
+
+func FixQuotes(text string) string {
+
+	re := regexp.MustCompile(`'\s*(.*?)\s*'`)
+	return re.ReplaceAllString(text, "'$1'")
+}
+
+func FixArticles(text string) string {
+
+	words := strings.Fields(text)
+
+	for i := 0; i < len(words)-1; i++ {
+
+		if strings.ToLower(words[i]) == "a" {
+
+			first := strings.ToLower(string(words[i+1][0]))
+
+			if strings.ContainsAny(first, "aeiouh") {
+				words[i] = "an"
+			}
+		}
+	}
+
+	return strings.Join(words, " ")
+}
+
 func main() {
 	fmt.Println(HandleConversions("1E (hex) files were added"))
 }

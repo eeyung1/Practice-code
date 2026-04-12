@@ -40,3 +40,39 @@ import (
 
 // 	fmt.Println(result)
 // }
+
+
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"regexp"
+// )
+
+// func main(){
+	
+// }
+
+/*
+re := regexp.MustCompile("[aeiou]") // matches any Vowel
+re := regexp.MustCompile("[0-9]") //matches any digit
+re := regexp.MustCompile("[^0-9]") // matches anything that's not a digit
+
+*/
+
+// func main() {
+// 	re := regexp.MustCompile("c.t")
+// 	fmt.Println(re.MatchString("cdt"))
+// }
+
+// func main() {
+// 	re := regexp.MustCompile("dog")
+// 	fmt.Println(re.MatchString("hotdog"))
+// }
+
+// func main() {
+// 	re := regexp.MustCompile("cat")
+// 	fmt.Println(re.MatchString("I have a cat"))
+// }
+

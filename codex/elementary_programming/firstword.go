@@ -62,8 +62,19 @@ func LastWord(s string) string {
 	return s[i+1 : end+1] + "\n"
 }
 
+func FirstAndLastWord(s string) string {
+	a := FirstWord(s)
+	b := LastWord(s)
+
+	return a[:len(a)-1] + " " + b
+	
+}
+
+
 
 func main() {
+	fmt.Print(FirstAndLastWord("   hello world  test " ))
+	fmt.Print(FirstAndLastWord("hello" ))
 	fmt.Print(LastWord("hello world"))
 	fmt.Print(LastWord("   hello   world  "))
 	fmt.Print(LastWord(""))

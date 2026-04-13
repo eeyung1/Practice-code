@@ -34,17 +34,18 @@ func IntToBase(n, base int) string {
 		return "0"
 	}
 
-	// negative := false
+	negative := false
 	var result []rune
+
 	if n < 0 {
-		//negative = true
+		negative = true
 		n = -n
 	}
 
 	for n > 0 {
 		remainder := n % base
 		var char rune
-		n /= base
+
 		if remainder < 10 {
 			char = rune('0' + remainder)
 		} else {
@@ -52,11 +53,20 @@ func IntToBase(n, base int) string {
 		}
 
 		result = append(result, char)
-		//negative = true
+		n /= base
+	}
+
+	// reverse
+	for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
+		result[i], result[j] = result[j], result[i]
+	}
+
+	// handle negative
+	if negative {
+		result = append([]rune{'-'}, result...)
 	}
 
 	return string(result)
-
 }
 
 func main() {

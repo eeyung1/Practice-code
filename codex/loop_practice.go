@@ -124,22 +124,55 @@ func main() {
 // 	//fmt.Println(count)
 // }
 
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func main(){
+// 	word := "awesome"
+
+// 	grt := []byte(word)
+
+// 	fmt.Println(grt)
+
+// 	var ch rune = 'A'
+
+// 	fmt.Println(ch)
+// 	fmt.Printf("%c\n", ch)
+// 	fmt.Printf("%T\n", ch)
+// }
+
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func main(){
-	word := "awesome"
+func main() {
 
-	grt := []byte(word)
+    i := 1
+    for i <= 3 {
+        fmt.Println(i)
+        i = i + 1
+    }
 
-	fmt.Println(grt)
+    for j := 0; j < 3; j++ {
+        fmt.Println(j)
+    }
 
-	var ch rune = 'A'
+    for i := range 3 {
+        fmt.Println("range", i)
+    }
 
-	fmt.Println(ch)
-	fmt.Printf("%c\n", ch)
-	fmt.Printf("%T\n", ch)
+    for {
+        fmt.Println("loop")
+        break
+    }
+
+    for n := range 6 {
+        if n%2 == 0 {
+            continue
+        }
+        fmt.Println(n)
+    }
 }

@@ -55,6 +55,26 @@ func lastChar(b string) string {
 	return word
 }
 
+
+//rune manipulation
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	for r := 65; r <= 90; r++ {
+		if r % 2 == 0 {
+			fmt.Printf("%c ", r + 32)
+		} else {
+			fmt.Printf("%c ", r)
+		}
+	}
+}
+
+
 // func thirdTimeIsCharm(b string) string {
 // 	word := ""
 // 	// for i, r := range b {

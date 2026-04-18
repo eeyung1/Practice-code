@@ -16,9 +16,7 @@ func main() {
 
 	banners := "standard.txt"
 
-	if length == 2 {
-		banners = "standard.txt"
-	} else if length == 3 {
+	if length == 3 {
 		banners = os.Args[2]
 	}
 
@@ -26,6 +24,7 @@ func main() {
 
 	data, err := os.ReadFile(banners)
 	if err != nil {
+		fmt.Println("Error reading banner:", err)
 		return
 	}
 

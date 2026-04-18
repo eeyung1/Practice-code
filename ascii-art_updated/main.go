@@ -18,7 +18,7 @@ func main() {
 	banners := "standard.txt"
 
 	if length == 3 {
-		banners = os.Args[2]
+		banners = os.Args[2] + ".txt"
 	}
 
 	input := os.Args[1]
@@ -34,17 +34,17 @@ func main() {
 	lines := strings.Split(input, "\\n")
 
 	for _, word := range lines {
-		if word == "" {
+		if word == ""{
 			fmt.Println()
 			continue
 		}
 
-		for i := 1; i <= 8; i++ {
+		for i := 0; i <= 8; i++ {
 			for j := 0; j < len(word); j++ {
-				charStart := int(word[j]-32)*9 + i
+				index := int(word[j]-32)*9 + i
 
-				if charStart >= 0 && charStart < len(banner) {
-					fmt.Print(banner[charStart])
+				if index >= 0 && index < len(banner) {
+					fmt.Print(banner[index])
 				}
 			}
 			fmt.Println()

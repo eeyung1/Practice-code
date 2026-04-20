@@ -65,7 +65,24 @@ func SumDigits(s string) int {
 	return result
 }
 
+func AveragDigits(s string) int {
+	if s == "" {
+		return 0
+	}
+
+	result := 0
+
+	for _, r := range s {
+		num := int(r - '0')
+
+		result += num
+	}
+
+	return result/len(s)
+}
+
 func main() {
+	fmt.Println(AveragDigits("257"))
 	fmt.Println(SumDigits("203"))
 	fmt.Println(SumDigits("999"))
 	fmt.Println(RepeatDigit("203"))

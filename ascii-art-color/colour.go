@@ -19,5 +19,6 @@ func main(){
 
 	fmt.Println(colourMap["red"] + "Hello World" + colourMap["green"] + " from golang" + reset)
 	fmt.Println(colourMap["cyan"] + "PHYSICS" + reset)
+	fmt.Println(colourMap["yellow"] + "Great" + reset)
 
 }

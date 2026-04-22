@@ -21,6 +21,7 @@ func main() {
 
 	fmt.Println(ReplaceManual("aaaa", "aa", "x"))
 	fmt.Println(CountReplace("banana", "na", "xo"))
+	fmt.Println(FirstIndex("banana", "na"))
 
 }
 
@@ -58,4 +59,14 @@ func CountReplace(text, oldstr, newstr string) (string, int) {
 	}
 
 	return result, count
+}
+
+func FirstIndex(text, sub string) int {
+	for i := 0; i <= len(text); i++ {
+		if text[i:i+len(sub)] == sub {
+			return i
+		} 
+	}
+
+	return -1
 }

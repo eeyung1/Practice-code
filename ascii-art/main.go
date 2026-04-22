@@ -1,28 +1,34 @@
 package main
 
 import (
+	"ascii-art/ascii"
 	"fmt"
 	"os"
-
-	"ascii-art/ascii"
+	"strings"
 )
 
 func main() {
-	// go run . "Hello" => os.Args = ["./main", "Hello"]
-	if len(os.Args) != 3 {
-		fmt.Println("Usage: go run . [STRING] [banners]")
+	if len(os.Args) < 2 || len(os.Args) > 3 {
+		fmt.Println("usage: go run . \"text\" [banner]")
 		os.Exit(1)
 	}
 
-	input := os.Args[1]
-	banners := os.Args[2]
+	textinput := os.Args[1]
+	textinput = strings.ReplaceAll(textinput, "\\n", "\n")
+	banner := "standard"
 
-	// Default banner is "standard"
-	result, err := ascii.Render(input, banners)
+	if len(os.Args) == 3 {
+		banner = os.Args[2]
+		if banner != "shadow" && banner != "standard" && banner != "thinkertoy" {
+			fmt.Println("Use either: shadow, standard, or thinkertoy")
+			os.Exit(1)
+		}
+	}
+
+	result, err := ascii.Render(textinput, banner)
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
-
 	fmt.Print(result)
 }

@@ -8,13 +8,21 @@ import (
 )
 
 func main(){
+	colors := map[string]string{
+		"red":     "\033[31m",
+		"green":   "\033[32m",
+		"yellow":  "\033[33m",
+		"blue":    "\033[34m",
+		"magenta": "\033[35m",
+		"cyan":    "\033[36m",
+		"white":   "\033[37m",
+		"reset":   "\033[0m",
+	}
 
-	//colorRed := "\033[31m"
-	// colorGreen := "\033[32m"
-	//colorYellow := "\033[33m"
-	// colorBlue := "\033[34m"
-	colorBlue := "\033[35m"
-	colorReset := "\033[0m"
+
+	activeColor := colors["green"] 
+	reset := colors["reset"]
+	
 	x := "SCIENCE"
 
 	banner, err := os.ReadFile("standard.txt")
@@ -33,7 +41,7 @@ func main(){
 		for _, line := range word {
 			for _, ch := range line {
 				index := (int(ch-32)*9) + 1 + i
-				result.WriteString(colorBlue + bannerLines[index] + colorReset)
+				result.WriteString(activeColor + bannerLines[index] + reset)
 			}
 			result.WriteByte('\n')
 		}

@@ -42,7 +42,16 @@ func main() {
 		"EEEEE",
 	}
 
-	input := "BAD"
+	m['F'] = []string{
+		"FFFFF",
+		"F",
+		"FFFFF",
+		"F",
+		"F",
+		"F",
+	}
+
+	input := "EAD"
 
 	for i := 0; i < len(m['A']); i++ {
 		for _, ch := range input {
@@ -55,217 +64,217 @@ func main() {
 
 // Read a banner file and print a character
 
-package main
+// package main
 
-import (
-	"fmt"
-	"os"
-	"strings"
-)
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
 
-func main() {
-	banner, err := os.ReadFile("standard.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		os.Exit(1)
-	}
-	lines := strings.Split(string(banner), "\n")
+// func main() {
+// 	banner, err := os.ReadFile("standard.txt")
+// 	if err != nil {
+// 		fmt.Println("Error reading file:", err)
+// 		os.Exit(1)
+// 	}
+// 	lines := strings.Split(string(banner), "\n")
 
-	input := 'A'
-	start := (int(input)-32)*9 + 1
-	end := start + 8
-	res := append(lines[start:end])
-	for _, line := range res {
-		fmt.Println(line)
-	}
-}
+// 	input := 'A'
+// 	start := (int(input)-32)*9 + 1
+// 	end := start + 8
+// 	res := append(lines[start:end])
+// 	for _, line := range res {
+// 		fmt.Println(line)
+// 	}
+// }
 
-//-----------OR--------------
+// //-----------OR--------------
 
-package main
+// package main
 
-import (
-	"fmt"
-	"os"
-	"strings"
-)
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
 
-func main() {
-	banner, err := os.ReadFile("standard.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		os.Exit(1)
-	}
-	lines := strings.Split(string(banner), "\n")
-	input := 'A'
-	read(input, lines)
-}
+// func main() {
+// 	banner, err := os.ReadFile("standard.txt")
+// 	if err != nil {
+// 		fmt.Println("Error reading file:", err)
+// 		os.Exit(1)
+// 	}
+// 	lines := strings.Split(string(banner), "\n")
+// 	input := 'A'
+// 	read(input, lines)
+// }
 
-func read(input rune, lines []string) {
-	start := (int(input)-32)*9 + 1
-	end := start + 8
-	res := lines[start:end]
-	for _, line := range res {
-		fmt.Println(line)
-	}
-}
+// func read(input rune, lines []string) {
+// 	start := (int(input)-32)*9 + 1
+// 	end := start + 8
+// 	res := lines[start:end]
+// 	for _, line := range res {
+// 		fmt.Println(line)
+// 	}
+// }
 
-//---------------OR--------------
+// //---------------OR--------------
 
-package main
+// package main
 
-import (
-	"fmt"
-	"os"
-	"strings"
-)
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
 
-func main() {
-	banner, err := os.ReadFile("standard.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		os.Exit(1)
-	}
-	lines := strings.Split(string(banner), "\n")
+// func main() {
+// 	banner, err := os.ReadFile("standard.txt")
+// 	if err != nil {
+// 		fmt.Println("Error reading file:", err)
+// 		os.Exit(1)
+// 	}
+// 	lines := strings.Split(string(banner), "\n")
 
-	input := '%'
+// 	input := '%'
 
-	start := (int(input)-32)*9 + 1
-	end := start + 8
+// 	start := (int(input)-32)*9 + 1
+// 	end := start + 8
 
-	res := lines[start:end]
-	fmt.Println(strings.Join(res, "\n"))
-}
-
-
-
-
-
-// Read a banner file and print a string
-package main
-
-import (
-	"fmt"
-	"os"
-	"strings"
-)
-
-func main() {
-	banner, err := os.ReadFile("standard.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		os.Exit(1)
-	}
-	lines := strings.Split(string(banner), "\n")
-	input := "HELLO&"
-	printAscii(input, lines)
-}
-
-func getCharArt(lines []string, ch rune) []string {
-	start := (int(ch) - 32) * 9
-	return lines[start : start+8]
-}
-func printAscii(input string, banner []string) {
-	for i := 0; i < 8; i++ {
-		for _, ch := range input {
-			art := getCharArt(banner, ch)
-			fmt.Print(art[i])
-		}
-		fmt.Println()
-	}
-}
-
-//-------------OR---------------
-
-package main
-
-import (
-	"fmt"
-	"os"
-	"strings"
-)
-
-func main() {
-	banner, err := os.ReadFile("standard.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		os.Exit(1)
-	}
-	lines := strings.Split(string(banner), "\n")
-	input := "HELLO&"
-	printAscii(input, lines)
-}
-
-func printAscii(input string, banner []string) {
-	for i := 0; i < 8; i++ {
-		for _, ch := range input {
-			start := (int(ch) - 32) * 9
-			art := banner[start : start+8]
-			fmt.Print(art[i])
-		}
-		fmt.Println()
-	}
-}
-
-//-------------OR-------------
-
-package main
-
-import (
-	"fmt"
-	"os"
-	"strings"
-)
-
-func main() {
-	banner, err := os.ReadFile("standard.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		os.Exit(1)
-	}
-	lines := strings.Split(string(banner), "\n")
-
-	input := "ABC"
-	res := make([]string, 8)
-
-	for _, char := range input {
-		start := (int(char)-32)*9 + 1
-
-		for i := 0; i < 8; i++ {
-			res[i] += lines[start+i]
-		}
-	}
-
-	fmt.Println(strings.Join(res, "\n"))
-}
+// 	res := lines[start:end]
+// 	fmt.Println(strings.Join(res, "\n"))
+// }
 
 
 
 
-// Single character - memory management
 
-package main
+// // Read a banner file and print a string
+// package main
 
-import (
-	"fmt"
-	"os"
-	"strings"
-)
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
 
-func main() {
-	banner, err := os.ReadFile("standard.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		os.Exit(1)
-	}
-	lines := strings.Split(string(banner), "\n")
+// func main() {
+// 	banner, err := os.ReadFile("standard.txt")
+// 	if err != nil {
+// 		fmt.Println("Error reading file:", err)
+// 		os.Exit(1)
+// 	}
+// 	lines := strings.Split(string(banner), "\n")
+// 	input := "HELLO&"
+// 	printAscii(input, lines)
+// }
 
-	var result strings.Builder
-	for i := 0; i < 8; i++ {
-		index := ('A'-32)*9 + 1 + i
+// func getCharArt(lines []string, ch rune) []string {
+// 	start := (int(ch) - 32) * 9
+// 	return lines[start : start+8]
+// }
+// func printAscii(input string, banner []string) {
+// 	for i := 0; i < 8; i++ {
+// 		for _, ch := range input {
+// 			art := getCharArt(banner, ch)
+// 			fmt.Print(art[i])
+// 		}
+// 		fmt.Println()
+// 	}
+// }
 
-		result.WriteString(lines[index] + "\n")
-	}
+// //-------------OR---------------
 
-	fmt.Print(result.String())
-}
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
+
+// func main() {
+// 	banner, err := os.ReadFile("standard.txt")
+// 	if err != nil {
+// 		fmt.Println("Error reading file:", err)
+// 		os.Exit(1)
+// 	}
+// 	lines := strings.Split(string(banner), "\n")
+// 	input := "HELLO&"
+// 	printAscii(input, lines)
+// }
+
+// func printAscii(input string, banner []string) {
+// 	for i := 0; i < 8; i++ {
+// 		for _, ch := range input {
+// 			start := (int(ch) - 32) * 9
+// 			art := banner[start : start+8]
+// 			fmt.Print(art[i])
+// 		}
+// 		fmt.Println()
+// 	}
+// }
+
+// //-------------OR-------------
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
+
+// func main() {
+// 	banner, err := os.ReadFile("standard.txt")
+// 	if err != nil {
+// 		fmt.Println("Error reading file:", err)
+// 		os.Exit(1)
+// 	}
+// 	lines := strings.Split(string(banner), "\n")
+
+// 	input := "ABC"
+// 	res := make([]string, 8)
+
+// 	for _, char := range input {
+// 		start := (int(char)-32)*9 + 1
+
+// 		for i := 0; i < 8; i++ {
+// 			res[i] += lines[start+i]
+// 		}
+// 	}
+
+// 	fmt.Println(strings.Join(res, "\n"))
+// }
+
+
+
+
+// // Single character - memory management
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
+
+// func main() {
+// 	banner, err := os.ReadFile("standard.txt")
+// 	if err != nil {
+// 		fmt.Println("Error reading file:", err)
+// 		os.Exit(1)
+// 	}
+// 	lines := strings.Split(string(banner), "\n")
+
+// 	var result strings.Builder
+// 	for i := 0; i < 8; i++ {
+// 		index := ('A'-32)*9 + 1 + i
+
+// 		result.WriteString(lines[index] + "\n")
+// 	}
+
+// 	fmt.Print(result.String())
+// }

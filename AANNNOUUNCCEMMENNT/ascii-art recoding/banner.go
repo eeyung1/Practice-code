@@ -30,7 +30,6 @@ func LoadBanner(filename string) (map[rune][]string, error) {
 		currentChar++
 	}
 	
-	fmt.Println(characters[rune(65)])
 	return characters, nil
 }
 

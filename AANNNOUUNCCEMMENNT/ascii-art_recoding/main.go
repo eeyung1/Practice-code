@@ -5,13 +5,21 @@ import (
 	"os"
 )
 
-func main(){
+func main() {
 	if len(os.Args) != 2 {
 		return
 	}
+	inputText := os.Args[1]
 
-	filename := os.Args[1]
+	banner, err := LoadBanner("standard.txt")
+	if err != nil {
+		fmt.Println("Error loading banner:", err)
+		return
+	}
 
-	fmt.Println(LoadBanner(filename))
-	
+	lines := Renderlines(inputText, banner)
+
+	for _, line := range lines {
+		fmt.Println(line)
+	}
 }

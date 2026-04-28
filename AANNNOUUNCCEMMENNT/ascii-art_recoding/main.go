@@ -13,4 +13,5 @@ func main(){
 	filename := os.Args[1]
 
 	fmt.Println(LoadBanner(filename))
+	
 }

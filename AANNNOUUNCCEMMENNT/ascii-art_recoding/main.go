@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -11,15 +12,49 @@ func main() {
 	}
 	inputText := os.Args[1]
 
+	inputText = strings.ReplaceAll(inputText, "\\n", "\n")
+	
+	if inputText == "" {
+		return
+	}
+
+	onlyNewlines := true
+
+	for _, r := range inputText {
+		if r != '\n' {
+			onlyNewlines = false
+			break
+		}
+	}
+
+	if onlyNewlines {
+		for i := 0; i < len(inputText); i++ {
+			fmt.Println()
+		}
+		return
+	}
+
+	input := strings.Split(inputText, "\n")
+
 	banner, err := LoadBanner("standard.txt")
 	if err != nil {
 		fmt.Println("Error loading banner:", err)
 		return
 	}
 
-	lines := Renderlines(inputText, banner)
+	for i, chunk := range input {
+		if chunk == "" {
+			if i < len(input) - 1 {
+				fmt.Println()
+			}
+			continue
+		}
 
-	for _, line := range lines {
-		fmt.Println(line)
+		lines := RenderLine(chunk, banner)
+
+		for _, line := range lines {
+			fmt.Println(line)
+		}
 	}
+
 }

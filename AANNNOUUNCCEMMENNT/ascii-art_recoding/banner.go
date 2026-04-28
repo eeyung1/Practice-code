@@ -1,9 +1,24 @@
 package main
 
 import (
+	"fmt"
 	"os"
-	"strings"
+	//"strings"
 )
+
+func LoadBanner(filename string) (map[rune][]string, error) {
+	data, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, fmt.Errorf("Error: file doesn't exist")
+	}
+
+	if len(data) == 0 {
+		return nil, fmt.Errorf("file is empty")
+	}
+
+	return nil, nil
+}
+
 
 // func LoadBanner(filename string) (map[rune][]string, error) {
 // 	data, err := os.ReadFile(filename)

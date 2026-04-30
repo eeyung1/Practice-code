@@ -5,51 +5,79 @@ import (
 	"strings"
 )
 
+func generateArt(text string, banner map[rune][]string) string {
+	if len(text) == 0 {
+		return ""
+	}
+	ch, err := ValidateInput(text)
+	if ch != 0 && err != nil {
+		return "input has unsupported characters"
+	}
+	segments := SplitInput(text)
+	onlyNewLines := true
+
+	var result strings.Builder
+	for _, ch := range segments {
+		if ch != "" {
+			onlyNewLines = false
+			break
+		}
+	}
+	if onlyNewLines {
+		for i := 0; i < len(segments)-1; i++ {
+			result.WriteByte('\n')
+		}
+	} else {
+		for _, ch := range segments {
+			if ch == "" {
+				result.WriteByte('\n')
+				continue
+			}
+			newText := strings.Join(RenderLine(ch, banner), "\n")
+			result.WriteString(newText)
+		}
+	}
+	return result.String()
+}
+
+
 func GenerateArt(input string, banner map[rune][]string) string {
 	if input == "" {
 		return ""
 	}
 
-	segments := SplitInput(input)
+	parts := SplitInput(input)
 
-	// Special Case: Check if input is ONLY literal \n sequences
-	// Example: "\n\n" should result in two blank lines.
-	onlyNewlines := true
-	for _, seg := range segments {
-		if seg != "" {
-			onlyNewlines = false
+	onlyNewLines := true
+
+	for _, part := range parts {
+		if part != "" {
+			onlyNewLines = false
 			break
 		}
 	}
 
 	var result strings.Builder
 
-	if onlyNewlines {
-		// If input was "\n", segments is ["", ""] (length 2)
-		// We want to return one "\n" for each split except the last.
-		for i := 0; i < len(segments)-1; i++ {
-			result.WriteString("\n")
+	if onlyNewLines {
+		for i := 0; i < len(parts)-1; i++ {
+			result.WriteByte('\n')
 		}
+
 		return result.String()
 	}
 
-	// Standard Case: Mixed text and newlines
-	for i, seg := range segments {
-		if seg == "" {
-			// An empty segment inside the split represents a newline gap.
-			// We skip the very last empty segment to avoid a trailing blank line.
-			if i < len(segments)-1 {
+	for i, part := range parts {
+		if part == "" {
+			if i < len(parts) - 1 {
 				result.WriteString("\n")
 			}
-			continue
-		}
-
-		// Render the 8 rows for this segment
-		rows := RenderLine(seg, banner)
-		for _, row := range rows {
-			result.WriteString(row + "\n")
+		} else {
+			rows := RenderLine(part, banner)
+			for _, row := range rows {
+				result.WriteString(row + "\n")
+			}
 		}
 	}
-
 	return result.String()
 }

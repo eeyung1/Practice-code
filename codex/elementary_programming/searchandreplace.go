@@ -22,6 +22,7 @@ func main() {
 	fmt.Println(ReplaceManual("aaaa", "aa", "x"))
 	fmt.Println(CountReplace("banana", "na", "xo"))
 	fmt.Println(FirstIndex("banana", "na"))
+	fmt.Println(FirstIndex("banana", "nana"))
 
 }
 

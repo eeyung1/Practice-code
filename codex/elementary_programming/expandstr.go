@@ -17,16 +17,19 @@ func main() {
 
 	i := 0
 	for i < len(input) {
+		// Skip spaces/tabs
 		for i < len(input) && isSpace(rune(input[i])) {
 			i++
 		}
 
 		start := i
 
+		// Capture word
 		for i < len(input) && !isSpace(rune(input[i])) {
 			i++
 		}
 
+		// If we found a word
 		if start < i {
 			if !firstWord {
 				result += "   "
@@ -36,7 +39,10 @@ func main() {
 		}
 	}
 
-	fmt.Println(result)
+	// ONLY print if we found at least one word
+	if result != "" {
+		fmt.Println(result)
+	}
 }
 
 func isSpace(c rune) bool {

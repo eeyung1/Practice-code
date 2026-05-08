@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ASCII Art Web</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #00ff99;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            color: #888;
+            margin-bottom: 36px;
+            font-size: 0.95rem;
+        }
+
+        .card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 32px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 4px 30px rgba(0,255,153,0.05);
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 14px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #00ff99;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: #00ff99;
+        }
+
+        .banner-group {
+            display: flex;
+            gap: 16px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+        }
+
+        .banner-option {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .banner-option input[type="radio"] {
+            display: none;
+        }
+
+        .banner-option label {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            color: #aaa;
+        }
+
+        .banner-option input[type="radio"]:checked + label {
+            border-color: #00ff99;
+            color: #00ff99;
+            background: rgba(0,255,153,0.07);
+        }
+
+        .banner-option label:hover {
+            border-color: #555;
+            color: #ddd;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background: #00ff99;
+            color: #0f0f0f;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button[type="submit"]:hover {
+            background: #00cc77;
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.99);
+        }
+
+        .error-box {
+            margin-top: 24px;
+            padding: 14px;
+            background: rgba(255, 60, 60, 0.1);
+            border: 1px solid #ff3c3c;
+            border-radius: 8px;
+            color: #ff6b6b;
+            font-size: 0.9rem;
+        }
+
+        .result-section {
+            margin-top: 36px;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .result-section h2 {
+            color: #00ff99;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .result-box {
+            background: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 24px;
+            overflow-x: auto;
+        }
+
+        .result-box pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.2;
+            color: #00ff99;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ASCII Art Web</h1>
+    <p class="subtitle">Type text, pick a banner, generate art.</p>
+
+    <div class="card">
+        <!-- The form POSTs to /ascii-art -->
+        <form action="/ascii-art" method="POST">
+
+            <label for="text">Your Text</label>
+            <textarea
+                id="text"
+                name="text"
+                placeholder="Type something..."
+                required
+            >{{.InputText}}</textarea>
+
+            <!-- Banner selection using styled radio buttons -->
+            <label style="margin-top: 24px;">Choose a Banner</label>
+            <div class="banner-group">
+
+                <div class="banner-option">
+                    <input
+                        type="radio"
+                        id="standard"
+                        name="banner"
+                        value="standard"
+                        {{if or (eq .Banner "standard") (eq .Banner "")}}checked{{end}}
+                    />
+                    <label for="standard">Standard</label>
+                </div>
+
+                <div class="banner-option">
+                    <input
+                        type="radio"
+                        id="shadow"
+                        name="banner"
+                        value="shadow"
+                        {{if eq .Banner "shadow"}}checked{{end}}
+                    />
+                    <label for="shadow">Shadow</label>
+                </div>
+
+                <div class="banner-option">
+                    <input
+                        type="radio"
+                        id="thinkertoy"
+                        name="banner"
+                        value="thinkertoy"
+                        {{if eq .Banner "thinkertoy"}}checked{{end}}
+                    />
+                    <label for="thinkertoy">Thinkertoy</label>
+                </div>
+
+            </div>
+
+            <button type="submit">Generate ASCII Art →</button>
+
+            <!-- Show error message if there is one -->
+            {{if .Error}}
+            <div class="error-box">
+                ⚠ {{.Error}}
+            </div>
+            {{end}}
+
+        </form>
+    </div>
+
+    <!-- Show result only if we have one -->
+    {{if .Result}}
+    <div class="result-section">
+        <h2>Result</h2>
+        <div class="result-box">
+            <pre>{{.Result}}</pre>
+        </div>
+    </div>
+    {{end}}
+
+</body>
+</html>

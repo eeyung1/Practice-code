@@ -26,7 +26,7 @@ func asciiArtHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "ASCII art page. Method: %s", asciiArtHandler)
+	fmt.Fprintf(w, "ASCII art page. Method: %s", r.Method)
 }
 
 func main(){

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+    <title>ASCII Art Form</title>
+</head>
+<body>
+    <h1> ASCII Art Generator </h1>
+    <form action="/ascii-art" method="POST">
+        <label>Your Text:</label><br/>
+        <textarea name="text" rows="4" cols="40"
+        placeholder="Type something..."></textarea>
+        <br/><br/>
+
+        <label>Choose a banner:</label><br/>
+        <input type="radio" name="banner" value="standard"/> Standard
+        <input type="radio" name="banner" value="shadow"/> Shadow
+        <input type="radio" name="banner" value="thinkertoy"/> thinkertoy
+        <br/><br/>
+
+        <button type="submit">Generate</button>
+
+    </form>
+</body>
+</html>

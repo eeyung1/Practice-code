@@ -32,7 +32,7 @@ func GenerateArt(input string, banner map[rune][]string) string {
 	}
 
 	// Normal rendering
-	for _, part := range parts {
+	for i, part := range parts {
 		if part == "" {
 			result.WriteByte('\n') // preserve blank line
 			continue
@@ -42,6 +42,14 @@ func GenerateArt(input string, banner map[rune][]string) string {
 		for _, row := range rows {
 			result.WriteString(row)
 			result.WriteByte('\n')
+		}
+
+		if i == len(parts)-2 && parts[i+1] == "" {
+			for j := 0; j < 8; j++ {
+				result.WriteString("\n")
+			}
+
+			break
 		}
 	}
 

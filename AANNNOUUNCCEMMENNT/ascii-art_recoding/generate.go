@@ -7,34 +7,16 @@ func GenerateArt(input string, banner map[rune][]string) string {
 		return ""
 	}
 
-	ch, err := ValidateInput(input)
-	if ch != 0 && err != nil {
-		return "input has unsupported characters"
-	}
-
 	parts := SplitInput(input)
 
 	var result strings.Builder
 
-	onlyNewLines := true
-	for _, part := range parts {
-		if part != "" {
-			onlyNewLines = false
-			break
-		}
-	}
-
-	if onlyNewLines {
-		for i := 0; i < len(parts)-1; i++ {
-			result.WriteByte('\n')
-		}
-		return result.String()
-	}
-
 	// Normal rendering
 	for i, part := range parts {
 		if part == "" {
-			result.WriteByte('\n') // preserve blank line
+			if i < len(parts)-1 {
+				result.WriteByte('\n')
+			} // preserve blank line
 			continue
 		}
 

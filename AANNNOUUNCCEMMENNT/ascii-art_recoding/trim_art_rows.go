@@ -4,12 +4,10 @@ import "strings"
 
 func TrimArtRows(rows []string) []string {
 	result := make([]string, len(rows))
-	for i, v := range rows {
-		if strings.Trim(v, " ") == " " {
-			result[i] = strings.TrimRight(v, " ")
-		}
 
+	for i, row := range rows {
+		result[i] = strings.TrimRight(row, " ")
 	}
-	return result
 
+	return result
 }

@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func validateInput(banner map[rune][]string) error {
+func ValidateBanner(banner map[rune][]string) error {
 	if len(banner) != 95 {
 		return fmt.Errorf("banner has %d enteries,expected 95", len(banner))
 	}

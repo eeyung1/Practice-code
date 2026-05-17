@@ -57,6 +57,6 @@ func main() {
 		}
 	}
 
-	fmt.Println(validateInput(banner))
+	// fmt.Println(validateInput(banner))
 
 }

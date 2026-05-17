@@ -2,7 +2,7 @@ package main
 
 import "strings"
 
-func PadArtRow(rows []string, width int) []string {
+func PadArtRows(rows []string, width int) []string {
 	result := make([]string, len(rows))
 
 	for i, row := range rows {

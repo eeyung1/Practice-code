@@ -5,6 +5,15 @@ import (
 	"fmt"
 )
 
+func main(){
+	for i := 1; i <= 9; i++ {
+		for j := 9; j >= 0 ; j-- {
+			fmt.Printf("%d%d ", i, j)
+		}
+	}
+}
+
+/*
 
 func main() {
 	for i := 9; i >= 2; i-- {
@@ -19,6 +28,7 @@ func main() {
 		}
 	}
 }
+*/
 
 
 /*

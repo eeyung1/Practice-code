@@ -23,6 +23,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func submitHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r)
 	text := r.FormValue("text")
 	fmt.Println("Text:", text)
 	fmt.Fprint(w, text)

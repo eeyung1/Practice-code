@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -12,6 +13,9 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
 		return
 	}
+
+	fmt.Println(r.FormValue("text"))
+	fmt.Println(r.FormValue("banner"))
 
 	tmpl.Execute(w, nil)
 }

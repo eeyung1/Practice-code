@@ -6,31 +6,39 @@
 <body>
     <h1>ASCII ART WEB</h1>
 
-    <h2>I am testing the second heading</h2>
+    <div>
 
-    <p>Hello from HTML Page.</p>
+	<form action="/ascii-art" method="POST">
 
-    <form>
+		<label>Enter Text</label>
 
-    <label>Enter text</label>
-    <br>
-    <textarea name="text"></textarea>
-    <br>
-    <select name="banner">
-        <option>standard</option>
-        <option>shadow</option>
-        <option>thinkertoy</option>
+		<br>
 
-        
-    </select>
+		<textarea name="text"></textarea>
 
-   <p> <button>Generate</button> </p>
+		<br>
 
-   </form>
-   <hr>
+		<select name="banner">
 
-   <prev>
-    RESULT AREA
-   </prev>
+			<option>standard</option>
+
+			<option>shadow</option>
+			<option>thinkertoy</option>
+
+		</select>
+
+		<br>
+
+		<button>Generate</button>
+
+	</form>
+
+    <hr>
+
+    <pre>
+    {{.}}
+    </pre>
+
+    </div>
 </body>
 </html>

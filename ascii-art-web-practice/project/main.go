@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -14,10 +14,12 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(r.FormValue("text"))
-	fmt.Println(r.FormValue("banner"))
+	text := r.FormValue("text")
 
-	tmpl.Execute(w, nil)
+	// fmt.Println(r.FormValue("text"))
+	// fmt.Println(r.FormValue("banner"))
+
+	tmpl.Execute(w, text)
 }
 
 func main(){

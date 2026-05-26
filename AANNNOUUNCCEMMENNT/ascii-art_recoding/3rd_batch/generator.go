@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"strings"
+	// "fmt"
+	// "strings"
 )
 
 func GeneratePattern(c rune) []string {
@@ -283,6 +283,6 @@ func GeneratePattern(c rune) []string {
 	return result
 }
 
-func main() {
-	fmt.Println(strings.Join(GeneratePattern('A'), "\n"))
-}
+// func main() {
+// 	fmt.Println(strings.Join(GeneratePattern('A'), "\n"))
+// }

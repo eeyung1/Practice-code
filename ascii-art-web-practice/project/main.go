@@ -29,9 +29,19 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func asciiHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "405 Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
 	text := r.FormValue("text")
 	banner := r.FormValue("banner")
-
+	
+	if text == "" {
+		http.Error(w, "400 Bad Request", http.StatusBadRequest)
+		return
+	}
+	
 	tmpl, err := template.ParseFiles("templates/index.html")
 
 	if err != nil {
@@ -40,6 +50,7 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+
 
 	result := generateAscii(text, banner)
 

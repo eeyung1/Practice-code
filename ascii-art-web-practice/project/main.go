@@ -36,7 +36,7 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 
 	text := r.FormValue("text")
 	banner := r.FormValue("banner")
-	
+
 	if text == "" {
 		http.Error(w, "400 Bad Request", http.StatusBadRequest)
 		return
@@ -52,19 +52,23 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 
-	result := generateAscii(text, banner)
+	result, err := generateAscii(text, banner)
+	if err != nil {
+		http.Error(w, "404 Not Found", http.StatusNotFound)
+		return
+	}
 
 	tmpl.Execute(w, result)
 }
 
-func generateAscii(text, banner string) string {
+func generateAscii(text, banner string) (string, error) {
 	filepath := banner + ".txt"
 
 	data, err := os.ReadFile(filepath)
 
 	if err != nil {
 
-		return "Error reading banner file"
+		return "", err
 	}
 
 	content := strings.ReplaceAll(string(data), "\r\n", "\n")
@@ -86,7 +90,7 @@ func generateAscii(text, banner string) string {
 		result += "\n"
 	}
 
-	return result
+	return result, nil
 }
 
 func main(){

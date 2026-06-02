@@ -25,11 +25,10 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    err = tmpl.Execute(w, nil) 
-	if err != nil {
-		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
-		return
+    if err = tmpl.Execute(w, nil); err != nil {
+		log.Println("template execute error:", err)
 	}
+
 }
 
 func asciiHandler(w http.ResponseWriter, r *http.Request) {
@@ -68,11 +67,10 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 
 
 
-	err = tmpl.Execute(w, result)
-	if err != nil {
-		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
-		return
+	if err = tmpl.Execute(w, result); err != nil {
+		log.Println("template execute error:", err)
 	}
+
 }
 
 func generateAscii(text, banner string) (string, error) {

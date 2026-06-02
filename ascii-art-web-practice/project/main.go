@@ -42,6 +42,17 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
+	result, err := generateAscii(text, banner)
+	if err != nil {
+		if os.IsNotExist(err) {
+			http.Error(w, "404 Not Found", http.StatusNotFound)
+			return
+		} else {
+			http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+	}
+	
 	tmpl, err := template.ParseFiles("templates/index.html")
 
 	if err != nil {
@@ -52,11 +63,6 @@ func asciiHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 
-	result, err := generateAscii(text, banner)
-	if err != nil {
-		http.Error(w, "404 Not Found", http.StatusNotFound)
-		return
-	}
 
 	tmpl.Execute(w, result)
 }

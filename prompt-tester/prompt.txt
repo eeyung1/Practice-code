@@ -1,0 +1,1 @@
+Say hello and tell me one fun fact about Go programming language.

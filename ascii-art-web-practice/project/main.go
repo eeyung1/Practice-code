@@ -1,11 +1,8 @@
 package main
 
 import (
-	// "html/template"
 	"log"
 	"net/http"
-	// "os"
-	// "strings"
 	"project/handlers"
 )
 
@@ -21,99 +18,3 @@ func main(){
 
 
 
-// func homeHandler(w http.ResponseWriter, r *http.Request) {
-// 	if r.URL.Path != "/" {
-// 		http.Error(w, "404 Not Found", http.StatusNotFound)
-// 		return
-// 	}
-
-// 	if r.Method != http.MethodGet {
-// 		http.Error(w, "405 Method Not Allowed", http.StatusMethodNotAllowed)
-// 		return
-// 	}
-
-// 	tmpl, err := template.ParseFiles("templates/index.html")
-// 	if err != nil {
-// 		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
-// 		return
-// 	}
-
-//     if err = tmpl.Execute(w, nil); err != nil {
-// 		log.Println("template execute error:", err)
-// 	}
-
-// }
-
-// func asciiHandler(w http.ResponseWriter, r *http.Request) {
-// 	if r.Method != http.MethodPost {
-// 		http.Error(w, "405 Method Not Allowed", http.StatusMethodNotAllowed)
-// 		return
-// 	}
-
-// 	text := r.FormValue("text")
-// 	banner := r.FormValue("banner")
-
-// 	if text == "" {
-// 		http.Error(w, "400 Bad Request", http.StatusBadRequest)
-// 		return
-// 	}
-	
-// 	result, err := generateAscii(text, banner)
-// 	if err != nil {
-// 		if os.IsNotExist(err) {
-// 			http.Error(w, "404 Not Found", http.StatusNotFound)
-// 			return
-// 		} else {
-// 			http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
-// 			return
-// 		}
-// 	}
-	
-// 	tmpl, err := template.ParseFiles("templates/index.html")
-
-// 	if err != nil {
-		
-// 		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
-
-// 		return
-// 	}
-
-
-
-// 	if err = tmpl.Execute(w, result); err != nil {
-// 		log.Println("template execute error:", err)
-// 	}
-
-// }
-
-// func generateAscii(text, banner string) (string, error) {
-// 	filepath := "banners/" + banner + ".txt"
-
-// 	data, err := os.ReadFile(filepath)
-
-// 	if err != nil {
-
-// 		return "", err
-// 	}
-
-// 	content := strings.ReplaceAll(string(data), "\r\n", "\n")
-
-
-// 	lines := strings.Split(content, "\n")
-
-// 	result := ""
-
-// 	for i := 0; i < 8; i++ {
-
-// 		for _, ch := range text {
-
-// 			index := int(ch-32)*9 + i
-
-// 			result += lines[index]
-// 		}
-
-// 		result += "\n"
-// 	}
-
-// 	return result, nil
-// }

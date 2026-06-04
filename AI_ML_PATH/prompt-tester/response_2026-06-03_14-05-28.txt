@@ -1,0 +1,16 @@
+PROMPT:
+Say hello and tell me one fun fact about Go programming language.
+
+
+---
+RESPONSE:
+Hello. 
+
+Go, also known as Golang, is a statically typed, concurrent programming language developed by Google. Here's a fun fact: 
+
+-   Before its official release, Go wasn't intended to be a replacement for existing languages, but a simpler, faster alternative, with some of the features found in other languages like Rust, but with less overhead and complexity, allowing for efficient, concurrent execution without the need for extra libraries.
+
+---
+TOKENS:
+Input: 48
+Output: 89

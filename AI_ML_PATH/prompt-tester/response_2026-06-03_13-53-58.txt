@@ -1,0 +1,16 @@
+PROMPT:
+Say hello and tell me one fun fact about Go programming language.
+
+
+---
+RESPONSE:
+Hello. 
+
+The Go programming language, often abbreviated as "Golang," is a statically typed, compiled, and garbage-collected language developed by Google. Here's a fun fact about Go:
+
+Go is known for its simplicity and ease of use. One key feature that supports this is its simplicity and efficiency when it comes to concurrency. In Go, goroutines and channels make it easy to write concurrent code that can handle thousands of tasks at the same time. This concurrency support was largely driven by Rob Pike, a key architect behind the Go language, who aimed to make concurrent programming easy and intuitive for developers.
+
+---
+TOKENS:
+Input: 48
+Output: 123

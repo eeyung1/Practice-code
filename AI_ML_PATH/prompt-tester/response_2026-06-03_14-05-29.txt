@@ -1,0 +1,12 @@
+PROMPT:
+In one short sentence: tell me a fun fact about Go programming.
+
+
+---
+RESPONSE:
+Go, also known as Golang, has a concurrency model that is heavily focused on communicating sequential processes (CSP) to simplify concurrent programming.
+
+---
+TOKENS:
+Input: 49
+Output: 30

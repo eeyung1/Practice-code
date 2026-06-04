@@ -1,0 +1,11 @@
+PROMPT:
+In just one and only word, what's go super power
+
+---
+RESPONSE:
+Telekinesis.
+
+---
+TOKENS:
+Input: 47
+Output: 5

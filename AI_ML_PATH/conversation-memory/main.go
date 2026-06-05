@@ -32,9 +32,13 @@ func main() {
 	fmt.Println("Type your message. Commands: :quit, :reset, :show")
 	fmt.Println()
 
+	fmt.Print("Input name: ")
+	var name string
+	fmt.Scan(&name)
+
 	for {
 		// Get user input
-		fmt.Print("You: ")
+		fmt.Print(name, ": ")
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
 

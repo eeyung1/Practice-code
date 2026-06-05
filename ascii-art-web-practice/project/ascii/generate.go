@@ -5,8 +5,9 @@ import (
 	"strings"
 )
 
-
 func GenerateAscii(text, banner string) (string, error) {
+
+
 	filepath := "banners/" + banner + ".txt"
 
 	data, err := os.ReadFile(filepath)
@@ -16,20 +17,34 @@ func GenerateAscii(text, banner string) (string, error) {
 		return "", err
 	}
 
+	
 	content := strings.ReplaceAll(string(data), "\r\n", "\n")
-
-
+	
+	
 	lines := strings.Split(content, "\n")
+	
+	characters := strings.ReplaceAll(text, "\r\n", "\n")
+
+	
+	if strings.ContainsAny(text, `\n`) {
+		characters = strings.ReplaceAll(text, `\n`, "\n")
+	}
+	parts := strings.Split(characters, "\n")
 
 	result := ""
 
-	for i := 0; i < 8; i++ {
+	for _, part := range parts {
 
-		for _, ch := range text {
+		for i := 0; i < 8; i++ {
 
-			index := int(ch-32)*9 + i
+			for _, ch := range part {
 
-			result += lines[index]
+				index := int(ch-32)*9 + i
+
+				result += lines[index]
+			}
+
+			result += "\n"
 		}
 
 		result += "\n"

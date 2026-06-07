@@ -4,3 +4,5 @@ def printif(input):
     return "Invalid Input\n"
 
 print(printif("hel"))
+print(printif("he"))
+print(printif("hello world"))

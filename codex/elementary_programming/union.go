@@ -22,14 +22,12 @@ func main(){
 	for _, ch := range str1 {
 		if !seen[byte(ch)] {
 			seen[byte(ch)] = true
-			fmt.Println(string(ch))
 			result = append(result, byte(ch))
 		}
 	}	
 	
 	for _, ch := range str2 {
 		if !seen[byte(ch)] {
-			fmt.Println(string(ch))
 			seen[byte(ch)] = true
 			result = append(result, byte(ch))
 		}

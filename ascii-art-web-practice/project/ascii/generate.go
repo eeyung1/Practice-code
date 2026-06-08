@@ -1,12 +1,15 @@
 package ascii
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
 
 func GenerateAscii(text, banner string) (string, error) {
+	// good := []rune(text)
 
+	// fmt.Println(good)
 
 	filepath := "banners/" + banner + ".txt"
 
@@ -17,18 +20,20 @@ func GenerateAscii(text, banner string) (string, error) {
 		return "", err
 	}
 
-	
-	content := strings.ReplaceAll(string(data), "\r\n", "\n")
-	
-	
-	lines := strings.Split(content, "\n")
-	
-	characters := strings.ReplaceAll(text, "\r\n", "\n")
-
-	
-	if strings.ContainsAny(text, `\n`) {
-		characters = strings.ReplaceAll(text, `\n`, "\n")
+	if strings.Contains(text, `\\n`) {
+		text = strings.ReplaceAll(text, `\\n`, "\n")
 	}
+
+	content := strings.ReplaceAll(string(data), "\r\n", "\n")
+
+	lines := strings.Split(content, "\n")
+
+	characters := strings.ReplaceAll(text, "\r\n", "\n")
+	
+	if strings.Contains(text, `\n`) {
+		characters = strings.ReplaceAll(text, `\n`, "\n")
+	} 
+
 	parts := strings.Split(characters, "\n")
 
 	result := ""

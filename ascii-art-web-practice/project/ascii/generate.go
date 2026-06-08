@@ -1,7 +1,6 @@
 package ascii
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )

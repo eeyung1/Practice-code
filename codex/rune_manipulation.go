@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"fmt"
+	"fmt"
 	"unicode"
 )
 
@@ -58,11 +58,11 @@ func lastChar(b string) string {
 
 //rune manipulation
 
-package main
+// package main
 
-import (
-	"fmt"
-)
+// import (
+// 	"fmt"
+// )
 
 func main() {
 	for r := 65; r <= 90; r++ {

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }}</title>
+</head>
+
+<body>
+    <h1>{{.Title}}</h1> <br><br>
+    <form action="/ascii-art" method="post">
+
+        <textarea name="text" placeholder="enter your text here..."> </textarea>
+        <select name="banner">
+
+            <option value="standard.txt">standard</option>
+            <option value="shadow.txt">shadow</option>
+            <option value="thinkertoy.txt">thinkertoy</option>
+        </select>
+
+        <button type="submit">Generate Art</button>
+
+    </form>
+    <pre>{{.Result}}</pre>
+
+</body>
+</html>

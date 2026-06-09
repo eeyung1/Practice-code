@@ -1,0 +1,17 @@
+package main
+
+import "fmt"
+import "os"
+
+func main() {
+    var result int
+    divide(10, 0)
+    fmt.Println(result)
+    
+    file, _ := os.Open("nonexistent.txt")
+    file.Close()
+}
+
+func divide(a, b int) int {
+    return a / b
+}

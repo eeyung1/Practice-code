@@ -1,6 +1,10 @@
 		body {
 			background-color: rgb(46, 2, 2);
 			color: white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 10vh;
 		}
 
 		h1 {
@@ -27,17 +31,21 @@
 			margin-top: 10px;
 		}
 
-		/* pre {
+		pre {
 			background-color: black;
+			background-size: auto;
 			color: lime;
 			padding: 15px;
 			margin-top: 20px;
-		} */
+		}
 
 		.container {
 			width: 500px;
             max-width: 100%;
 			margin: auto;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
 		}
 
 		select {

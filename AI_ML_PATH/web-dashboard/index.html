@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Streaming Dashboard</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-family: monospace;
+            background: #2d2d2d;
+            color: #d4d4d4;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #0e639c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1177bb;
+        }
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            background: #2d2d2d;
+            border-radius: 5px;
+            border-left: 4px solid #0e639c;
+            white-space: pre-wrap;
+            min-height: 200px;
+        }
+        #token-count {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #888;
+        }
+        .loading {
+            color: #0e639c;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 AI Streaming Dashboard</h1>
+    <p>Enter your prompt below. The response will stream token by token.</p>
+    
+    <textarea id="prompt" rows="4" placeholder="Ask me anything..."></textarea>
+    <br>
+    <button id="submitBtn">Send</button>
+    <button id="cancelBtn" disabled>Cancel</button>
+    
+    <div id="response"></div>
+    <div id="token-count"></div>
+
+    <script>
+        const promptEl = document.getElementById('prompt');
+        const submitBtn = document.getElementById('submitBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const responseEl = document.getElementById('response');
+        const tokenCountEl = document.getElementById('token-count');
+        
+        let currentController = null;
+        
+        submitBtn.onclick = async () => {
+            const prompt = promptEl.value.trim();
+            if (!prompt) return;
+            
+            // Clear previous response
+            responseEl.innerHTML = '<span class="loading">⏳ Generating...</span>';
+            tokenCountEl.textContent = '';
+            submitBtn.disabled = true;
+            cancelBtn.disabled = false;
+            
+            // Create abort controller for cancellation
+            currentController = new AbortController();
+            
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt }),
+                    signal: currentController.signal
+                });
+                
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                responseEl.innerHTML = '';
+                let fullText = '';
+                
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    fullText += chunk;
+                    responseEl.innerHTML = fullText.replace(/\n/g, '<br>');
+                    // Auto-scroll to bottom
+                    responseEl.scrollTop = responseEl.scrollHeight;
+                }
+                
+                // Get token usage from response headers if available
+                const inputTokens = response.headers.get('X-Input-Tokens');
+                const outputTokens = response.headers.get('X-Output-Tokens');
+                if (inputTokens && outputTokens) {
+                    tokenCountEl.textContent = `📊 Input: ${inputTokens} tokens | Output: ${outputTokens} tokens`;
+                }
+                
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    responseEl.innerHTML = '<span style="color: #f48771;">❌ Generation cancelled.</span>';
+                } else {
+                    responseEl.innerHTML = `<span style="color: #f48771;">❌ Error: ${error.message}</span>`;
+                }
+            } finally {
+                submitBtn.disabled = false;
+                cancelBtn.disabled = true;
+                currentController = null;
+            }
+        };
+        
+        cancelBtn.onclick = () => {
+            if (currentController) {
+                currentController.abort();
+            }
+        };
+    </script>
+</body>
+</html>

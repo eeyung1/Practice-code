@@ -40,9 +40,6 @@ func FifthAndSkip(str string) string {
 	}
 
 
-
-
-
 	return result + "\n"
 }
 

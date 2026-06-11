@@ -1,8 +1,8 @@
-From golang
+FROM golang
 
 WORKDIR /app
 
-COPY ..
+COPY . .
 
 RUN go build
 

@@ -14,7 +14,7 @@ func main() {
 
 	word := os.Args[1]
 
-	if !strings.Contains(word, ".txt") {
+	if !strings.Contains(word, "data.txt") {
 
 		counts := make(map[rune]int)
 
@@ -35,6 +35,11 @@ func main() {
 		data, err := os.ReadFile(word)
 		if err != nil {
 			fmt.Println("Error: ", err)
+			return
+		}
+
+		if len(data) == 0 {
+			fmt.Println("Error: Empty Data File")
 			return
 		}
 

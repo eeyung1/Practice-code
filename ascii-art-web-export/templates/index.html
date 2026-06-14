@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="/static/style.css">
+    <title>ASCII Art Web</title>
+	
+</head>
+
+<body>
+	
+	<div class="container">
+		<h1><i>ASCII ART WEB</i></h1>
+
+<form method="POST">
+
+    <textarea name="text"></textarea>
+
+    <select name="banner">
+        <option>standard</option>
+        <option>shadow</option>
+        <option>thinkertoy</option>
+    </select>
+
+    <button formaction="/ascii-art">Generate</button>
+
+    <button formaction="/download">Download</button>
+
+</form>
+
+    <hr>
+	<hr>
+
+    <!-- <pre>
+    {{.}}  
+    </pre> -->
+
+    </div>
+</body>
+</html>

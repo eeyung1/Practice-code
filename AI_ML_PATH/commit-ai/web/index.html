@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Commit Message Generator</title>
+    <style>
+        body {
+            font-family: system-ui, monospace;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #0d1117;
+            color: #c9d1d9;
+        }
+        h1 { color: #58a6ff; }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 14px;
+            background: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+        button:hover { background: #2ea043; }
+        button:disabled {
+            background: #6e7681;
+            cursor: not-allowed;
+        }
+        .copy-btn { background: #1f6feb; }
+        .copy-btn:hover { background: #388bfd; }
+        .response-box {
+            margin-top: 20px;
+            padding: 16px;
+            background: #161b22;
+            border-radius: 6px;
+            border-left: 4px solid #238636;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .cache-info {
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 10px;
+        }
+        .error {
+            color: #f85149;
+            border-left-color: #f85149;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #30363d;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            color: #8b949e;
+            border: none;
+        }
+        .tab.active {
+            color: #58a6ff;
+            border-bottom: 2px solid #58a6ff;
+        }
+        .history-item {
+            background: #161b22;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #238636;
+            font-size: 13px;
+        }
+        .history-message {
+            font-family: monospace;
+            margin-bottom: 8px;
+        }
+        .history-diff {
+            font-size: 11px;
+            color: #8b949e;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        hr {
+            border-color: #30363d;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 AI Commit Message Generator</h1>
+    
+    <div class="tabs">
+        <button class="tab active" data-tab="generate">Generate</button>
+        <button class="tab" data-tab="history">History</button>
+        <button class="tab" data-tab="stats">Stats</button>
+    </div>
+    
+    <div id="generateTab">
+        <p>Paste your <code>git diff</code> below, and AI will generate a conventional commit message.</p>
+        <textarea id="diffInput" rows="10" placeholder="git diff --staged output here..."></textarea>
+        <br>
+        <button id="generateBtn">Generate Message</button>
+        <button id="regenerateBtn" disabled>Regenerate (different tone)</button>
+        <div id="response" class="response-box" style="display:none;"></div>
+        <div id="cacheInfo" class="cache-info"></div>
+    </div>
+    
+    <div id="historyTab" style="display:none;">
+        <h3>📜 Recent Generations</h3>
+        <div id="historyList">Loading...</div>
+    </div>
+    
+    <div id="statsTab" style="display:none;">
+        <h3>📊 System Statistics</h3>
+        <div id="statsContent">Loading...</div>
+    </div>
+
+    <script>
+        let lastDiff = '';
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.onclick = () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('generateTab').style.display = 'none';
+                document.getElementById('historyTab').style.display = 'none';
+                document.getElementById('statsTab').style.display = 'none';
+                document.getElementById(tab.dataset.tab + 'Tab').style.display = 'block';
+                
+                if (tab.dataset.tab === 'history') loadHistory();
+                if (tab.dataset.tab === 'stats') loadStats();
+            };
+        });
+        
+        async function loadHistory() {
+            const container = document.getElementById('historyList');
+            container.innerHTML = 'Loading...';
+            try {
+                const res = await fetch('/history');
+                const data = await res.json();
+                if (!Array.isArray(data) || data.length === 0) {
+                    container.innerHTML = 'No history yet. Generate some commit messages!';
+                    return;
+                }
+                container.innerHTML = data.map(record => `
+                    <div class="history-item">
+                        <div class="history-message"><strong>${escapeHtml(record.Message)}</strong></div>
+                        <div class="history-diff">${escapeHtml(record.Diff.substring(0, 100))}...</div>
+                        <div style="font-size: 11px; color: #8b949e; margin-top: 5px;">
+                            Tokens: ${record.Tokens} | ${record.FromCache ? '💾 From cache' : '✨ Fresh'} | ${new Date(record.CreatedAt).toLocaleString()}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = 'Error loading history: ' + err.message;
+            }
+        }
+        
+        async function loadStats() {
+            const container = document.getElementById('statsContent');
+            container.innerHTML = 'Loading...';
+            try {
+                const res = await fetch('/stats');
+                const data = await res.json();
+                container.innerHTML = `
+                    <div class="response-box">
+                        <strong>Cache:</strong> ${data.cache_size} entries<br>
+                        <strong>Model:</strong> ${data.config.model}<br>
+                        <strong>Max Tokens:</strong> ${data.config.max_tokens}<br>
+                        <strong>Max Cache Size:</strong> ${data.config.max_cache}<br>
+                        <strong>Cache TTL:</strong> 60 minutes
+                    </div>
+                `;
+            } catch (err) {
+                container.innerHTML = 'Error loading stats: ' + err.message;
+            }
+        }
+        
+        const diffInput = document.getElementById('diffInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const regenerateBtn = document.getElementById('regenerateBtn');
+        const responseDiv = document.getElementById('response');
+        const cacheInfo = document.getElementById('cacheInfo');
+        
+        async function generate(regenerate = false) {
+            const diff = diffInput.value.trim();
+            if (!diff) {
+                responseDiv.innerHTML = '❌ Please paste a git diff first.';
+                responseDiv.style.display = 'block';
+                responseDiv.classList.add('error');
+                return;
+            }
+            
+            generateBtn.disabled = true;
+            if (regenerate) regenerateBtn.disabled = true;
+            
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = '⏳ Generating commit message...';
+            responseDiv.classList.remove('error');
+            cacheInfo.innerHTML = '';
+            
+            try {
+                const url = regenerate ? '/regenerate' : '/generate';
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ diff: diff })
+                });
+                
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Generation failed');
+                
+                responseDiv.innerHTML = `
+                    <strong>📝 Generated commit message:</strong><br><br>
+                    <code style="white-space:pre-wrap;">${escapeHtml(data.message)}</code>
+                    <br><br>
+                    <button id="copyMsgBtn" class="copy-btn">📋 Copy to Clipboard</button>
+                `;
+                responseDiv.classList.remove('error');
+                
+                if (data.fromCache) {
+                    cacheInfo.innerHTML = '💾 Loaded from cache (no API call)';
+                } else {
+                    cacheInfo.innerHTML = `✨ Generated with LLM | Tokens: ${data.tokens || 'N/A'}`;
+                }
+                
+                document.getElementById('copyMsgBtn')?.addEventListener('click', () => {
+                    navigator.clipboard.writeText(data.message);
+                    alert('Copied to clipboard!');
+                });
+                
+                lastDiff = diff;
+                regenerateBtn.disabled = false;
+                
+            } catch (err) {
+                responseDiv.innerHTML = `❌ Error: ${err.message}`;
+                responseDiv.classList.add('error');
+            } finally {
+                generateBtn.disabled = false;
+                if (regenerate) regenerateBtn.disabled = false;
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        generateBtn.onclick = () => generate(false);
+        regenerateBtn.onclick = () => generate(true);
+    </script>
+</body>
+</html>

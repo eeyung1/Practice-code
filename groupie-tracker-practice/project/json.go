@@ -20,12 +20,7 @@ func main() {
 
 	var artist Artist
 
-	err := json.Unmarshal([]byte(jsonData), &artist)
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	json.Unmarshal([]byte(jsonData), &artist)
 
 	fmt.Println(artist.Name)
 	fmt.Println(artist.Year)

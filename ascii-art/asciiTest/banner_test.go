@@ -1,15 +1,16 @@
-package main
+package ascii
 
 import (
 	"os"
 	"strings"
 	"testing"
+	"ascii-art/factors"
 )
 
 // TestLoadBanner_ReturnsCorrectCharCount checks that all 95 printable ASCII
 // characters (codes 32–126) are present in the loaded banner map.
 func TestLoadBanner_ReturnsCorrectCharCount(t *testing.T) {
-	banner, err := LoadBanner("standard.txt")
+	banner, err := factors.LoadBanner("standard.txt")
 	if err != nil {
 		t.Fatalf("unexpected error loading standard.txt: %v", err)
 	}
@@ -21,7 +22,7 @@ func TestLoadBanner_ReturnsCorrectCharCount(t *testing.T) {
 // TestLoadBanner_EachCharHasEightLines checks that every character in the
 // banner map has exactly 8 art lines.
 func TestLoadBanner_EachCharHasEightLines(t *testing.T) {
-	banner, err := LoadBanner("standard.txt")
+	banner, err := factors.LoadBanner("standard.txt")
 	if err != nil {
 		t.Fatalf("unexpected error loading standard.txt: %v", err)
 	}
@@ -35,7 +36,7 @@ func TestLoadBanner_EachCharHasEightLines(t *testing.T) {
 // TestLoadBanner_AllPrintableASCIIPresent checks every rune from 32 to 126
 // individually to make sure none are missing.
 func TestLoadBanner_AllPrintableASCIIPresent(t *testing.T) {
-	banner, err := LoadBanner("standard.txt")
+	banner, err := factors.LoadBanner("standard.txt")
 	if err != nil {
 		t.Fatalf("unexpected error loading standard.txt: %v", err)
 	}
@@ -49,7 +50,7 @@ func TestLoadBanner_AllPrintableASCIIPresent(t *testing.T) {
 // TestLoadBanner_SpaceCharPresent specifically checks the space character
 // since it is invisible and students often accidentally skip it.
 func TestLoadBanner_SpaceCharPresent(t *testing.T) {
-	banner, err := LoadBanner("standard.txt")
+	banner, err := factors.LoadBanner("standard.txt")
 	if err != nil {
 		t.Fatalf("unexpected error loading standard.txt: %v", err)
 	}
@@ -65,7 +66,7 @@ func TestLoadBanner_SpaceCharPresent(t *testing.T) {
 // TestLoadBanner_NoLineContainsNewline checks that none of the stored art
 // lines themselves contain a newline byte — the parser must strip them.
 func TestLoadBanner_NoLineContainsNewline(t *testing.T) {
-	banner, err := LoadBanner("standard.txt")
+	banner, err := factors.LoadBanner("standard.txt")
 	if err != nil {
 		t.Fatalf("unexpected error loading standard.txt: %v", err)
 	}
@@ -81,7 +82,7 @@ func TestLoadBanner_NoLineContainsNewline(t *testing.T) {
 // TestLoadBanner_FileNotFound expects a non-nil error and a nil map when the
 // file does not exist.
 func TestLoadBanner_FileNotFound(t *testing.T) {
-	banner, err := LoadBanner("notfound.txt")
+	banner, err := factors.LoadBanner("notfound.txt")
 	if err == nil {
 		t.Error("expected a non-nil error for missing file, got nil")
 	}
@@ -99,7 +100,7 @@ func TestLoadBanner_EmptyFile(t *testing.T) {
 	defer os.Remove(f.Name())
 	f.Close()
 
-	_, err = LoadBanner(f.Name())
+	_, err = factors.LoadBanner(f.Name())
 	if err == nil {
 		t.Error("expected error for empty file, got nil")
 	}
@@ -117,7 +118,7 @@ func TestLoadBanner_InvalidContent(t *testing.T) {
 	_, _ = f.WriteString("this is not a valid banner file\nonly two lines\n")
 	f.Close()
 
-	_, err = LoadBanner(f.Name())
+	_, err = factors.LoadBanner(f.Name())
 	if err == nil {
 		t.Error("expected error for invalid banner content, got nil")
 	}
@@ -127,7 +128,7 @@ func TestLoadBanner_InvalidContent(t *testing.T) {
 // load correctly with 95 chars each having 8 lines.
 func TestLoadBanner_ShadowAndThinkertoy(t *testing.T) {
 	for _, filename := range []string{"shadow.txt", "thinkertoy.txt"} {
-		banner, err := LoadBanner(filename)
+		banner, err := factors.LoadBanner(filename)
 		if err != nil {
 			t.Errorf("%s: unexpected error: %v", filename, err)
 			continue

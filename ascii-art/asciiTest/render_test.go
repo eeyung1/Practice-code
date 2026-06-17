@@ -1,14 +1,15 @@
-package main
+package ascii
 
 import (
 	"strings"
 	"testing"
+	"ascii-art/factors"
 )
 
 // helper: loads standard banner or fails the test immediately.
 func loadStandard(t *testing.T) map[rune][]string {
 	t.Helper()
-	banner, err := LoadBanner("standard.txt")
+	banner, err := factors.LoadBanner("standard.txt")
 	if err != nil {
 		t.Fatalf("could not load standard.txt: %v", err)
 	}
@@ -19,7 +20,7 @@ func loadStandard(t *testing.T) map[rune][]string {
 // yields a slice of exactly 8 strings.
 func TestRenderLine_ReturnsEightLines(t *testing.T) {
 	banner := loadStandard(t)
-	result := RenderLine("Hello", banner)
+	result := factors.RenderLine("Hello", banner)
 	if len(result) != 8 {
 		t.Errorf("expected 8 lines, got %d", len(result))
 	}
@@ -29,7 +30,7 @@ func TestRenderLine_ReturnsEightLines(t *testing.T) {
 // still produces 8 strings, all empty — not a nil slice.
 func TestRenderLine_EmptyStringReturnsEightEmptyLines(t *testing.T) {
 	banner := loadStandard(t)
-	result := RenderLine("", banner)
+	result := factors.RenderLine("", banner)
 	if len(result) != 8 {
 		t.Errorf("expected 8 lines for empty input, got %d", len(result))
 	}
@@ -44,7 +45,7 @@ func TestRenderLine_EmptyStringReturnsEightEmptyLines(t *testing.T) {
 // lines whose content matches the space character's art in the banner.
 func TestRenderLine_SingleSpace(t *testing.T) {
 	banner := loadStandard(t)
-	result := RenderLine(" ", banner)
+	result := factors.RenderLine(" ", banner)
 	if len(result) != 8 {
 		t.Fatalf("expected 8 lines for space, got %d", len(result))
 	}
@@ -60,7 +61,7 @@ func TestRenderLine_SingleSpace(t *testing.T) {
 // equals the row for 'A' concatenated with the row for 'B'.
 func TestRenderLine_TwoCharsConcatenated(t *testing.T) {
 	banner := loadStandard(t)
-	result := RenderLine("AB", banner)
+	result := factors.RenderLine("AB", banner)
 	if len(result) != 8 {
 		t.Fatalf("expected 8 lines, got %d", len(result))
 	}
@@ -76,7 +77,7 @@ func TestRenderLine_TwoCharsConcatenated(t *testing.T) {
 // ends with a newline character. Printing is the caller's job.
 func TestRenderLine_NoTrailingNewline(t *testing.T) {
 	banner := loadStandard(t)
-	result := RenderLine("Hello", banner)
+	result := factors.RenderLine("Hello", banner)
 	for i, line := range result {
 		if strings.HasSuffix(line, "\n") {
 			t.Errorf("line %d ends with \\n — RenderLine must not add newlines", i)
@@ -90,7 +91,7 @@ func TestRenderLine_SingleCharMatchesBanner(t *testing.T) {
 	banner := loadStandard(t)
 	chars := []rune{'H', 'e', 'l', 'o', '1', '!', ' '}
 	for _, r := range chars {
-		result := RenderLine(string(r), banner)
+		result := factors.RenderLine(string(r), banner)
 		if len(result) != 8 {
 			t.Errorf("char %q: expected 8 lines, got %d", r, len(result))
 			continue
@@ -107,8 +108,8 @@ func TestRenderLine_SingleCharMatchesBanner(t *testing.T) {
 // more characters. "AB" rows must be wider than "A" rows.
 func TestRenderLine_LongerWordWidth(t *testing.T) {
 	banner := loadStandard(t)
-	single := RenderLine("A", banner)
-	double := RenderLine("AB", banner)
+	single := factors.RenderLine("A", banner)
+	double := factors.RenderLine("AB", banner)
 	for i := 0; i < 8; i++ {
 		if len(double[i]) < len(single[i]) {
 			t.Errorf("row %d: 'AB' should be wider than 'A', got %d <= %d",
@@ -123,7 +124,7 @@ func TestRenderLine_SpecialCharacters(t *testing.T) {
 	banner := loadStandard(t)
 	specials := []string{"!", "#", "$", "%", "&", "()", "{}"}
 	for _, s := range specials {
-		result := RenderLine(s, banner)
+		result := factors.RenderLine(s, banner)
 		if len(result) != 8 {
 			t.Errorf("input %q: expected 8 lines, got %d", s, len(result))
 		}

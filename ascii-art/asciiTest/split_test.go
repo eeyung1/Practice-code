@@ -1,6 +1,7 @@
-package main
+package ascii
 
 import (
+	"ascii-art/factors"
 	"reflect"
 	"testing"
 )
@@ -72,7 +73,7 @@ func TestSplitInput(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := SplitInput(tt.input)
+			got := factors.SplitInput(tt.input)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("SplitInput(%q)\n  got:  %q\n  want: %q", tt.input, got, tt.want)
 			}
@@ -83,7 +84,7 @@ func TestSplitInput(t *testing.T) {
 // TestSplitInput_NeverReturnsNil ensures the function always returns a
 // non-nil slice, even for empty input.
 func TestSplitInput_NeverReturnsNil(t *testing.T) {
-	result := SplitInput("")
+	result := factors.SplitInput("")
 	if result == nil {
 		t.Error("SplitInput(\"\") returned nil, expected non-nil slice")
 	}
@@ -102,7 +103,7 @@ func TestSplitInput_SegmentCount(t *testing.T) {
 		{`\n\n\n`, 4},
 	}
 	for _, tc := range cases {
-		got := SplitInput(tc.input)
+		got := factors.SplitInput(tc.input)
 		if len(got) != tc.wantSegments {
 			t.Errorf("SplitInput(%q): expected %d segments, got %d",
 				tc.input, tc.wantSegments, len(got))

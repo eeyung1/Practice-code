@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"ascii-art/factors"
 
 )
 
@@ -21,17 +22,17 @@ func main() {
 
 	bannerName := "banners/" + defaultBanner
 	if len(args) == 2 {
-		bannerName = "banners/" + args[1]
+		bannerName = "../banners/" + args[1]
 	}
 
 	bannerFile := bannerName + ".txt"
 
-	banner, err := LoadBanner(bannerFile)
+	banner, err := factors.LoadBanner(bannerFile)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: could not load banner %q: %v\n", bannerName, err)
 		os.Exit(1)
 	}
 
-	result := GenerateArt(input, banner)
+	result := factors.GenerateArt(input, banner)
 	fmt.Print(result)
 }

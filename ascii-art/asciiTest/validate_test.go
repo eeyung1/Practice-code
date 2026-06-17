@@ -1,7 +1,8 @@
-package main
+package ascii
 
 import (
 	"testing"
+	"ascii-art/factors"
 )
 
 // TestValidateInput_ValidStrings checks that fully valid inputs return 0, nil.
@@ -16,12 +17,12 @@ func TestValidateInput_ValidStrings(t *testing.T) {
 		"",
 	}
 	for _, s := range valid {
-		r, err := ValidateInput(s)
+		r, err := factors.ValidateInput(s)
 		if err != nil {
-			t.Errorf("ValidateInput(%q): unexpected error %v (rune %q)", s, err, r)
+			t.Errorf("factors.ValidateInput(%q): unexpected error %v (rune %q)", s, err, r)
 		}
 		if r != 0 {
-			t.Errorf("ValidateInput(%q): expected rune 0, got %q", s, r)
+			t.Errorf("factors.ValidateInput(%q): expected rune 0, got %q", s, r)
 		}
 	}
 }
@@ -44,13 +45,13 @@ func TestValidateInput_InvalidCharacters(t *testing.T) {
 		{"😀", '😀'},
 	}
 	for _, tc := range cases {
-		r, err := ValidateInput(tc.input)
+		r, err := factors.ValidateInput(tc.input)
 		if err == nil {
-			t.Errorf("ValidateInput(%q): expected error, got nil", tc.input)
+			t.Errorf("factors.ValidateInput(%q): expected error, got nil", tc.input)
 			continue
 		}
 		if r != tc.invalidRune {
-			t.Errorf("ValidateInput(%q): expected rune %q, got %q", tc.input, tc.invalidRune, r)
+			t.Errorf("factors.ValidateInput(%q): expected rune %q, got %q", tc.input, tc.invalidRune, r)
 		}
 	}
 }
@@ -59,7 +60,7 @@ func TestValidateInput_InvalidCharacters(t *testing.T) {
 // multiple invalid characters, only the first one is returned.
 func TestValidateInput_ReturnsFirstInvalidOnly(t *testing.T) {
 	// 'é' comes before 'ñ' — must return 'é'
-	r, err := ValidateInput("héñ")
+	r, err := factors.ValidateInput("héñ")
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
@@ -73,7 +74,7 @@ func TestValidateInput_ReturnsFirstInvalidOnly(t *testing.T) {
 func TestValidateInput_BoundaryASCII32And126(t *testing.T) {
 	boundaries := []rune{32, 126}
 	for _, code := range boundaries {
-		r, err := ValidateInput(string(code))
+		r, err := factors.ValidateInput(string(code))
 		if err != nil {
 			t.Errorf("ASCII %d (%q) should be valid, got error: %v (rune %q)", code, code, err, r)
 		}
@@ -84,7 +85,7 @@ func TestValidateInput_BoundaryASCII32And126(t *testing.T) {
 // are rejected — they sit just outside the valid range.
 func TestValidateInput_BoundaryASCII31And127(t *testing.T) {
 	for _, code := range []rune{31, 127} {
-		_, err := ValidateInput(string(code))
+		_, err := factors.ValidateInput(string(code))
 		if err == nil {
 			t.Errorf("ASCII %d should be invalid, but got no error", code)
 		}
@@ -94,7 +95,7 @@ func TestValidateInput_BoundaryASCII31And127(t *testing.T) {
 // TestValidateInput_ValidPrefixBeforeInvalid checks that even if most of the
 // string is valid, the function still catches an invalid char at the end.
 func TestValidateInput_ValidPrefixBeforeInvalid(t *testing.T) {
-	_, err := ValidateInput("Hello World é")
+	_, err := factors.ValidateInput("Hello World é")
 	if err == nil {
 		t.Error("expected error for string with invalid char at end, got nil")
 	}
@@ -102,11 +103,11 @@ func TestValidateInput_ValidPrefixBeforeInvalid(t *testing.T) {
 
 // TestValidateInput_EmptyString expects 0, nil for empty input.
 func TestValidateInput_EmptyString(t *testing.T) {
-	r, err := ValidateInput("")
+	r, err := factors.ValidateInput("")
 	if err != nil {
-		t.Errorf("ValidateInput(\"\"): unexpected error %v", err)
+		t.Errorf("factors.ValidateInput(\"\"): unexpected error %v", err)
 	}
 	if r != 0 {
-		t.Errorf("ValidateInput(\"\"): expected rune 0, got %q", r)
+		t.Errorf("factors.ValidateInput(\"\"): expected rune 0, got %q", r)
 	}
 }

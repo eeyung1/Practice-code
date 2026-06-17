@@ -1,4 +1,5 @@
-package main
+package factors
+
 
 import (
 	"fmt"

@@ -1,34 +1,37 @@
 package main
 
 import (
-	"ascii-art/ascii"
 	"fmt"
 	"os"
-	"strings"
+
 )
 
+const defaultBanner = "standard"
+
 func main() {
-	if len(os.Args) < 2 || len(os.Args) > 3 {
-		fmt.Println("usage: go run . \"text\" [banner]")
+	args := os.Args[1:]
+
+	if len(args) == 0 || len(args) > 2 {
+		fmt.Fprintln(os.Stderr, "Usage: go run . <text> [banner]")
+		fmt.Fprintln(os.Stderr, "Available banners: standard, shadow, thinkertoy")
 		os.Exit(1)
 	}
 
-	textinput := os.Args[1]
-	textinput = strings.ReplaceAll(textinput, "\\n", "\n")
-	banner := "standard"
+	input := args[0]
 
-	if len(os.Args) == 3 {
-		banner = os.Args[2]
-		if banner != "shadow" && banner != "standard" && banner != "thinkertoy" {
-			fmt.Println("Use either: shadow, standard, or thinkertoy")
-			os.Exit(1)
-		}
+	bannerName := "banners/" + defaultBanner
+	if len(args) == 2 {
+		bannerName = "banners/" + args[1]
 	}
 
-	result, err := ascii.Render(textinput, banner)
+	bannerFile := bannerName + ".txt"
+
+	banner, err := LoadBanner(bannerFile)
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Fprintf(os.Stderr, "Error: could not load banner %q: %v\n", bannerName, err)
 		os.Exit(1)
 	}
+
+	result := GenerateArt(input, banner)
 	fmt.Print(result)
 }

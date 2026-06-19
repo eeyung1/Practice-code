@@ -6,8 +6,14 @@
     <title>Groupie Tracker</title>
 </head>
 <body>
-    <h1>{{.Name}}</h1>
+    <h1>Artists</h1>
 
+    {{range .}}
+    <h2>{{.Name}}</h2>
     <p>ID: {{.ID}}</p>
+
+    {{end}}
+
+
 </body>
 </html>

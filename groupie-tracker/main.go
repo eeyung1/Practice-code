@@ -17,12 +17,23 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		template.ParseFiles("templates/index.html"),
 	)
 
-	artist := models.Artist{
-		ID: 1,
-		Name: "Queen",
+	artists := []models.Artist{
+		{
+			ID: 1,
+			Name: "Queen",
+		},
+		{
+			ID: 2,
+			Name: "ABBA",
+		},
+		{
+			ID: 3,
+			Name: "Pink Floyd",
+		},
 	}
 
-	tmpl.Execute(w, artist)
+
+	tmpl.Execute(w, artists)
 
 }
 

@@ -6,13 +6,19 @@
     <title>Groupie Tracker</title>
 </head>
 <body>
-    <h1>Artists</h1>
+<h1>Artists</h1>
 
-    {{range .}}
-    <h2>{{.Name}}</h2>
-    <p>ID: {{.ID}}</p>
+{{range .}}
 
-    {{end}}
+<h2>{{.Name}}</h2>
+
+<p>Creation Date: {{.CreationDate}}</p>
+
+<p>First Album: {{.FirstAlbum}}</p>
+
+<hr>
+
+{{end}}
 
 
 </body>

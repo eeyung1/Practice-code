@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
+	"groupie-tracker/models"
 	"groupie-tracker/services"
 )
 
@@ -25,9 +26,31 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	query := r.URL.Query().Get("search")
+
+	if query != "" {
+		artists = services.SearchArtists(
+			query,
+			artists,
+		)
+	}
+
+	order := r.URL.Query().Get("sort")
+
+	services.SortArtists(
+		artists,
+		order,
+	)
+
 	tmpl := template.Must(
 		template.ParseFiles("templates/index.html"),
 	)
 
-	tmpl.Execute(w, artists)
+	data := models.PageData{
+		Artists: artists,
+		Query: query,
+		Order: order,
+	}
+
+	tmpl.Execute(w, data)
 }

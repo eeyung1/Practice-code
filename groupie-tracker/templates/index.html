@@ -4,28 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<h1>Artists</h1>
+    <form action="/" method="get">
+        <input
+            type="text"
+            name="search"
+            value="{{.Query}}"
+            placeholder="Search artists"
+        >
 
-{{range .}}
+        
+        <select name="sort">
 
-<img src="{{.Image}}" width="200">
+    <option
+        value="asc"
+        {{if eq .Order "asc"}}selected{{end}}
+    >
+        Ascending
+    </option>
 
-<a href="/artist/{{.ID}}">
+    <option
+        value="desc"
+        {{if eq .Order "desc"}}selected{{end}}
+    >
+        Descending
+    </option>
 
-<h2>{{.Name}}</h2>
+</select>
 
-</a>
-
-<p>Creation Date: {{.CreationDate}}</p>
-
-<p>First Album: {{.FirstAlbum}}</p>
-
-<hr>
-
-{{end}}
-
+        <button type="submit">
+            Search
+        </button>
+    </form>
+    <h1>Artists</h1>
+    
+    {{range .Artists}}
+    
+    <img src="{{.Image}}" width="200">
+    
+    <a href="/artist/{{.ID}}">
+        
+        <h2>{{.Name}}</h2>
+        
+    </a>
+    
+    <p>Creation Date: {{.CreationDate}}</p>
+    
+    <p>First Album: {{.FirstAlbum}}</p>
+    
+    <hr>
+    
+    {{end}}
+    
+    <a href="/">Back to Home</a>
 
 </body>
 </html>

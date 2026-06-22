@@ -12,6 +12,10 @@ func main() {
 
 	http.HandleFunc("/artist/", handlers.ArtistHandler)
 
+	fs := http.FileServer(http.Dir("static"))
+
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	fmt.Println("Server started on http://localhost:8080")
 
 	http.ListenAndServe(":8080", nil)

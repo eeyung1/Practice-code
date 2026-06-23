@@ -13,6 +13,11 @@ func main() {
 
 	firstArg := os.Args[1]
 
+	if firstArg == "-" {
+		fmt.Println("Invalid Option")
+		return
+	}
+
 	if len(firstArg) >= 2 && firstArg[0] == '-' && firstArg[1] == 'h' {
 		fmt.Println("options: abcdefghijklmnopqrstuvwxyz")
 		return
@@ -55,8 +60,7 @@ func main() {
 			pos := int(ch - 'a')
 
 			options = options | (1 << pos)
-			fmt.Println(options)
-			
+
 		}
 	}
 

@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"io"
 	"strconv"
-
-	// "io"
 	"log"
 	"net/http"
 )
@@ -101,6 +99,14 @@ func dashboardHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Welcome to the dashboard")
 }
 
+func legacyHandler(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "http://localhost:8080/v2", http.StatusMovedPermanently)
+}
+
+func v2Handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Welcome to version 2")
+}
+
 func main() {
 	http.HandleFunc("/ping", pingHandler)
 
@@ -113,6 +119,9 @@ func main() {
 	http.HandleFunc("/agent", agentHandler)
 
 	http.HandleFunc("/dashboard", dashboardHandler)
+
+	http.HandleFunc("/legacy", legacyHandler)
+	http.HandleFunc("/v2", v2Handler)
 
 	fmt.Println("Server running at http://localhost:8080")
 

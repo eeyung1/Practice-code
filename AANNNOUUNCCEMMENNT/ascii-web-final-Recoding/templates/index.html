@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .container {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
+    <div class="container">
     <header>
         ASCII-ART-WEB
     </header>
@@ -23,17 +29,15 @@
     </form>
     <br>
 
-    <form action="/ascii-switch" method="post">
     <a href="/ascii-switch?text={{.Text}}&banner=standard">standard</a>
     <a href="/ascii-switch?text={{.Text}}&banner=shadow">shadow</a>
     <a href="/ascii-switch?text={{.Text}}&banner=thinkertoy">thinkertoy</a>
-    </form>
 
     <hr>
     <hr>
     <pre>
         {{.Result}}
     </pre>
-    
+    </div>
 </body>
 </html>

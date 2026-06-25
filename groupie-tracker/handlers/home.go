@@ -27,6 +27,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query := r.URL.Query().Get("search")
+	field := r.URL.Query().Get("field")
 
 	if query != "" {
 		artists = services.SearchArtists(
@@ -39,6 +40,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	services.SortArtists(
 		artists,
+		field,
 		order,
 	)
 

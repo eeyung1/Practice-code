@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"groupie-tracker/models"
 	"groupie-tracker/services"
 )
 
@@ -35,6 +36,12 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	relation, err := services.GetRelation(id)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
 	tmpl := template.Must(
 		template.ParseFiles("templates/artist.html"),
 	)
@@ -54,5 +61,10 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl.Execute(w, artist)
+	data := models.ArtistPageData {
+		Artist: *artist,
+		Relation: relation,
+	}
+
+	tmpl.Execute(w, data)
 }

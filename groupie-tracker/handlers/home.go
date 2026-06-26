@@ -52,6 +52,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Artists: artists,
 		Query: query,
 		Order: order,
+		Field: field,
 	}
 
 	tmpl.Execute(w, data)

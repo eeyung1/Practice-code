@@ -41,11 +41,17 @@
 
     <select name="field">
 
-    <option value="name">
+    <option 
+        value="name"
+        {{if eq .Field "name"}}selected{{end}}    
+    >
         Name
     </option>
 
-    <option value="creationDate">
+    <option 
+        value="creationDate"
+        {{if eq .Field "creationDate"}}selected{{end}}
+    >
         Creation Date
     </option>
 

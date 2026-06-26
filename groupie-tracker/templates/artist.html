@@ -20,10 +20,10 @@
         {{end}}
     </ul>
 
-    <h4>Concerts</h4>
+    <h3>Concerts</h3>
     {{range $location, $dates := .Relation.DatesLocations}}
 
-    <h5>{{$location}}</h5>
+    <h4>{{$location}}</h4>
     <ul>
         {{range $dates}}
         <li>{{.}}</li>

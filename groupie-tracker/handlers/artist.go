@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 
 	"groupie-tracker/models"
 	"groupie-tracker/services"
@@ -25,20 +26,40 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	artists, err := services.GetArtists()
+	var (
+		artists []models.Artist
+		relation models.Relation
 
-	if err != nil {
-		http.Error(
-			w,
-			"500 Internal Server Error",
-			http.StatusInternalServerError,
-		)
+		artistErr error
+		relationErr error
+	)
+
+	var wg sync.WaitGroup
+
+	wg.Add(2)
+
+	go func(){
+		defer wg.Done()
+
+		artists, artistErr = services.GetArtists()
+	}()
+
+	go func(){
+		defer wg.Done()
+
+		relation, relationErr = services.GetRelation(id)
+
+	}()
+
+	wg.Wait()
+
+	if artistErr != nil {
+		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
-	relation, err := services.GetRelation(id)
-	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	if relationErr != nil {
+		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 

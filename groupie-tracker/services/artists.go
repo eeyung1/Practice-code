@@ -9,6 +9,10 @@ import (
 )
 
 func GetArtists() ([]models.Artist, error) {
+
+	if len(artistCache) > 0 {
+		return artistCache, nil
+	}
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 
 	if err != nil {
@@ -30,6 +34,8 @@ func GetArtists() ([]models.Artist, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	artistCache = artists
 
 	return artists, nil
 }

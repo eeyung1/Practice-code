@@ -27,11 +27,11 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		artists []models.Artist
-		relation models.Relation
+		artists 		[]models.Artist
+		relation 		models.Relation
 
-		artistErr error
-		relationErr error
+		artistErr 		error
+		relationErr 	error
 	)
 
 	var wg sync.WaitGroup

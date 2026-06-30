@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
-	"sync"
+	"os"
+	"strings"
 )
 
 type Result struct {
@@ -141,30 +143,25 @@ func (a ArtistsAgent) Execute() Result {
 }
 
 func main() {
-	var wg sync.WaitGroup
+	reader := bufio.NewReader(os.Stdin)
 
-	results := make(chan Result, 2)
+	var artistID int
+	fmt.Print("Input the Artist ID: ")
+	fmt.Scan(&artistID)
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		agent := ArtistsAgent{ArtistID: 2}
-		results <- agent.Execute()
-	}()
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		agent := LocationAgent{ArtistID: 2}
-		results <- agent.Execute()
-	}()
+	fmt.Print("Enter your query: ")
+	query, _ := reader.ReadString('\n')
+	query = strings.TrimSpace(query)
 
-	go func() {
-		wg.Wait()
-		close(results)
-	}()
+	orchestrator := NewOrchestrator()
+	agents := orchestrator.SelectAgents(query, artistID)
 
-	for result := range results {
+	coordinator := Newcoordinator(agents)
+
+	results := coordinator.Run()
+
+	for _, result := range results {
 		if result.Error != nil {
 			fmt.Printf("[%s] Error: %v\n", result.AgentName, result.Error)
 			continue
@@ -173,11 +170,12 @@ func main() {
 		switch result.AgentName {
 		case "ArtistAgent":
 			artist := result.Data.(Artist)
-			fmt.Printf("[%s] Artist: %s\n", result.AgentName, artist.Name)
-			fmt.Printf("[%s] Members: %v\n", result.AgentName, artist.Members)
+			fmt.Printf("Artist: %s\n", artist.Name)
+			fmt.Printf("Members: %v\n", artist.Members)
+			fmt.Printf("Created: %d\n", artist.CreationDate)
 		case "LocationAgent":
 			location := result.Data.(Location)
-			fmt.Printf("[%s] Locations:\n", result.AgentName)
+			fmt.Printf("Concert Locations:\n")
 			for _, loc := range location.Locations {
 				fmt.Printf("  - %s\n", loc)
 			}

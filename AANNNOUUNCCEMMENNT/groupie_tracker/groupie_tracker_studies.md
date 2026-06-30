@@ -93,10 +93,10 @@ all endpoints of this url must carry this line as a prefix
 
 This is the specific URL path that represents a specific resource or
 collection of resources. it is directly where is request if sent. for
-instance: http://groupitraskers.herokuapp.com/api/artists
-http://groupitraskers.herokuapp.com/api/locations
-http://groupitraskers.herokuapp.com/api/dates
-http://groupitraskers.herokuapp.com/api/relation
+instance: https://groupietrackers.herokuapp.com/api/artists
+https://groupietrackers.herokuapp.com/api/locations
+https://groupietrackers.herokuapp.com/api/dates
+https://groupietrackers.herokuapp.com/api/relation
 
 ### making http GET requests in go: http.Get
 

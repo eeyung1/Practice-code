@@ -2,7 +2,7 @@ package main
 
 import "strings"
 
-type Orchestrator struct {}
+type Orchestrator struct{}
 
 func NewOrchestrator() *Orchestrator {
 	return &Orchestrator{}
@@ -14,15 +14,20 @@ func (o *Orchestrator) SelectAgents(query string, artistID int) []Agent {
 	lower := strings.ToLower(query)
 
 	wantsArtist := strings.Contains(lower, "artist") ||
-	strings.Contains(lower, "band") ||
-	strings.Contains(lower, "tell me about") ||
-	strings.Contains(lower, "who is")
+		strings.Contains(lower, "band") ||
+		strings.Contains(lower, "tell me about") ||
+		strings.Contains(lower, "who is")
 
-	wantsLocation := strings.Contains(lower, "location") ||
-	strings.Contains(lower, "where") ||
-	strings.Contains(lower, "concert") ||
-	strings.Contains(lower, "perform") ||
-	strings.Contains(lower, "show")
+// More specific checks
+wantsDates := strings.Contains(lower, "when") ||
+    strings.Contains(lower, "date") ||
+    strings.Contains(lower, "tour date") ||
+    strings.Contains(lower, "concert date")
+
+wantsLocation := strings.Contains(lower, "where") ||
+    strings.Contains(lower, "location") ||
+    strings.Contains(lower, "concert location") ||
+    strings.Contains(lower, "performed")  // past tense, not "perform"
 
 	if wantsArtist {
 		agents = append(agents, ArtistsAgent{ArtistID: artistID})
@@ -32,10 +37,16 @@ func (o *Orchestrator) SelectAgents(query string, artistID int) []Agent {
 		agents = append(agents, LocationAgent{ArtistID: artistID})
 	}
 
+	if wantsDates {
+		agents = append(agents, DatesAgent{ArtistID: artistID})
+	}
+
 	if len(agents) == 0 {
 		agents = []Agent{
 			ArtistsAgent{ArtistID: artistID},
 			LocationAgent{ArtistID: artistID},
+			DatesAgent{ArtistID: artistID},
+			
 		}
 	}
 

@@ -35,6 +35,60 @@ func (l LocationAgent) Name() string {
 	return "LocationAgent"
 }
 
+// Date represents the data from the Groupie-Tracker dates API
+type Date struct {
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
+}
+
+// DatesAgent fetches concert dates for an artist
+type DatesAgent struct {
+	ArtistID int
+}
+
+func (d DatesAgent) Name() string {
+	return "DatesAgent"
+}
+
+func (d DatesAgent) Execute() Result {
+	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/dates/%d", d.ArtistID)
+
+	resp, err := http.Get(url)
+	if err != nil {
+		return Result{
+			AgentName: d.Name(),
+			Data:      nil,
+			Error:     err,
+		}
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return Result{
+			AgentName: d.Name(),
+			Data:      nil,
+			Error:     err,
+		}
+	}
+
+	var date Date
+	err = json.Unmarshal(body, &date)
+	if err != nil {
+		return Result{
+			AgentName: d.Name(),
+			Data:      nil,
+			Error:     err,
+		}
+	}
+
+	return Result{
+		AgentName: d.Name(),
+		Data:      date,
+		Error:     nil,
+	}
+}
+
 func (l LocationAgent) Execute() Result {
 	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/locations/%d", l.ArtistID)
 
@@ -149,7 +203,6 @@ func main() {
 	fmt.Print("Input the Artist ID: ")
 	fmt.Scan(&artistID)
 
-
 	fmt.Print("Enter your query: ")
 	query, _ := reader.ReadString('\n')
 	query = strings.TrimSpace(query)
@@ -178,6 +231,12 @@ func main() {
 			fmt.Printf("Concert Locations:\n")
 			for _, loc := range location.Locations {
 				fmt.Printf("  - %s\n", loc)
+			}
+		case "DatesAgent":
+			date := result.Data.(Date)
+			fmt.Printf("Concert Dates:\n")
+			for _, d := range date.Dates {
+				fmt.Printf("  - %s\n", d)
 			}
 		}
 	}

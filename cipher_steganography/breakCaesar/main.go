@@ -16,9 +16,13 @@ func main() {
     shift := 3
     encrypted := CaesarCipher(original, shift)
 
-    fmt.Println(bruteForceCaesar(encrypted))
+
+    // fmt.Println(bruteForceCaesar(encrypted))
     cracked := breakCaesar(encrypted)
     _ = cracked
+
+    output := ROT13(original)
+    fmt.Println(ROT13(output))
     
     // fmt.Printf("Original:  %s\n", original[:50])
     // fmt.Printf("Cracked:   %s\n", cracked[:50])

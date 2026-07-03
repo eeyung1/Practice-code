@@ -8,12 +8,14 @@ import (
 	"groupie-tracker/models"
 )
 
+var artistsURL = "https://groupietrackers.herokuapp.com/api/artists"
+
 func GetArtists() ([]models.Artist, error) {
 
 	if len(artistCache) > 0 {
 		return artistCache, nil
 	}
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	resp, err := http.Get(artistsURL)
 
 	if err != nil {
 		return nil, err

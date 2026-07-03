@@ -7,6 +7,8 @@ import (
 	"strconv"
 )
 
+var relationBaseURL = "https://groupietrackers.herokuapp.com/api/relation/"
+
 func GetRelation(
 	id int,
 ) (models.Relation, error) {
@@ -15,8 +17,7 @@ func GetRelation(
 		return relation, nil
 	}
 	resp, err := http.Get(
-		"https://groupietrackers.herokuapp.com/api/relation/" + 
-		strconv.Itoa(id),
+		relationBaseURL + strconv.Itoa(id),
 	)
 
 	if err != nil {

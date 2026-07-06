@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -27,24 +28,24 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		artists 		[]models.Artist
-		relation 		models.Relation
+		artists  []models.Artist
+		relation models.Relation
 
-		artistErr 		error
-		relationErr 	error
+		artistErr   error
+		relationErr error
 	)
 
 	var wg sync.WaitGroup
 
 	wg.Add(2)
 
-	go func(){
+	go func() {
 		defer wg.Done()
 
 		artists, artistErr = services.GetArtists()
 	}()
 
-	go func(){
+	go func() {
 		defer wg.Done()
 
 		relation, relationErr = services.GetRelation(id)
@@ -82,10 +83,12 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := models.ArtistPageData {
-		Artist: *artist,
+	data := models.ArtistPageData{
+		Artist:   *artist,
 		Relation: relation,
 	}
 
-	tmpl.Execute(w, data)
+	if err := tmpl.Execute(w, data); err != nil {
+		fmt.Println(err)
+	}
 }

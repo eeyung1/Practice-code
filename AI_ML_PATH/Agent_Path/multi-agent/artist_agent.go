@@ -89,6 +89,60 @@ func (d DatesAgent) Execute() Result {
 	}
 }
 
+// Relation represents the data from the Groupie-Tracker relation API
+type Relation struct {
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
+}
+
+// RelationAgent fetches relation data for an artist
+type RelationAgent struct {
+	ArtistID int
+}
+
+func (r RelationAgent) Name() string {
+	return "RelationAgent"
+}
+
+func (r RelationAgent) Execute() Result {
+	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/relation/%d", r.ArtistID)
+
+	resp, err := http.Get(url)
+	if err != nil {
+		return Result{
+			AgentName: r.Name(),
+			Data:      nil,
+			Error:     err,
+		}
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return Result{
+			AgentName: r.Name(),
+			Data:      nil,
+			Error:     err,
+		}
+	}
+
+	var relation Relation
+	err = json.Unmarshal(body, &relation)
+	if err != nil {
+		return Result{
+			AgentName: r.Name(),
+			Data:      nil,
+			Error:     err,
+		}
+	}
+
+	return Result{
+		AgentName: r.Name(),
+		Data:      relation,
+		Error:     nil,
+	}
+}
+
 func (l LocationAgent) Execute() Result {
 	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/locations/%d", l.ArtistID)
 
@@ -202,6 +256,7 @@ func main() {
 	var artistID int
 	fmt.Print("Input the Artist ID: ")
 	fmt.Scan(&artistID)
+	reader.ReadString('\n')
 
 	fmt.Print("Enter your query: ")
 	query, _ := reader.ReadString('\n')
@@ -211,8 +266,10 @@ func main() {
 	agents := orchestrator.SelectAgents(query, artistID)
 
 	coordinator := Newcoordinator(agents)
-
 	results := coordinator.Run()
+
+	// Create synthesizer
+	synthesizer := NewSynthesizer()
 
 	for _, result := range results {
 		if result.Error != nil {
@@ -220,24 +277,8 @@ func main() {
 			continue
 		}
 
-		switch result.AgentName {
-		case "ArtistAgent":
-			artist := result.Data.(Artist)
-			fmt.Printf("Artist: %s\n", artist.Name)
-			fmt.Printf("Members: %v\n", artist.Members)
-			fmt.Printf("Created: %d\n", artist.CreationDate)
-		case "LocationAgent":
-			location := result.Data.(Location)
-			fmt.Printf("Concert Locations:\n")
-			for _, loc := range location.Locations {
-				fmt.Printf("  - %s\n", loc)
-			}
-		case "DatesAgent":
-			date := result.Data.(Date)
-			fmt.Printf("Concert Dates:\n")
-			for _, d := range date.Dates {
-				fmt.Printf("  - %s\n", d)
-			}
-		}
+		// Use synthesizer to convert raw data to natural language
+		response := synthesizer.Synthesize(result)
+		fmt.Printf("[%s] %s\n", result.AgentName, response)
 	}
 }

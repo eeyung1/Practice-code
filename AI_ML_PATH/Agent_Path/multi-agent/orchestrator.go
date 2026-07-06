@@ -18,16 +18,28 @@ func (o *Orchestrator) SelectAgents(query string, artistID int) []Agent {
 		strings.Contains(lower, "tell me about") ||
 		strings.Contains(lower, "who is")
 
-// More specific checks
-wantsDates := strings.Contains(lower, "when") ||
-    strings.Contains(lower, "date") ||
-    strings.Contains(lower, "tour date") ||
-    strings.Contains(lower, "concert date")
+	// More specific checks
+	wantsDates := strings.Contains(lower, "when") ||
+		strings.Contains(lower, "date") ||
+		strings.Contains(lower, "tour date") ||
+		strings.Contains(lower, "concert date")
 
-wantsLocation := strings.Contains(lower, "where") ||
-    strings.Contains(lower, "location") ||
-    strings.Contains(lower, "concert location") ||
-    strings.Contains(lower, "performed")  // past tense, not "perform"
+	wantsLocation := strings.Contains(lower, "where") ||
+		strings.Contains(lower, "location") ||
+		strings.Contains(lower, "concert location") ||
+		strings.Contains(lower, "performed") // past tense, not "perform"
+
+	// Add this to the existing wants conditions
+	wantsRelation := strings.Contains(lower, "relation") ||
+		strings.Contains(lower, "link") ||
+		strings.Contains(lower, "connect") ||
+		strings.Contains(lower, "all data") ||
+		strings.Contains(lower, "full details") ||
+		strings.Contains(lower, "tour schedule")
+
+	if wantsRelation {
+		agents = append(agents, RelationAgent{ArtistID: artistID})
+	}
 
 	if wantsArtist {
 		agents = append(agents, ArtistsAgent{ArtistID: artistID})
@@ -46,7 +58,6 @@ wantsLocation := strings.Contains(lower, "where") ||
 			ArtistsAgent{ArtistID: artistID},
 			LocationAgent{ArtistID: artistID},
 			DatesAgent{ArtistID: artistID},
-			
 		}
 	}
 

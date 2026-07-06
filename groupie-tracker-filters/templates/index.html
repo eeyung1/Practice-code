@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <form action="/" method="get">
+        <input
+            type="text"
+            name="search"
+            value="{{.Query}}"
+            placeholder="Search artists"
+        >
+
+        
+        <select name="sort">
+
+    <option
+        value="asc"
+        {{if eq .Order "asc"}}selected{{end}}
+    >
+        Ascending
+    </option>
+
+    <option
+        value="desc"
+        {{if eq .Order "desc"}}selected{{end}}
+    >
+        Descending
+    </option>
+
+    </select>
+
+        <button type="submit">
+            Search
+        </button>
+    </form>
+
+    <select name="field">
+
+    <option 
+        value="name"
+        {{if eq .Field "name"}}selected{{end}}    
+    >
+        Name
+    </option>
+
+    <option 
+        value="creationDate"
+        {{if eq .Field "creationDate"}}selected{{end}}
+    >
+        Creation Date
+    </option>
+
+    </select>
+
+    <p>
+        Found {{len .Artists}} artist(s)
+
+        {{if .Query}}
+            for "{{.Query}}"
+        {{end}}
+    </p>
+    <form action="/" method="get">
+        <label>Creation Year</label>
+
+        <input 
+            type="number"
+            name="creationMin"
+            placeholder="Min Year"
+            value="{{.CreationMin}}"
+        >
+
+        <input
+            type="number"
+            name="creationMax"
+            placeholder="Max Year"
+            value="{{.CreationMax}}"
+        >
+
+        <button type="submit">
+            Apply Filter
+        </button>
+
+        <br>
+
+
+        <label>First Album Year</label>
+
+        <input
+            type="number"
+            name="albumMin"
+            placeholder="Min Year"
+            value="{{.AlbumMin}}"
+        >
+
+        <input
+            type="number"
+            name="albumMax"
+            placeholder="Max Year"
+            value="{{.AlbumMax}}"
+        >
+    </form>
+
+    <h1>Artists</h1>
+    
+    {{if .Artists}}
+
+    {{range .Artists}}
+    
+    <img src="{{.Image}}" width="200">
+    
+    <a href="/artist/{{.ID}}">
+        
+        <h2>{{.Name}}</h2>
+        
+    </a>
+    
+    <p>Creation Date: {{.CreationDate}}</p>
+    
+    <p>First Album: {{.FirstAlbum}}</p>
+    
+    <hr>
+    
+    {{end}}
+
+    {{else}}
+    
+    <h2>No artists found.</h2>
+
+    {{end}}
+    
+    <a href="/">Back to Home</a>
+
+</body>
+</html>

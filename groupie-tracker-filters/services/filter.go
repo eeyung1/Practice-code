@@ -46,3 +46,24 @@ func FilterByFirstAlbum(
 
 	return filtered
 }
+
+func FilterByMembers(
+	artists []models.Artist,
+	selected []int,
+) []models.Artist {
+	var filtered []models.Artist
+
+	for _, artist := range artists {
+		
+		memberCount := len(artist.Members)
+
+		for _, choice := range selected {
+			if memberCount == choice {
+				filtered = append(filtered, artist)
+				break
+			}
+		}
+	}
+
+	return filtered
+}

@@ -12,4 +12,6 @@ type PageData struct {
 
 	AlbumMin string
 	AlbumMax string
+
+	SelectedMembers []int
 }

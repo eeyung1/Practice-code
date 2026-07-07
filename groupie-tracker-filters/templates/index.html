@@ -81,9 +81,7 @@
             value="{{.CreationMax}}"
         >
 
-        <button type="submit">
-            Apply Filter
-        </button>
+ 
 
         <br>
 
@@ -103,6 +101,86 @@
             placeholder="Max Year"
             value="{{.AlbumMax}}"
         >
+
+        <br>
+
+        <label>Members</label>
+     <label>Members</label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="1"
+                {{if containsMember .SelectedMembers 1}}checked{{end}}
+            >
+            1
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="2"
+                 {{if containsMember .SelectedMembers 2}}checked{{end}}
+            >
+            2
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="3"
+                 {{if containsMember .SelectedMembers 3}}checked{{end}}
+            >
+            3
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="4"
+                 {{if containsMember .SelectedMembers 4}}checked{{end}}
+            >
+            4
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="5"
+                 {{if containsMember .SelectedMembers 5}}checked{{end}}
+            >
+            5
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="6"
+                 {{if containsMember .SelectedMembers 6}}checked{{end}}
+            >
+            6
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="7"
+                 {{if containsMember .SelectedMembers 7}}checked{{end}}
+            >
+            7
+        </label>
+
+        <br>
+        <button type="submit">
+            Apply Filter
+        </button>
     </form>
 
     <h1>Artists</h1>

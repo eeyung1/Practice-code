@@ -34,6 +34,19 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	albumMin := r.URL.Query().Get("albumMin")
 	albumMax := r.URL.Query().Get("albumMax")
 
+	memberValues := r.URL.Query()["members"]
+
+	var selectedMembers []int
+
+	for _, value := range memberValues {
+		memberCount, err := strconv.Atoi(value)
+		if err != nil {
+			continue
+		}
+
+		selectedMembers = append(selectedMembers, memberCount)
+	}
+
 	albumMinYear := 0
 	albumMaxYear := 9999
 
@@ -68,6 +81,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		albumMaxYear,
 	)
 
+	if len(selectedMembers) > 0 {
+		artists = services.FilterByMembers(artists, selectedMembers)
+	}
+
 	query := r.URL.Query().Get("search")
 	field := r.URL.Query().Get("field")
 
@@ -86,8 +103,14 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		order,
 	)
 
+	// tmpl := template.Must(
+	// 	template.ParseFiles("templates/index.html"),
+	// )
+
 	tmpl := template.Must(
-		template.ParseFiles("templates/index.html"),
+		template.New("index.html").Funcs(template.FuncMap{
+			"containsMember": ContainsMember,
+		}).ParseFiles("templates/index.html"),
 	)
 
 	data := models.PageData{
@@ -102,6 +125,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 		AlbumMin: albumMin,
 		AlbumMax: albumMax,
+
+		SelectedMembers: selectedMembers,
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {

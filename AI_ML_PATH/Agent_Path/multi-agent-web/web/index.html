@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Agent System</title>
+    <style>
+        body {
+            font-family: system-ui, monospace;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #0d1117;
+            color: #c9d1d9;
+        }
+        h1 { color: #58a6ff; }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            background: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #2ea043; }
+        button:disabled {
+            background: #6e7681;
+            cursor: not-allowed;
+        }
+        .response-box {
+            margin-top: 20px;
+            padding: 16px;
+            background: #161b22;
+            border-radius: 6px;
+            border-left: 4px solid #238636;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .error {
+            border-left-color: #f85149;
+            color: #f85149;
+        }
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #30363d;
+            border-top: 3px solid #58a6ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>🧠 Multi-Agent System</h1>
+    <p>Enter an artist ID and a natural language query.</p>
+
+    <input id="artistId" type="number" placeholder="Artist ID (e.g., 1)" value="1">
+    <input id="query" type="text" placeholder="Your query (e.g., Tell me about Queen)" value="Tell me about Queen">
+
+    <button id="submitBtn">Ask Agents</button>
+
+    <div id="response" class="response-box" style="display:none;"></div>
+
+    <script>
+        const artistIdEl = document.getElementById('artistId');
+        const queryEl = document.getElementById('query');
+        const submitBtn = document.getElementById('submitBtn');
+        const responseEl = document.getElementById('response');
+
+        submitBtn.onclick = async () => {
+            const artistID = artistIdEl.value.trim();
+            const query = queryEl.value.trim();
+
+            if (!artistID || !query) {
+                responseEl.style.display = 'block';
+                responseEl.innerHTML = '❌ Please enter both Artist ID and Query.';
+                responseEl.classList.add('error');
+                return;
+            }
+
+            responseEl.style.display = 'block';
+            responseEl.innerHTML = '<div class="loader"></div> Agents are working...';
+            responseEl.classList.remove('error');
+            submitBtn.disabled = true;
+
+            try {
+                const res = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ artistID: parseInt(artistID), query: query })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || 'Request failed');
+                }
+
+                let html = '';
+                for (const result of data.results) {
+                    if (result.error) {
+                        html += `<div class="error">[${result.agent}] Error: ${result.error}</div>`;
+                    } else {
+                        html += `<div><strong>${result.agent}</strong><br>${result.response}</div>`;
+                    }
+                }
+
+                responseEl.innerHTML = html || 'No results returned.';
+
+            } catch (err) {
+                responseEl.innerHTML = `❌ Error: ${err.message}`;
+                responseEl.classList.add('error');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>

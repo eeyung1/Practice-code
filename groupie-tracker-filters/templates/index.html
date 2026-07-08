@@ -178,6 +178,24 @@
         </label>
 
         <br>
+
+        <label>Countries</label>
+
+        {{range .Countries}}
+
+        <label>
+
+        <input
+            type="checkbox"
+            name="countries"
+            value="{{.}}"
+            {{if containsCountry $.SelectedCountries .}}checked{{end}}
+        >
+
+            {{.}}
+
+        </label>
+        {{end}}
         <button type="submit">
             Apply Filter
         </button>

@@ -28,6 +28,21 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	relations, err := services.GetRelations()
+
+	if err != nil {
+		http.Error(
+			w,
+			"500 Internal Server Error",
+			http.StatusInternalServerError,
+		)
+		return
+	}
+
+	relationMap := services.BuildRelationMap(relations)
+
+	countries := services.GetUniqueCountries(relations)
+
 	creationMin := r.URL.Query().Get("creationMin")
 	creationMax := r.URL.Query().Get("creationMax")
 
@@ -35,6 +50,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	albumMax := r.URL.Query().Get("albumMax")
 
 	memberValues := r.URL.Query()["members"]
+
+	selectedCountries := r.URL.Query()["countries"]
 
 	var selectedMembers []int
 
@@ -85,6 +102,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		artists = services.FilterByMembers(artists, selectedMembers)
 	}
 
+	if len(selectedCountries) > 0 {
+		artists = services.FilterByLocation(artists, relationMap, selectedCountries)
+	}
+
 	query := r.URL.Query().Get("search")
 	field := r.URL.Query().Get("field")
 
@@ -107,10 +128,19 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	// 	template.ParseFiles("templates/index.html"),
 	// )
 
+	// tmpl := template.Must(
+	// 	template.New("index.html").Funcs(template.FuncMap{
+	// 		"containsMember": ContainsMember,
+	// 	}).ParseFiles("templates/index.html"),
+	// )
+
 	tmpl := template.Must(
-		template.New("index.html").Funcs(template.FuncMap{
-			"containsMember": ContainsMember,
-		}).ParseFiles("templates/index.html"),
+		template.New("index.html").
+			Funcs(template.FuncMap{
+				"containsMember":  ContainsMember,
+				"containsCountry": ContainsCountry,
+			}).
+			ParseFiles("templates/index.html"),
 	)
 
 	data := models.PageData{
@@ -127,6 +157,9 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		AlbumMax: albumMax,
 
 		SelectedMembers: selectedMembers,
+
+		Countries: countries,
+		SelectedCountries: selectedCountries,
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {

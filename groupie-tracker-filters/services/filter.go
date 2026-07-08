@@ -2,7 +2,9 @@ package services
 
 import (
 	"groupie-tracker-filters/models"
+	"sort"
 	"strconv"
+	"strings"
 )
 
 func FilterByCreationDate(
@@ -60,6 +62,70 @@ func FilterByMembers(
 		for _, choice := range selected {
 			if memberCount == choice {
 				filtered = append(filtered, artist)
+				break
+			}
+		}
+	}
+
+	return filtered
+}
+
+
+func GetUniqueCountries(
+	relations	[]models.Relation,
+) [] string {
+	countrySet := make(map[string]struct{})
+
+	for _, relation := range relations {
+		for location := range relation.DatesLocations {
+			parts := strings.Split(location, "-")
+
+			country := parts[len(parts)-1]
+
+			countrySet[country] = struct{}{}
+		}
+	}
+
+	var countries []string
+
+	for country := range countrySet {
+		countries = append(countries, country)
+	}
+
+	sort.Strings(countries)
+
+	return countries
+}
+
+func FilterByLocation(
+	artists []models.Artist,
+	relationMap map[int]models.Relation,
+	selectedCountries []string,
+) []models.Artist {
+
+	var filtered []models.Artist
+
+	for _, artist := range artists {
+
+		relation := relationMap[artist.ID]
+
+		found := false
+
+		for location := range relation.DatesLocations {
+
+			parts := strings.Split(location, "-")
+			country := parts[len(parts)-1]
+
+			for _, selected := range selectedCountries {
+
+				if strings.EqualFold(country, selected) {
+					filtered = append(filtered, artist)
+					found = true
+					break
+				}
+			}
+
+			if found {
 				break
 			}
 		}

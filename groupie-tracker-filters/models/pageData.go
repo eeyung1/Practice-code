@@ -1,5 +1,6 @@
 package models
 
+
 type PageData struct {
 	Artists []Artist
 
@@ -14,4 +15,7 @@ type PageData struct {
 	AlbumMax string
 
 	SelectedMembers []int
+
+	Countries			[]string
+	SelectedCountries	[]string
 }

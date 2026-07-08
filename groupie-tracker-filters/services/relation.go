@@ -38,3 +38,38 @@ func GetRelation(
 
 	return relation, nil
 }
+
+func GetRelations()([]models.Relation, error) {
+	resp, err := http.Get(
+		"https://groupietrackers.herokuapp.com/api/relation",
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	var response struct {
+		Index []models.Relation	`json:"index"`
+	}
+
+	err = json.NewDecoder(resp.Body).Decode(&response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Index, nil
+}
+
+func BuildRelationMap(
+	relations []models.Relation,
+) map[int]models.Relation {
+	relationMap := make(map[int]models.Relation)
+
+	for _, relation := range relations {
+		relationMap[relation.ID] = relation
+	}
+
+	return relationMap
+}

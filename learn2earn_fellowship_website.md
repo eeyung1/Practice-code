@@ -1,3 +1,4 @@
+//attendance checking Platform
 https://fellowship.learn2earn.ng/
 
 

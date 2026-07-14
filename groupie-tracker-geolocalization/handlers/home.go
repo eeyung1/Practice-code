@@ -40,6 +40,20 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	relationMap := services.BuildRelationMap(relations)
 
+	locations := services.GetUniqueLocations(relations)
+
+	coordinateMap, err := services.GeocodeLocations(locations)
+
+	if err != nil {
+		http.Error(
+			w, 
+			"500 Internal Server Error",
+			http.StatusInternalServerError,
+		)
+		return
+	}
+
+
 	countries := services.GetUniqueCountries(relations)
 
 	filters := services.ParseFilters(r)
@@ -103,6 +117,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 		Countries:         countries,
 		SelectedCountries: filters.Countries,
+
+		Coordinates: coordinateMap,
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {

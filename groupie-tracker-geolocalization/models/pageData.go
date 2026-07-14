@@ -18,4 +18,6 @@ type PageData struct {
 
 	Countries			[]string
 	SelectedCountries	[]string
+
+	Coordinates		map[string]Coordinate
 }

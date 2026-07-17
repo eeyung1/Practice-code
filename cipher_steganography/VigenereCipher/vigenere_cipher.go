@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func VigenereCipher(text string, keyword string) string {
 	shift := []int{}
 
@@ -37,6 +35,6 @@ func VigenereCipher(text string, keyword string) string {
 	return string(answer)
 }
 
-func main() {
-	fmt.Println(VigenereCipher("hello world from goland", "dogz"))
-}
+// func main() {
+// 	fmt.Println(VigenereCipher("hello world from goland", "dogz"))
+// }

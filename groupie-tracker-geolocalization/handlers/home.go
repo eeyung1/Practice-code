@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -20,7 +21,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(
 			w,
-			"500 Internal Server Error",
+			"500 Internal Server 1Error",
 			http.StatusInternalServerError,
 		)
 
@@ -32,7 +33,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(
 			w,
-			"500 Internal Server Error",
+			"500 Internal Server 2Error",
 			http.StatusInternalServerError,
 		)
 		return
@@ -46,13 +47,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(
-			w, 
-			"500 Internal Server Error",
+			w,
+			"500 Internal Server 3Error",
 			http.StatusInternalServerError,
 		)
 		return
 	}
-
 
 	countries := services.GetUniqueCountries(relations)
 
@@ -100,6 +100,18 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			ParseFiles("templates/index.html"),
 	)
 
+	coordinatesJSON, err := json.Marshal(coordinateMap)
+
+	if err != nil {
+		http.Error(
+			w,
+			"500 Internal Server 4Error",
+			http.StatusInternalServerError,
+		)
+
+		return
+	}
+
 	data := models.PageData{
 		Artists: artists,
 
@@ -119,9 +131,21 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		SelectedCountries: filters.Countries,
 
 		Coordinates: coordinateMap,
+
+		CoordinatesJSON: string(coordinatesJSON),
 	}
 
+	// if err := tmpl.Execute(w, data); err != nil {
+	// 	fmt.Println(err)
+	// }
+
 	if err := tmpl.Execute(w, data); err != nil {
-		fmt.Println(err)
+		fmt.Println("Template error:", err)
+		http.Error(
+			w,
+			"500 Internal Server Error",
+			http.StatusInternalServerError,
+		)
+		return
 	}
 }

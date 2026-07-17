@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"groupie-tracker-geolocalization/models"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -15,6 +16,10 @@ type nominatimResponse struct {
 }
 
 var coordinateCache = make(
+	map[string]models.Coordinate,
+)
+
+var coordinateMap = make(
 	map[string]models.Coordinate,
 )
 
@@ -52,6 +57,11 @@ func GeocodeLocation(
 
 	resp, err := client.Do(req)
 
+	// fmt.Println(
+	// 	"Status:",
+	// 	resp.Status,
+	// )
+
 	if err != nil {
 		return models.Coordinate{}, err
 	}
@@ -60,7 +70,13 @@ func GeocodeLocation(
 
 	var response []nominatimResponse
 
-	err = json.NewDecoder(resp.Body).Decode(&response)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return models.Coordinate{}, err
+	}
+
+
+	err = json.Unmarshal(body, &response)
 
 	if err != nil {
 		return models.Coordinate{}, err
@@ -82,8 +98,8 @@ func GeocodeLocation(
 		return models.Coordinate{}, err
 	}
 
-	coordinate := models.Coordinate {
-		Latitude: latitude,
+	coordinate := models.Coordinate{
+		Latitude:  latitude,
 		Longitude: longitude,
 	}
 
@@ -101,11 +117,33 @@ func GeocodeLocations(
 		coordinate, err := GeocodeLocation(location)
 
 		if err != nil {
-			return nil, err
+			fmt.Println(
+				"Could not geocode:",
+				location,
+				err,
+			)
+
+			continue
 		}
 
 		coordinateMap[location] = coordinate
 	}
 
 	return coordinateMap, nil
+}
+
+func InitializeCoordinates(
+    relations []models.Relation,
+) error {
+
+    locations := GetUniqueLocations(relations)
+
+    coordinates, err := GeocodeLocations(locations)
+    if err != nil {
+        return err
+    }
+
+    coordinateMap = coordinates
+
+    return nil
 }

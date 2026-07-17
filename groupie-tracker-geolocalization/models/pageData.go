@@ -20,4 +20,6 @@ type PageData struct {
 	SelectedCountries	[]string
 
 	Coordinates		map[string]Coordinate
+
+	CoordinatesJSON	string
 }

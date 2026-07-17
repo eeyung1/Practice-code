@@ -8,7 +8,7 @@ client = Groq(
 while True:
     prompt = input("Ask Groq something: ")
 
-    if prompt == "exit":
+    if prompt.lower() == "exit":
         print("Goodbye!")
         break
     

@@ -30,5 +30,17 @@ while True:
 
     reply = response.choices[0].message.content
 
+    messages.append(
+    {
+
+        "role": "assistant",
+
+        "content": reply
+
+    }
+    )
+
 
     print(f"\nGroq says:\n{reply}")
+
+print(messages)

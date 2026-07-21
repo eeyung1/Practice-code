@@ -41,18 +41,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	relationMap := services.BuildRelationMap(relations)
 
-	locations := services.GetUniqueLocations(relations)
-
-	coordinateMap, err := services.GeocodeLocations(locations)
-
-	if err != nil {
-		http.Error(
-			w,
-			"500 Internal Server 3Error",
-			http.StatusInternalServerError,
-		)
-		return
-	}
+	coordinateMap := services.GetCoordinateMap()
 
 	countries := services.GetUniqueCountries(relations)
 

@@ -3,11 +3,24 @@ package main
 import (
 	"fmt"
 	"groupie-tracker-geolocalization/handlers"
+	"groupie-tracker-geolocalization/services"
 
 	"net/http"
 )
 
 func main() {
+
+	relations, err := services.GetRelations()
+
+	if err != nil {
+		panic(err)
+	}
+
+	err = services.InitializeCoordinates(relations)
+
+	if err != nil {
+		panic(err)
+	}
 	http.HandleFunc("/", handlers.HomeHandler)
 
 	http.HandleFunc("/artist/", handlers.ArtistHandler)

@@ -136,14 +136,31 @@ func InitializeCoordinates(
     relations []models.Relation,
 ) error {
 
+	coordinates, err := LoadCoordinates()
+
+	if err == nil {
+		coordinateCache = coordinates
+		return nil
+	}
+
     locations := GetUniqueLocations(relations)
 
-    coordinates, err := GeocodeLocations(locations)
+    coordinates, err = GeocodeLocations(locations)
     if err != nil {
         return err
     }
 
-    coordinateMap = coordinates
+	err = SaveCoordinates(coordinates)
+
+	if err != nil {
+		return err
+	}
+
+    coordinateCache = coordinates
 
     return nil
+}
+
+func GetCoordinateMap() map[string]models.Coordinate {
+	return coordinateMap
 }

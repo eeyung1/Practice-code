@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker</title>
     <link rel="stylesheet" href="/static/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
 </head>
 <body>
     <form action="/" method="get">
@@ -229,11 +238,28 @@
 
     {{end}}
     
+    <h2>Concert Locations</h2>
+
+    <div id="map"></div>
+
     <a href="/">Back to Home</a>
 
     <script>
-    console.log({{.CoordinatesJSON}});
+
+    const map = L.map("map").setView([20, 0], 2);
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution: "&copy; OpenStreetMap contributors",
+        }
+    ).addTo(map);
+
+    const coordinates = {{.CoordinatesJSON}};
+
+    console.log(coordinates);
     </script>
+
 
 </body>
 </html>

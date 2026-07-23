@@ -89,8 +89,9 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			ParseFiles("templates/index.html"),
 	)
 
-	coordinatesJSON, err := json.Marshal(coordinateMap)
-
+	coordinatesJSON, err := json.Marshal(
+		services.GetCoordinateCache(),
+	)
 	if err != nil {
 		http.Error(
 			w,
@@ -100,6 +101,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+
+	// fmt.Println("coordinateMap size:", len(coordinateMap))
 
 	data := models.PageData{
 		Artists: artists,
@@ -121,7 +124,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 		Coordinates: coordinateMap,
 
-		CoordinatesJSON: string(coordinatesJSON),
+		CoordinatesJSON: template.JS(coordinatesJSON),
 	}
 
 	// if err := tmpl.Execute(w, data); err != nil {

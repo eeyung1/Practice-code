@@ -252,12 +252,24 @@
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
             attribution: "&copy; OpenStreetMap contributors",
-        }
+        },
     ).addTo(map);
 
     const coordinates = {{.CoordinatesJSON}};
 
     console.log(coordinates);
+
+    for (const location in coordinates) {
+        const coordinate = coordinates[location];
+
+        L.marker([
+            coordinate.Latitude,
+            coordinate.Longitude,
+        ])
+        .addTo(map)
+        .bindPopup(location);
+    }
+
     </script>
 
 

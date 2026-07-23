@@ -164,3 +164,7 @@ func InitializeCoordinates(
 func GetCoordinateMap() map[string]models.Coordinate {
 	return coordinateMap
 }
+
+func GetCoordinateCache() map[string]models.Coordinate {
+    return coordinateCache
+}

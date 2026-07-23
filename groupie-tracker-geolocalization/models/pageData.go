@@ -1,5 +1,7 @@
 package models
 
+import "html/template"
+
 
 type PageData struct {
 	Artists []Artist
@@ -21,5 +23,5 @@ type PageData struct {
 
 	Coordinates		map[string]Coordinate
 
-	CoordinatesJSON	string
+	CoordinatesJSON	template.JS
 }

@@ -3,15 +3,16 @@ package main
 import "fmt"
 
 func main() {
-	rooms, err := ReadFile("example.txt")
+	parsed, err := ReadFile("example.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println("Rooms loaded:", len(rooms))
+	fmt.Println("Ants:", parsed.Ants)
+	fmt.Println("Rooms loaded:", len(parsed.Rooms))
 
-	for _, room := range rooms {
+	for _, room := range parsed.Rooms {
 		room.Display()
 	}
 }

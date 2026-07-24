@@ -102,6 +102,22 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	locationArtists := services.BuildLocationArtists(
+		artists,
+		relations,
+	)
+
+	locationArtistsJSON, err := json.Marshal(locationArtists)
+	if err != nil {
+		http.Error(
+			w,
+			"500 Internal Server 4Error",
+			http.StatusInternalServerError,
+		)
+
+		return
+	}
+
 	// fmt.Println("coordinateMap size:", len(coordinateMap))
 
 	data := models.PageData{
@@ -125,6 +141,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Coordinates: coordinateMap,
 
 		CoordinatesJSON: template.JS(coordinatesJSON),
+		LocationArtistsJSON: template.JS(locationArtistsJSON),
 	}
 
 	// if err := tmpl.Execute(w, data); err != nil {

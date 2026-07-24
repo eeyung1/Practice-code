@@ -23,5 +23,6 @@ type PageData struct {
 
 	Coordinates		map[string]Coordinate
 
-	CoordinatesJSON	template.JS
+	CoordinatesJSON			template.JS
+	LocationArtistsJSON		template.JS
 }

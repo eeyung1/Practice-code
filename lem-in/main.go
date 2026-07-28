@@ -15,4 +15,10 @@ func main() {
 	for _, room := range parsed.Rooms {
 		room.Display()
 	}
+
+	fmt.Println("Tunnels loaded:", len(parsed.Tunnels))
+
+	for _, tunnel := range parsed.Tunnels {
+		fmt.Printf("Tunnel: %s - %s\n", tunnel.From, tunnel.To)
+	}
 }

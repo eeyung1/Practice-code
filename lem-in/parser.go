@@ -46,6 +46,30 @@ func ReadFile(filename string) (*ParsedData, error) {
 			continue
 		}
 
+		if strings.Contains(line, "-") {
+			tunnelParts := strings.Split(line, "-")
+
+			if len(tunnelParts) != 2 {
+				return nil, fmt.Errorf("invalid tunnel: %s", line)
+			}
+
+			tunnel := Tunnel{
+				From: tunnelParts[0],
+				To:   tunnelParts[1],
+			}
+
+			if _, exists := roomLookup[tunnel.From]; !exists {
+				return nil, fmt.Errorf("unknown room in tunnel: %s", tunnel.From)
+			}
+
+			if _, exists := roomLookup[tunnel.To]; !exists {
+				return nil, fmt.Errorf("unknown room in tunnel: %s", tunnel.To)
+			}
+
+			parsed.Tunnels = append(parsed.Tunnels, tunnel)
+			continue
+		}
+
 		parts := strings.Fields(line)
 
 		if len(parts) == 1 {

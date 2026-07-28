@@ -257,6 +257,7 @@
 
     const coordinates = {{.CoordinatesJSON}};
     const locationArtists = {{.LocationArtistsJSON}}
+    
 
     console.log(coordinates);
     console.log(locationArtists);
@@ -271,14 +272,13 @@
         const coordinate = coordinates[location];
         const artists = locationArtists[location];
 
-        console.log(location);
-        console.log(artists);
-
-        let popupContent = `<b>${displayName}</b><br><br>`;
-        popupContent += "<b>Artists:</b><br>";
+        let popup = `
+        <b>${displayName}</b><br><br>
+        <b>Artists:</b><br>
+        `;
 
         for (const artist of artists) {
-            popupContent += artist + "<br>";
+            popup += `• ${artist}<br>`;
         }
 
         L.marker([
@@ -286,7 +286,7 @@
             coordinate.Longitude,
         ])
         .addTo(map)
-        .bindPopup(popupContent);
+        .bindPopup(popup);
     }
 
     </script>

@@ -39,6 +39,11 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	locationArtists := services.BuildLocationArtists(
+		artists,
+		relations,
+	)
+
 	relationMap := services.BuildRelationMap(relations)
 
 	coordinateMap := services.GetCoordinateMap()
@@ -92,22 +97,18 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	coordinatesJSON, err := json.Marshal(
 		services.GetCoordinateCache(),
 	)
-	if err != nil {
-		http.Error(
-			w,
-			"500 Internal Server 4Error",
-			http.StatusInternalServerError,
-		)
-
-		return
-	}
-
-	locationArtists := services.BuildLocationArtists(
-		artists,
-		relations,
-	)
 
 	locationArtistsJSON, err := json.Marshal(locationArtists)
+
+	if err != nil {
+		http.Error(
+			w,
+			"500 Internal Server Error",
+			http.StatusInternalServerError,
+		)
+		return
+	}
+
 	if err != nil {
 		http.Error(
 			w,
@@ -117,6 +118,22 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+
+	// locationArtists := services.BuildLocationArtists(
+	// 	artists,
+	// 	relations,
+	// )
+
+	// locationArtistsJSON, err := json.Marshal(locationArtists)
+	// if err != nil {
+	// 	http.Error(
+	// 		w,
+	// 		"500 Internal Server 4Error",
+	// 		http.StatusInternalServerError,
+	// 	)
+
+	// 	return
+	// }
 
 	// fmt.Println("coordinateMap size:", len(coordinateMap))
 
@@ -140,13 +157,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 		Coordinates: coordinateMap,
 
-		CoordinatesJSON: template.JS(coordinatesJSON),
+		CoordinatesJSON:     template.JS(coordinatesJSON),
 		LocationArtistsJSON: template.JS(locationArtistsJSON),
-	}
 
-	// if err := tmpl.Execute(w, data); err != nil {
-	// 	fmt.Println(err)
-	// }
+		LocationArtists: locationArtists,
+		Location_ArtistsJSON: string(locationArtistsJSON),
+	}
 
 	if err := tmpl.Execute(w, data); err != nil {
 		fmt.Println("Template error:", err)

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+</head>
+<body>
+    <form action="/" method="get">
+        <input
+            type="text"
+            name="search"
+            value="{{.Query}}"
+            placeholder="Search artists"
+        >
+
+        
+        <select name="sort">
+
+    <option
+        value="asc"
+        {{if eq .Order "asc"}}selected{{end}}
+    >
+        Ascending
+    </option>
+
+    <option
+        value="desc"
+        {{if eq .Order "desc"}}selected{{end}}
+    >
+        Descending
+    </option>
+
+    </select>
+
+        <button type="submit">
+            Search
+        </button>
+    </form>
+
+    <select name="field">
+
+    <option 
+        value="name"
+        {{if eq .Field "name"}}selected{{end}}    
+    >
+        Name
+    </option>
+
+    <option 
+        value="creationDate"
+        {{if eq .Field "creationDate"}}selected{{end}}
+    >
+        Creation Date
+    </option>
+
+    </select>
+
+    <p>
+        Found {{len .Artists}} artist(s)
+
+        {{if .Query}}
+            for "{{.Query}}"
+        {{end}}
+    </p>
+    <form action="/" method="get">
+        <label>Creation Year</label>
+
+        <input 
+            type="number"
+            name="creationMin"
+            placeholder="Min Year"
+            value="{{.CreationMin}}"
+        >
+
+        <input
+            type="number"
+            name="creationMax"
+            placeholder="Max Year"
+            value="{{.CreationMax}}"
+        >
+
+ 
+
+        <br>
+
+
+        <label>First Album Year</label>
+
+        <input
+            type="number"
+            name="albumMin"
+            placeholder="Min Year"
+            value="{{.AlbumMin}}"
+        >
+
+        <input
+            type="number"
+            name="albumMax"
+            placeholder="Max Year"
+            value="{{.AlbumMax}}"
+        >
+
+        <br>
+
+        <label>Members</label>
+     <label>Members</label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="1"
+                {{if containsMember .SelectedMembers 1}}checked{{end}}
+            >
+            1
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="2"
+                 {{if containsMember .SelectedMembers 2}}checked{{end}}
+            >
+            2
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="3"
+                 {{if containsMember .SelectedMembers 3}}checked{{end}}
+            >
+            3
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="4"
+                 {{if containsMember .SelectedMembers 4}}checked{{end}}
+            >
+            4
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="5"
+                 {{if containsMember .SelectedMembers 5}}checked{{end}}
+            >
+            5
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="6"
+                 {{if containsMember .SelectedMembers 6}}checked{{end}}
+            >
+            6
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="members"
+                value="7"
+                 {{if containsMember .SelectedMembers 7}}checked{{end}}
+            >
+            7
+        </label>
+
+        <br>
+
+        <label>Countries</label>
+
+        {{range .Countries}}
+
+        <label>
+
+        <input
+            type="checkbox"
+            name="countries"
+            value="{{.}}"
+            {{if containsCountry $.SelectedCountries .}}checked{{end}}
+        >
+
+            {{.}}
+
+        </label>
+        {{end}}
+        <button type="submit">
+            Apply Filter
+        </button>
+    </form>
+
+    <h1>Artists</h1>
+    
+    {{if .Artists}}
+
+    {{range .Artists}}
+    
+    <img src="{{.Image}}" width="200">
+    
+    <a href="/artist/{{.ID}}">
+        
+        <h2>{{.Name}}</h2>
+        
+    </a>
+    
+    <p>Creation Date: {{.CreationDate}}</p>
+    
+    <p>First Album: {{.FirstAlbum}}</p>
+    
+    <hr>
+    
+    {{end}}
+
+    {{else}}
+    
+    <h2>No artists found.</h2>
+
+    {{end}}
+    
+    <h2>Concert Locations</h2>
+
+    <div id="map"></div>
+
+    <a href="/">Back to Home</a>
+
+    <script>
+
+    const map = L.map("map").setView([20, 0], 2);
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution: "&copy; OpenStreetMap contributors",
+        },
+    ).addTo(map);
+
+    const coordinates = {{.CoordinatesJSON}};
+    const locationArtists = {{.LocationArtistsJSON}}
+    
+
+    console.log(coordinates);
+    console.log(locationArtists);
+    
+
+    for (const location in coordinates) {
+        let displayName = location;
+
+        displayName = displayName.replaceAll("_", " ")
+        displayName = displayName.replaceAll("-", ", ")
+
+        const coordinate = coordinates[location];
+        const artists = locationArtists[location];
+
+        let popup = `
+        <b>${displayName}</b><br><br>
+        <b>Artists:</b><br>
+        `;
+
+        for (const artist of artists) {
+            popup += `• ${artist}<br>`;
+        }
+
+        L.marker([
+            coordinate.Latitude,
+            coordinate.Longitude,
+        ])
+        .addTo(map)
+        .bindPopup(popup);
+    }
+
+    </script>
+
+
+</body>
+</html>

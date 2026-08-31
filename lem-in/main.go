@@ -9,6 +9,8 @@ func main() {
 		return
 	}
 
+	graph := BuildGraph(parsed)
+
 	fmt.Println("Ants:", parsed.Ants)
 	fmt.Println("Rooms loaded:", len(parsed.Rooms))
 
@@ -21,4 +23,6 @@ func main() {
 	for _, tunnel := range parsed.Tunnels {
 		fmt.Printf("Tunnel: %s - %s\n", tunnel.From, tunnel.To)
 	}
+
+	fmt.Println(graph)
 }

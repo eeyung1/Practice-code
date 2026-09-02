@@ -24,5 +24,9 @@ func main() {
 		fmt.Printf("Tunnel: %s - %s\n", tunnel.From, tunnel.To)
 	}
 
+	Path := BFS(graph, "A", "C")
+
+	fmt.Println(Path)
+
 	fmt.Println(graph)
 }

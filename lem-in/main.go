@@ -24,7 +24,20 @@ func main() {
 		fmt.Printf("Tunnel: %s - %s\n", tunnel.From, tunnel.To)
 	}
 
-	path := BFS(graph, "A", "C")
+	startRoom := ""
+	endRoom := ""
+
+	for _, room := range parsed.Rooms {
+		if room.IsStart {
+			startRoom = room.Name
+		}
+
+		if room.IsEnd {
+			endRoom = room.Name
+		}
+	}
+
+	path := BFS(graph, startRoom, endRoom)
 
 	fmt.Println("Path:", path)
 

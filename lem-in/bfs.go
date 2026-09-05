@@ -1,6 +1,10 @@
 package main
 
 func BFS(graph *Graph, start string, end string) []string {
+	if start == end {
+		return []string{start}
+	}
+	
 	roomQueue := []string{}
 	visited := make(map[string]bool)
 	parent := make(map[string]string)

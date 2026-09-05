@@ -38,8 +38,10 @@ func main() {
 	}
 
 	path := BFS(graph, startRoom, endRoom)
+	path1 := BFS(graph, "A", "X")
 
 	fmt.Println("Path:", path)
+	fmt.Println("Path1:", path1)
 
 	fmt.Println(graph)
 }

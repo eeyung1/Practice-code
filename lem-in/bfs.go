@@ -1,6 +1,6 @@
 package main
 
-func BFS(graph *Graph, start string, end string) []string {
+func BFS(graph *Graph, start string, end string, blocked map[string]bool) []string {
 	if start == end {
 		return []string{start}
 	}
@@ -17,6 +17,10 @@ func BFS(graph *Graph, start string, end string) []string {
 		roomQueue = roomQueue[1:]
 
 		for _, neighbor := range graph.Neighbors[current] {
+			if blocked[neighbor] {
+				continue
+			}
+			
 			if visited[neighbor] {
 				continue
 			}

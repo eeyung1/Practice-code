@@ -37,11 +37,11 @@ func main() {
 		}
 	}
 
-	path := BFS(graph, startRoom, endRoom)
-	path1 := BFS(graph, "A", "X")
+	blocked := make(map[string]bool)
+
+	path := BFS(graph, startRoom, endRoom, blocked)
 
 	fmt.Println("Path:", path)
-	fmt.Println("Path1:", path1)
 
 	fmt.Println(graph)
 }

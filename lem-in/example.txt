@@ -2,9 +2,11 @@
 ##start
 A 1 2
 B 5 8
-##end
 C 3 4
+##end
 D 10 10
 
 A-B
-B-C
+B-D
+A-C
+C-D

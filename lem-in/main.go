@@ -37,11 +37,17 @@ func main() {
 		}
 	}
 
-	blocked := make(map[string]bool)
+	// blocked := make(map[string]bool)
 
-	path := BFS(graph, startRoom, endRoom, blocked)
+	// blocked := map[string]bool{
+	// 	"B" : true,
+	// }
 
-	fmt.Println("Path:", path)
+	paths := FindPaths(graph, startRoom, endRoom)
+
+	fmt.Println("Path:", paths)
 
 	fmt.Println(graph)
+
+	Simulate(paths, parsed.Ants)
 }

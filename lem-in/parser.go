@@ -104,13 +104,22 @@ func ReadFile(filename string) (*ParsedData, error) {
 			Y:    y,
 		}
 
-		if nextRoomType == "start" {
+		switch nextRoomType {
+		case "start":
 			room.IsStart = true
 			nextRoomType = ""
-		} else if nextRoomType == "end" {
+		case "end":
 			room.IsEnd = true
 			nextRoomType = ""
 		}
+
+		// if nextRoomType == "start" {
+		// 	room.IsStart = true
+		// 	nextRoomType = ""
+		// } else if nextRoomType == "end" {
+		// 	room.IsEnd = true
+		// 	nextRoomType = ""
+		// }
 
 		if _, exists := roomLookup[room.Name]; exists {
 			return nil, fmt.Errorf("duplicate room name: %s", room.Name)

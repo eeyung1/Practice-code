@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func kasiskiExamine(cipherText string) map[string][]int {
@@ -77,20 +78,36 @@ func likelyKeyLength(mostCommon map[int]int) int {
 	return bestFactor
 }
 
+// func main() {
+// 	plaintext := "the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog"
+// 	cipherText := VigenereCipher(plaintext, "dogz")
+
+// 	fmt.Println(cipherText)
+
+// 	positions := kasiskiExamine(cipherText)
+// 	distance := getDistances(positions)
+// 	factors := mostCommonFactor(distance)
+
+// 	fmt.Println(positions)
+// 	fmt.Println(distance)
+// 	fmt.Println(factors)
+// 	fmt.Println(likelyKeyLength(factors))
+
+// }
+
 func main() {
-	plaintext := "the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog"
+	plaintext := strings.Repeat("the quick brown fox jumps over the lazy dog ", 10)
 	cipherText := VigenereCipher(plaintext, "dogz")
 
 	fmt.Println(cipherText)
 
-	positions := kasiskiExamine(cipherText)
-	distance := getDistances(positions)
-	factors := mostCommonFactor(distance)
-
-
-	fmt.Println(positions)
-	fmt.Println(distance)
-	fmt.Println(factors)
-	fmt.Println(likelyKeyLength(factors))
-
+	for keyLen := 2; keyLen <= 6; keyLen++ {
+		groups := SplitGroups(cipherText, keyLen)
+		var avgIC float64
+		for _, group := range groups {
+			avgIC += IndexOfCoincidence(group)
+		}
+		avgIC /= float64(keyLen)
+		fmt.Printf("KeyLength %d avg IC: %f\n", keyLen, avgIC)
+	}
 }

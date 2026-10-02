@@ -13,7 +13,9 @@ func AllocateAnts(paths [][]string, antCount int) []int {
 		bestFinish := int(^uint(0) >> 1)
 
 		for i := 0; i < len(paths); i++ {
-            if len(paths[i]) < 2 { continue }
+			if len(paths[i]) < 2 {
+				continue
+			}
 			projectedFinish := len(paths[i]) - 1 + counts[i]
 
 			if projectedFinish < bestFinish {
@@ -22,7 +24,9 @@ func AllocateAnts(paths [][]string, antCount int) []int {
 			}
 		}
 
-		if best < 0 { return counts }
+		if best < 0 {
+			return counts
+		}
 		counts[best]++
 	}
 

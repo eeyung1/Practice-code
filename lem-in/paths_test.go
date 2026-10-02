@@ -118,13 +118,17 @@ func TestSimulationRejectsBadPaths(t *testing.T) {
 }
 
 func TestResidualFlowReroutesGreedyChoice(t *testing.T) {
- data := &ParsedData{Ants: 6}
- for i,name := range []string{"S","A","B","C","D","E"} {
-  data.Rooms = append(data.Rooms, Room{Name:name, X:i, IsStart:name=="S", IsEnd:name=="E"})
- }
- data.Tunnels = []Tunnel{{"S","A"},{"A","B"},{"B","E"},{"A","C"},{"C","E"},{"S","D"},{"D","B"}}
- turns,err := Solve(data)
- if err != nil { t.Fatal(err) }
- if len(turns) != 5 { t.Fatalf("got %d turns; want 5",len(turns)) }
- checkMoves(t,data,turns)
+	data := &ParsedData{Ants: 6}
+	for i, name := range []string{"S", "A", "B", "C", "D", "E"} {
+		data.Rooms = append(data.Rooms, Room{Name: name, X: i, IsStart: name == "S", IsEnd: name == "E"})
+	}
+	data.Tunnels = []Tunnel{{"S", "A"}, {"A", "B"}, {"B", "E"}, {"A", "C"}, {"C", "E"}, {"S", "D"}, {"D", "B"}}
+	turns, err := Solve(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(turns) != 5 {
+		t.Fatalf("got %d turns; want 5", len(turns))
+	}
+	checkMoves(t, data, turns)
 }

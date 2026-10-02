@@ -18,9 +18,7 @@ jobs:
           go-version: '1.22.12'
           cache: false
       - name: Format
-        run: |
-          gofmt -w *.go
-          python3 -c 'import pathlib,json; [print("FORMATTED_FILE="+json.dumps({"path":str(p),"content":p.read_text()})) for p in pathlib.Path(".").glob("*.go")]' 
+        run: test -z "$(gofmt -l *.go)"
       - name: Unit, exhaustive path, and movement tests
         run: go test -race -count=1 -timeout=120s ./...
       - name: Static analysis

@@ -1,8 +1,8 @@
 package main
 
 type ParsedData struct {
- Ants int
- Rooms []Room
- Tunnels []Tunnel
- Source string
+	Ants    int
+	Rooms   []Room
+	Tunnels []Tunnel
+	Source  string
 }

@@ -1,137 +1,76 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
+ "fmt"
+ "os"
+ "strconv"
+ "strings"
 )
 
 func ReadFile(filename string) (*ParsedData, error) {
-	file, err := os.Open(filename)
+ input, err := os.ReadFile(filename)
+ if err != nil { return nil, err }
+ return Parse(string(input))
+}
 
-	if err != nil {
-		return nil, err
-	}
+// Parse keeps the original input for output and validates rooms before links.
+func Parse(input string) (*ParsedData, error) {
+ parsed := &ParsedData{Source: input}
+ rooms := make(map[string]bool)
+ coordinates := make(map[[2]int]bool)
+ tunnels := make(map[string]bool)
+ antCountSeen, linksSeen := false, false
+ startSeen, endSeen := false, false
+ pending := ""
+ for index, raw := range strings.Split(input,"\n") {
+  line := strings.TrimSuffix(raw,"\r")
+  fail := func(reason string) (*ParsedData,error) {return nil,fmt.Errorf("line %d: %s",index+1,reason)}
+  if line == "" {continue}
+  if line == "##start" || line == "##end" {
+   if !antCountSeen || linksSeen || pending!="" {return fail("misplaced room command")}
+   if line=="##start" {if startSeen {return fail("duplicate start")}; startSeen=true;pending="start"} else {if endSeen {return fail("duplicate end")};endSeen=true;pending="end"}
+   continue
+  }
+  if strings.HasPrefix(line,"#") {continue}
+  if !antCountSeen {
+   ants,err:=strconv.Atoi(line)
+   if err!=nil || ants<=0 {return fail("ant count must be a positive integer")}
+   parsed.Ants=ants;antCountSeen=true;continue
+  }
+  parts:=strings.Fields(line)
+  if len(parts)==3 {
+   if linksSeen {return fail("room after tunnels")}
+   name:=parts[0]
+   if strings.HasPrefix(name,"L") || strings.HasPrefix(name,"#") || strings.Contains(name,"-") {return fail("invalid room name")}
+   x,errX:=strconv.Atoi(parts[1]);y,errY:=strconv.Atoi(parts[2])
+   if errX!=nil || errY!=nil {return fail("invalid coordinates")}
+   if rooms[name] {return fail("duplicate room name")}
+   point:=[2]int{x,y}
+   if coordinates[point] {return fail("duplicate room coordinates")}
+   room:=Room{Name:name,X:x,Y:y,IsStart:pending=="start",IsEnd:pending=="end"}
+   parsed.Rooms=append(parsed.Rooms,room);rooms[name]=true;coordinates[point]=true;pending=""
+   continue
+  }
+  if pending!="" {return fail("room command must be followed by a room")}
+  if strings.TrimSpace(line)!=line || len(parts)!=1 {return fail("invalid tunnel")}
+  ends:=strings.Split(line,"-")
+  if len(ends)!=2 || !rooms[ends[0]] || !rooms[ends[1]] || ends[0]==ends[1] {return fail("invalid tunnel endpoints")}
+  key:=tunnelKey(ends[0],ends[1])
+  if tunnels[key] {return fail("duplicate tunnel")}
+  tunnels[key]=true;linksSeen=true
+  parsed.Tunnels=append(parsed.Tunnels,Tunnel{From:ends[0],To:ends[1]})
+ }
+ if !antCountSeen || !startSeen || !endSeen || pending!="" {return nil,fmt.Errorf("missing ants, start, or end room")}
+ return parsed,nil
+}
 
-	defer file.Close()
+func tunnelKey(a,b string) string {
+ if a>b {a,b=b,a}
+ return a+"\x00"+b
+}
 
-	parsed := &ParsedData{}
-
-	scanner := bufio.NewScanner(file)
-
-	roomLookup := make(map[string]Room)
-
-	nextRoomType := ""
-
-	for scanner.Scan() {
-		line := scanner.Text()
-
-		if line == "" {
-			continue
-		}
-
-		if strings.HasPrefix(line, "#") && line != "##start" && line != "##end" {
-			continue
-		}
-
-		if line == "##start" {
-			nextRoomType = "start"
-			continue
-		}
-
-		if line == "##end" {
-			nextRoomType = "end"
-			continue
-		}
-
-		if strings.Contains(line, "-") {
-			tunnelParts := strings.Split(line, "-")
-
-			if len(tunnelParts) != 2 {
-				return nil, fmt.Errorf("invalid tunnel: %s", line)
-			}
-
-			tunnel := Tunnel{
-				From: tunnelParts[0],
-				To:   tunnelParts[1],
-			}
-
-			if _, exists := roomLookup[tunnel.From]; !exists {
-				return nil, fmt.Errorf("unknown room in tunnel: %s", tunnel.From)
-			}
-
-			if _, exists := roomLookup[tunnel.To]; !exists {
-				return nil, fmt.Errorf("unknown room in tunnel: %s", tunnel.To)
-			}
-
-			parsed.Tunnels = append(parsed.Tunnels, tunnel)
-			continue
-		}
-
-		parts := strings.Fields(line)
-
-		if len(parts) == 1 {
-			ants, err := strconv.Atoi(parts[0])
-
-			if err != nil {
-				return nil, fmt.Errorf("invalid ant count: %s", parts[0])
-			}
-
-			parsed.Ants = ants
-			continue
-		}
-
-		if len(parts) != 3 {
-			continue
-		}
-
-		x, err := strconv.Atoi(parts[1])
-
-		if err != nil {
-			return nil, err
-		}
-
-		y, err := strconv.Atoi(parts[2])
-		if err != nil {
-			return nil, err
-		}
-
-		room := Room{
-			Name: parts[0],
-			X:    x,
-			Y:    y,
-		}
-
-		switch nextRoomType {
-		case "start":
-			room.IsStart = true
-			nextRoomType = ""
-		case "end":
-			room.IsEnd = true
-			nextRoomType = ""
-		}
-
-		// if nextRoomType == "start" {
-		// 	room.IsStart = true
-		// 	nextRoomType = ""
-		// } else if nextRoomType == "end" {
-		// 	room.IsEnd = true
-		// 	nextRoomType = ""
-		// }
-
-		if _, exists := roomLookup[room.Name]; exists {
-			return nil, fmt.Errorf("duplicate room name: %s", room.Name)
-		}
-
-		parsed.Rooms = append(parsed.Rooms, room)
-		roomLookup[room.Name] = room
-	}
-
-	if err := scanner.Err(); err != nil {
-		return nil, err
-	}
-
-	return parsed, nil
+func endpoints(data *ParsedData) (string,string) {
+ start,end:="",""
+ for _,room:=range data.Rooms {if room.IsStart {start=room.Name};if room.IsEnd {end=room.Name}}
+ return start,end
 }

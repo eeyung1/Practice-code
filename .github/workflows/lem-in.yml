@@ -1,0 +1,32 @@
+name: lem-in
+on:
+  push:
+    branches: [complete/lem-in]
+    paths: ['lem-in/**', '.github/workflows/lem-in.yml']
+  pull_request:
+    paths: ['lem-in/**', '.github/workflows/lem-in.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lem-in
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.12'
+          cache: false
+      - name: Format
+        run: |
+          gofmt -w *.go
+          python3 -c 'import pathlib,json; [print("FORMATTED_FILE="+json.dumps({"path":str(p),"content":p.read_text()})) for p in pathlib.Path(".").glob("*.go")]' 
+      - name: Unit, exhaustive path, and movement tests
+        run: go test -race -count=1 -timeout=120s ./...
+      - name: Static analysis
+        run: go vet ./...
+      - name: Build and CLI smoke test
+        run: |
+          go build -o /tmp/lem-in .
+          /tmp/lem-in example.txt
+          if /tmp/lem-in /tmp/missing-map; then exit 1; fi

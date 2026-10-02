@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Ant struct {
 	ID       int
 	Path     []string
@@ -60,79 +58,3 @@ func BFS(graph *Graph, start string, end string, blocked map[string]bool) []stri
 	return []string{}
 }
 
-func FindPaths(graph *Graph, start string, end string) [][]string {
-	paths := [][]string{}
-
-	blocked := make(map[string]bool)
-
-	for {
-		path := BFS(graph, start, end, blocked)
-
-		if len(path) == 0 {
-			break
-		}
-
-		paths = append(paths, path)
-
-		for i := 1; i < len(path)-1; i++ {
-			blocked[path[i]] = true
-		}
-	}
-
-	return paths
-}
-
-func Simulate(paths [][]string, antCount int) {
-	ants := []Ant{}
-
-	for i := 0; i < antCount; i++ {
-		path := paths[i%len(paths)]
-
-		ants = append(ants, Ant{
-			ID:       i + 1,
-			Path:     path,
-			Position: 0,
-		})
-	}
-
-	finished := 0
-	turn := 0
-
-	for finished < antCount {
-		turn++
-
-		occupied := make(map[string]bool)
-		moves := []string{}
-
-		for i := range ants {
-			ant := &ants[i]
-
-			if ant.Position == len(ant.Path)-1 {
-				continue
-			}
-
-			nextRoom := ant.Path[ant.Position+1]
-
-			if nextRoom != ant.Path[len(ant.Path)-1] && occupied[nextRoom] {
-				continue
-			}
-
-			ant.Position++
-
-			if nextRoom != ant.Path[len(ant.Path)-1] {
-				occupied[nextRoom] = true
-			}
-
-			if ant.Position == len(ant.Path)-1 {
-				finished++
-			}
-
-			moves = append(moves,
-				fmt.Sprintf("L%d-%s", ant.ID, nextRoom),
-			)
-		}
-
-		fmt.Println("Turn", turn, ":", moves)
-
-	}
-}
